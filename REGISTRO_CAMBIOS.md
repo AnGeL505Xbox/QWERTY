@@ -23,3 +23,11 @@
 - Ataques enemigos con objetivo anunciado, caída de integrantes y derrota solo al perder a todos.
 - Presentación por actor con tintes distintos y ocultación de caídos; documentación y migración de catálogo v2.
 - Pruebas: 53 comprobaciones anteriores, 54 de personajes y 7 de escena. Pendientes revisión visual y pruebas en dispositivos; sin exportaciones nuevas.
+
+## Fase 4 — Animación y presentación 2.5D
+- Controlador reutilizable de nueve estados, SpriteFrames opcionales y perfiles Resources editables.
+- Ilustraciones provisionales originales para Noa y enemigo; conservado el recurso anterior de Lira.
+- Cámara con deriva suave, profundidad, columnas, cristales y luz ambiental sin sombras dinámicas.
+- Objetivos resaltados; números y anillos con deltas reales, animaciones por destinatario, especiales y crisis.
+- Eventos de presentación independientes de las reglas; colas y efectos limitados, limpieza al reiniciar y poses finales.
+- Importación y 153 comprobaciones sin fallos: 107 de reglas, 39 de presentación y 7 de escena. Documentación de personalización actualizada. No se han probado FPS, exportaciones ni la composición visual en esta máquina.

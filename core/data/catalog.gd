@@ -16,7 +16,7 @@ static func load_content() -> Dictionary:
 	var ids: Dictionary = {}
 	var character_ids: Dictionary = {}
 	for character in parsed.characters:
-		assert(not character_ids.has(character.id))
+		assert(not character_ids.has(character.id) and not character.id in ["enemy", "self", "ally"])
 		character_ids[character.id] = true
 		for stat in ["health", "energy", "stress_limit"]:
 			assert(character[stat] > 0)

@@ -36,6 +36,8 @@ func _label(value: String, size: int = 24) -> void:
 	var label := Label.new()
 	label.text = value
 	label.add_theme_font_size_override("font_size", size)
+	label.add_theme_color_override("font_outline_color", Color("10182f"))
+	label.add_theme_constant_override("outline_size", 4)
 	ui.add_child(label)
 
 func _button(parent: Node, title: String, callback: Callable) -> Button:
@@ -43,11 +45,26 @@ func _button(parent: Node, title: String, callback: Callable) -> Button:
 	button.text = title
 	button.custom_minimum_size = Vector2(180, 48)
 	button.add_theme_font_size_override("font_size", 20)
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color("19263d")
+	style.border_color = Color("548698")
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(8)
+	style.content_margin_left = 12
+	style.content_margin_right = 12
+	button.add_theme_stylebox_override("normal", style)
+	var highlighted := style.duplicate()
+	highlighted.bg_color = Color("30485e")
+	highlighted.border_color = Color("e5d9a8")
+	button.add_theme_stylebox_override("hover", highlighted)
+	button.add_theme_stylebox_override("focus", highlighted)
 	button.pressed.connect(callback)
 	parent.add_child(button)
 	return button
 
 func _menu() -> void:
+	selected = -1
+	arena.highlight_targets([])
 	_clear()
 	_label("UMBRAL DE NÁCAR", 44)
 	_label("Expedición 01 · El eco del vacío")
@@ -78,12 +95,19 @@ func _start() -> void:
 	selected = -1
 	battle = Battle.new(Catalog.load_content(), int(Time.get_ticks_msec()), enemy_index, team_ids)
 	arena.set_team(battle.team)
+	arena.set_enemy(battle.enemy)
 	battle.changed.connect(_render)
-	battle.actor_action.connect(arena.animate_actor)
+	battle.combat_event.connect(arena.on_combat_event)
 	_render()
 
 func _render() -> void:
-	arena.update_team(battle.team)
+	arena.sync_battle(battle)
+	var highlighted: Array = []
+	if selected >= 0:
+		var card: Dictionary = battle.card_data(battle.hand[selected])
+		for id in battle.valid_targets(selected):
+			highlighted.append(card.owner if id == "self" else id)
+	arena.highlight_targets(highlighted)
 	_clear()
 	_label("Equipo contra %s · Turno %d" % [battle.enemy.name, battle.turn], 24)
 	for member in battle.team:

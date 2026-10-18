@@ -8,6 +8,6 @@ En `data/content.json`, duplica la definición de Noa o Lira en `characters`. Us
 5. Añade su ID a `team` para seleccionarlo por defecto (máximo tres); todos los personajes aparecen automáticamente en el menú y pueden incluirse o retirarse. Se requiere al menos uno.
 6. Abre el juego y ejecuta las pruebas del README. La prueba de tres integrantes demuestra que no hace falta duplicar el combate.
 
-Las estadísticas de combate y el color son funcionales. `affinity` identifica el elemento para contenido futuro; aún no aplica resistencias ni ventajas elementales. No existe selección de retratos, progresión persistente ni animación específica por personaje todavía. Se reutiliza el sprite provisional con tintes distintos.
+Las estadísticas de combate y el color son funcionales. `affinity` identifica el elemento para contenido futuro; aún no aplica resistencias ni ventajas elementales. No existe selección de retratos ni progresión persistente todavía. Para asociar imagen o SpriteFrames propios, crea un perfil visual según `COMO_CAMBIAR_GRAFICOS.md`; Lira y Noa ya tienen ilustraciones provisionales distintas.
 
 Consulta `documentation/PERSONAJES_Y_ESTRES.md` para el orden exacto de turnos y estados.
