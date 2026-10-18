@@ -1,0 +1,30 @@
+[gd_resource type="Resource" load_steps=10 format=3]
+[ext_resource type="Script" path="res://core/data/resources/character_definition.gd" id="script"]
+[ext_resource type="Script" path="res://core/data/resources/card_definition.gd" id="card"]
+[ext_resource type="Resource" path="res://visuals/profiles/noa.tres" id="visual"]
+[ext_resource type="Resource" path="res://data/cards/eco_noa.tres" id="eco_noa"]
+[ext_resource type="Resource" path="res://data/cards/sutura.tres" id="sutura"]
+[ext_resource type="Resource" path="res://data/cards/calma.tres" id="calma"]
+[ext_resource type="Resource" path="res://data/cards/impulso.tres" id="impulso"]
+[ext_resource type="Resource" path="res://data/cards/bastion.tres" id="bastion"]
+[ext_resource type="Resource" path="res://data/cards/aurora.tres" id="aurora"]
+
+
+[resource]
+script = ExtResource("script")
+id = "noa"
+display_name = "Noa"
+affinity = "ópalo"
+color = Color(0.9019607843137255, 0.7450980392156863, 0.45098039215686275, 1)
+visual_profile = ExtResource("visual")
+health = 34
+attack = 1
+defense = 1
+energy = 3
+stress_limit = 8
+crisis_energy_loss = 2
+crisis_relief = 5
+passive_start_block = 1
+passive_stress_relief = 0
+deck = Array[ExtResource("card")]([ExtResource("eco_noa"), ExtResource("eco_noa"), ExtResource("sutura"), ExtResource("calma"), ExtResource("impulso"), ExtResource("bastion"), ExtResource("aurora")])
+special = ExtResource("aurora")

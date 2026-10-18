@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://core/data/resources/status_definition.gd" id="script"]
+
+
+[resource]
+script = ExtResource("script")
+id = "ward"
+display_name = "Protección"
+attack = 0
+defense = 2

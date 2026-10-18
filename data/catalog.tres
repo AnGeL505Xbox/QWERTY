@@ -1,0 +1,38 @@
+[gd_resource type="Resource" load_steps=28 format=3]
+[ext_resource type="Script" path="res://core/data/resources/content_catalog.gd" id="script"]
+[ext_resource type="Script" path="res://core/data/resources/card_definition.gd" id="cards_type"]
+[ext_resource type="Resource" path="res://data/cards/corte.tres" id="cards_corte"]
+[ext_resource type="Resource" path="res://data/cards/velo.tres" id="cards_velo"]
+[ext_resource type="Resource" path="res://data/cards/pulso.tres" id="cards_pulso"]
+[ext_resource type="Resource" path="res://data/cards/destello.tres" id="cards_destello"]
+[ext_resource type="Resource" path="res://data/cards/lectura.tres" id="cards_lectura"]
+[ext_resource type="Resource" path="res://data/cards/reserva.tres" id="cards_reserva"]
+[ext_resource type="Resource" path="res://data/cards/refugio.tres" id="cards_refugio"]
+[ext_resource type="Resource" path="res://data/cards/aguja.tres" id="cards_aguja"]
+[ext_resource type="Resource" path="res://data/cards/eco_noa.tres" id="cards_eco_noa"]
+[ext_resource type="Resource" path="res://data/cards/sutura.tres" id="cards_sutura"]
+[ext_resource type="Resource" path="res://data/cards/calma.tres" id="cards_calma"]
+[ext_resource type="Resource" path="res://data/cards/impulso.tres" id="cards_impulso"]
+[ext_resource type="Resource" path="res://data/cards/bastion.tres" id="cards_bastion"]
+[ext_resource type="Resource" path="res://data/cards/aurora.tres" id="cards_aurora"]
+[ext_resource type="Script" path="res://core/data/resources/character_definition.gd" id="characters_type"]
+[ext_resource type="Resource" path="res://data/characters/lira.tres" id="characters_lira"]
+[ext_resource type="Resource" path="res://data/characters/noa.tres" id="characters_noa"]
+[ext_resource type="Script" path="res://core/data/resources/enemy_definition.gd" id="enemies_type"]
+[ext_resource type="Resource" path="res://data/enemies/eco.tres" id="enemies_eco"]
+[ext_resource type="Resource" path="res://data/enemies/custodio.tres" id="enemies_custodio"]
+[ext_resource type="Resource" path="res://data/enemies/susurro.tres" id="enemies_susurro"]
+[ext_resource type="Script" path="res://core/data/resources/status_definition.gd" id="statuses_type"]
+[ext_resource type="Resource" path="res://data/statuses/strength.tres" id="statuses_strength"]
+[ext_resource type="Resource" path="res://data/statuses/ward.tres" id="statuses_ward"]
+[ext_resource type="Resource" path="res://data/statuses/fragile.tres" id="statuses_fragile"]
+
+
+[resource]
+script = ExtResource("script")
+cards = Array[ExtResource("cards_type")]([ExtResource("cards_corte"), ExtResource("cards_velo"), ExtResource("cards_pulso"), ExtResource("cards_destello"), ExtResource("cards_lectura"), ExtResource("cards_reserva"), ExtResource("cards_refugio"), ExtResource("cards_aguja"), ExtResource("cards_eco_noa"), ExtResource("cards_sutura"), ExtResource("cards_calma"), ExtResource("cards_impulso"), ExtResource("cards_bastion"), ExtResource("cards_aurora")])
+characters = Array[ExtResource("characters_type")]([ExtResource("characters_lira"), ExtResource("characters_noa")])
+enemies = Array[ExtResource("enemies_type")]([ExtResource("enemies_eco"), ExtResource("enemies_custodio"), ExtResource("enemies_susurro")])
+statuses = Array[ExtResource("statuses_type")]([ExtResource("statuses_strength"), ExtResource("statuses_ward"), ExtResource("statuses_fragile")])
+team = Array[ExtResource("characters_type")]([ExtResource("characters_lira"), ExtResource("characters_noa")])
+hand_size = 5

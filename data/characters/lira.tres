@@ -1,0 +1,32 @@
+[gd_resource type="Resource" load_steps=12 format=3]
+[ext_resource type="Script" path="res://core/data/resources/character_definition.gd" id="script"]
+[ext_resource type="Script" path="res://core/data/resources/card_definition.gd" id="card"]
+[ext_resource type="Resource" path="res://visuals/profiles/lira.tres" id="visual"]
+[ext_resource type="Resource" path="res://data/cards/corte.tres" id="corte"]
+[ext_resource type="Resource" path="res://data/cards/velo.tres" id="velo"]
+[ext_resource type="Resource" path="res://data/cards/pulso.tres" id="pulso"]
+[ext_resource type="Resource" path="res://data/cards/destello.tres" id="destello"]
+[ext_resource type="Resource" path="res://data/cards/lectura.tres" id="lectura"]
+[ext_resource type="Resource" path="res://data/cards/reserva.tres" id="reserva"]
+[ext_resource type="Resource" path="res://data/cards/refugio.tres" id="refugio"]
+[ext_resource type="Resource" path="res://data/cards/aguja.tres" id="aguja"]
+
+
+[resource]
+script = ExtResource("script")
+id = "lira"
+display_name = "Lira"
+affinity = "nácar"
+color = Color(0.4117647058823529, 0.8901960784313725, 0.8941176470588236, 1)
+visual_profile = ExtResource("visual")
+health = 40
+attack = 0
+defense = 0
+energy = 3
+stress_limit = 10
+crisis_energy_loss = 1
+crisis_relief = 6
+passive_start_block = 0
+passive_stress_relief = 0
+deck = Array[ExtResource("card")]([ExtResource("corte"), ExtResource("corte"), ExtResource("corte"), ExtResource("corte"), ExtResource("velo"), ExtResource("velo"), ExtResource("pulso"), ExtResource("destello"), ExtResource("lectura"), ExtResource("reserva"), ExtResource("refugio"), ExtResource("aguja")])
+special = ExtResource("destello")
