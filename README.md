@@ -2,7 +2,7 @@
 Prototipo original de RPG de cartas 2.5D, sin conexión. Godot **4.6.3**, GDScript y renderizador Compatibility.
 
 ## Ejecutar
-Importa `project.godot` en Godot y pulsa F6 sobre `scenes/main.tscn` o F5. Elige un enemigo en el menú. Selecciona una carta y confirma el objetivo señalado con →; también puedes cancelar. Las cartas atacan al enemigo o protegen/curan a Lira. Dispones de 3 de energía por turno; cada enemigo anuncia su próxima acción. Termina el turno para renovar energía y mano. Gana reduciendo su vida a cero. Puedes volver al menú y reiniciar.
+Importa `project.godot` en Godot y pulsa F6 sobre `scenes/main.tscn` o F5. Selecciona de uno a tres integrantes (Lira y Noa disponibles) y elige un enemigo en el menú. Selecciona una carta y confirma el objetivo señalado con →; también puedes cancelar. Cada carta pertenece a un personaje y consume su energía. Las cartas de apoyo permiten elegir un aliado vivo. El daño real acumula estrés; una crisis reduce la energía del siguiente turno. Las habilidades especiales se señalan con ★. Cada enemigo anuncia su próxima acción. Termina el turno para renovar energía y mano. Gana reduciendo su vida a cero. Puedes volver al menú y reiniciar.
 
 Los botones admiten ratón, toque y navegación de foco de Godot. No requieren hover. La verificación táctil en un dispositivo real sigue pendiente.
 
@@ -10,6 +10,8 @@ Los botones admiten ratón, toque y navegación de foco de Godot. No requieren h
 ```sh
 godot --headless --path . --editor --import --quit
 godot --headless --path . --script tests/run.gd
+godot --headless --path . --script tests/party.gd
+godot --headless --path . --script tests/presentation.gd
 godot --headless --path . --script tests/scene_smoke.gd
 ```
 En la máquina de nube, usa directorios escribibles antes de estos comandos:
@@ -21,8 +23,12 @@ mkdir -p "$XDG_DATA_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 ```
 
 ## Alcance
-Fases 1 y 2: una heroína, tres enemigos seleccionables, ocho cartas, mazo con doce entradas, robo, descarte, barajado reproducible, energía, daño, escudo, curación , agotamiento y victoria/derrota. Los enemigos alternan ataques, guardia o curación según patrones editables. Escenario 3D ligero y sprites SVG originales con movimiento de reposo y reacción por color. No es todavía el vertical slice completo.
+Fases 1–4: dos personajes originales con estadísticas, pasivas y crisis configurables; tres enemigos seleccionables; catorce cartas y diecinueve entradas entre los mazos de Lira y Noa; robo, descarte, barajado reproducible, energía, daño, escudo, curación, agotamiento y victoria/derrota. Los enemigos alternan ataques, guardia o curación según patrones editables. Escenario 3D ligero con profundidad y paralaje, perfiles visuales editables, sprites SVG originales, nueve animaciones de respaldo y efectos de combate. No es todavía el vertical slice completo.
 
 Consulta `PLAN_DE_DESARROLLO.md`, `ARQUITECTURA.md` y las guías `COMO_*.md`. No se han probado exportaciones, calidad visual en pantalla ni rendimiento Android. No hay guardado todavía.
 
-Pruebas de fase 2: 53 comprobaciones del modelo y recorrido automatizado de selección, confirmación, turno, cambio de enemigo y cancelación. Validación sin interfaz gráfica; revisión visual y dispositivos reales pendiente.
+Pruebas de fase 4: 107 comprobaciones de reglas, 39 de presentación y siete verificaciones de escena (153 en total), sin fallos. Validación sin interfaz gráfica; revisión visual y dispositivos reales pendiente.
+
+Para probar los estados, juega **Resonancia** o **Pacto protector** de Noa. Usa **Ancla serena** antes de que el estrés alcance el umbral. El menú conserva al menos un integrante y permite volver a jugar con Lira sola. Las reglas detalladas están en `documentation/PERSONAJES_Y_ESTRES.md`.
+
+Fase 4: los objetivos se resaltan en el escenario y los efectos muestran cambios reales. Puedes sustituir imágenes, SpriteFrames y nombres de clips desde perfiles `.tres`: consulta `COMO_CAMBIAR_GRAFICOS.md` y `documentation/PRESENTACION_2_5D.md`.

@@ -1,10 +1,68 @@
 {
-  "version": 1,
+  "version": 2,
   "characters": [
     {
       "id": "lira",
       "name": "Lira",
-      "health": 40
+      "health": 40,
+      "attack": 0,
+      "defense": 0,
+      "energy": 3,
+      "affinity": "nácar",
+      "stress_limit": 10,
+      "crisis": {
+        "energy_loss": 1,
+        "relief": 6
+      },
+      "passive": {
+        "start_block": 0,
+        "stress_relief": 0
+      },
+      "special": "destello",
+      "color": "69e3e4",
+      "deck": [
+        "corte",
+        "corte",
+        "corte",
+        "corte",
+        "velo",
+        "velo",
+        "pulso",
+        "destello",
+        "lectura",
+        "reserva",
+        "refugio",
+        "aguja"
+      ]
+    },
+    {
+      "id": "noa",
+      "name": "Noa",
+      "health": 34,
+      "attack": 1,
+      "defense": 1,
+      "energy": 3,
+      "affinity": "ópalo",
+      "stress_limit": 8,
+      "crisis": {
+        "energy_loss": 2,
+        "relief": 5
+      },
+      "passive": {
+        "start_block": 1,
+        "stress_relief": 0
+      },
+      "special": "aurora",
+      "color": "e6be73",
+      "deck": [
+        "eco_noa",
+        "eco_noa",
+        "sutura",
+        "calma",
+        "impulso",
+        "bastion",
+        "aurora"
+      ]
     }
   ],
   "enemies": [
@@ -75,7 +133,8 @@
         }
       ],
       "target": "enemy",
-      "exhaust": false
+      "exhaust": false,
+      "owner": "lira"
     },
     {
       "id": "velo",
@@ -89,7 +148,8 @@
         }
       ],
       "target": "self",
-      "exhaust": false
+      "exhaust": false,
+      "owner": "lira"
     },
     {
       "id": "pulso",
@@ -103,7 +163,8 @@
         }
       ],
       "target": "self",
-      "exhaust": false
+      "exhaust": false,
+      "owner": "lira"
     },
     {
       "id": "destello",
@@ -117,7 +178,8 @@
           "type": "damage",
           "amount": 16
         }
-      ]
+      ],
+      "owner": "lira"
     },
     {
       "id": "lectura",
@@ -131,7 +193,8 @@
           "type": "draw",
           "amount": 2
         }
-      ]
+      ],
+      "owner": "lira"
     },
     {
       "id": "reserva",
@@ -145,7 +208,8 @@
           "type": "energy",
           "amount": 2
         }
-      ]
+      ],
+      "owner": "lira"
     },
     {
       "id": "refugio",
@@ -163,7 +227,8 @@
           "type": "heal",
           "amount": 3
         }
-      ]
+      ],
+      "owner": "lira"
     },
     {
       "id": "aguja",
@@ -177,25 +242,121 @@
           "type": "damage",
           "amount": 3
         }
-      ]
+      ],
+      "owner": "lira"
+    },
+    {
+      "id": "eco_noa",
+      "name": "Fragmento de ópalo",
+      "cost": 1,
+      "target": "enemy",
+      "exhaust": false,
+      "effects": [
+        {
+          "type": "damage",
+          "amount": 5
+        }
+      ],
+      "description": "Inflige 5 + ataque de Noa de daño.",
+      "owner": "noa"
+    },
+    {
+      "id": "sutura",
+      "name": "Sutura compartida",
+      "cost": 1,
+      "target": "ally",
+      "exhaust": false,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 5
+        }
+      ],
+      "description": "Un aliado vivo recupera 5 de vida.",
+      "owner": "noa"
+    },
+    {
+      "id": "calma",
+      "name": "Ancla serena",
+      "cost": 1,
+      "target": "ally",
+      "exhaust": false,
+      "effects": [
+        {
+          "type": "calm",
+          "amount": 6
+        }
+      ],
+      "description": "Reduce en 6 el estrés de un aliado.",
+      "owner": "noa"
+    },
+    {
+      "id": "impulso",
+      "name": "Resonancia",
+      "cost": 1,
+      "target": "ally",
+      "exhaust": false,
+      "effects": [
+        {
+          "type": "status",
+          "amount": 2,
+          "status": "strength"
+        }
+      ],
+      "description": "Un aliado obtiene +2 ataque durante 2 rondas.",
+      "owner": "noa"
+    },
+    {
+      "id": "bastion",
+      "name": "Pacto protector",
+      "cost": 1,
+      "target": "ally",
+      "exhaust": false,
+      "effects": [
+        {
+          "type": "status",
+          "amount": 2,
+          "status": "ward"
+        }
+      ],
+      "description": "Un aliado obtiene +2 defensa durante 2 rondas.",
+      "owner": "noa"
+    },
+    {
+      "id": "aurora",
+      "name": "Aurora de ópalo",
+      "cost": 2,
+      "target": "enemy",
+      "exhaust": true,
+      "effects": [
+        {
+          "type": "damage",
+          "amount": 13
+        }
+      ],
+      "description": "Especial: 13 + ataque de Noa de daño. Se agota.",
+      "owner": "noa"
     }
   ],
-  "starter_deck": [
-    "corte",
-    "corte",
-    "corte",
-    "corte",
-    "velo",
-    "velo",
-    "pulso",
-    "destello",
-    "lectura",
-    "reserva",
-    "refugio",
-    "aguja"
-  ],
   "balance": {
-    "energy": 3,
     "hand_size": 5
+  },
+  "team": [
+    "lira",
+    "noa"
+  ],
+  "statuses": {
+    "strength": {
+      "name": "Resonancia",
+      "attack": 2
+    },
+    "ward": {
+      "name": "Protección",
+      "defense": 2
+    },
+    "fragile": {
+      "name": "Fragilidad",
+      "defense": -1
+    }
   }
 }

@@ -1,4 +1,4 @@
 extends RefCounted
 
 static func apply(battle, amount: int) -> void:
-	battle.energy += amount
+	battle.source_actor.energy += amount
