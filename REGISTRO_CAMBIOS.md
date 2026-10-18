@@ -15,3 +15,11 @@
 - Escudo enemigo y conservación de cartas durante resolución y reciclado.
 - 53 comprobaciones del modelo y recorrido automatizado de la escena sin errores en Godot 4.6.3.
 - Sin exportaciones ni pruebas visuales/táctiles reales; equipo, estados y estrés corresponden a fase 3.
+
+## Fase 3 — Personajes, estados y estrés
+- Selección de 1–3 integrantes; Lira y Noa disponibles, con 14 cartas y mazos individuales combinados (19 entradas).
+- Estado y energía por personaje, ataque/defensa, pasivas configurables y especiales como cartas agotables.
+- Apoyo dirigido, Resonancia y Protección temporales, acumulación de estrés y crisis individual; carta de calma.
+- Ataques enemigos con objetivo anunciado, caída de integrantes y derrota solo al perder a todos.
+- Presentación por actor con tintes distintos y ocultación de caídos; documentación y migración de catálogo v2.
+- Pruebas: 53 comprobaciones anteriores, 54 de personajes y 7 de escena. Pendientes revisión visual y pruebas en dispositivos; sin exportaciones nuevas.

@@ -1,8 +1,8 @@
 # Plan por fases
 1. **Completada:** fundamentos, catálogo editable, menú y primer combate de un personaje contra un enemigo; presentación 2.5D provisional.
 2. **Completada:** cinco resolutores de efectos independientes, confirmación de objetivos, agotamiento, ocho cartas y tres enemigos con patrones anunciados. Conservado el bucle existente.
-3. **Siguiente:** personajes: equipo, estrés, estados, pasivas y estadísticas configurables.
-4. Presentación: controlador de nueve animaciones, efectos y arte original sustituible.
+3. **Completada:** equipo de 1–3 integrantes, Lira y Noa, mazos/energía individuales, apoyo a aliados, estadísticas, pasivas, especiales, estrés y crisis, estados temporales. Afinidades preparadas como datos; resistencias elementales y progresión persistente pendientes.
+4. **Siguiente:** presentación: controlador de nueve animaciones, efectos y arte original sustituible.
 5. Roguelike: mapa por semilla, recompensas, mejoras, recursos y guardado versionado en `user://` con migraciones.
 6. Multiplataforma: zonas seguras, accesos de teclado, perfiles gráficos, Android y Windows con pruebas reales.
 7. Herramientas: Resources y editores dentro de Godot, validación completa con errores legibles.

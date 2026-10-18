@@ -1,4 +1,4 @@
 extends RefCounted
 
 static func apply(battle, amount: int) -> void:
-	battle.block += amount
+	battle.target_actor.block += amount

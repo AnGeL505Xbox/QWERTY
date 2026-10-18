@@ -13,7 +13,10 @@ static func describe(intent: Dictionary) -> String:
 static func execute(battle, intent: Dictionary) -> void:
 	match intent.type:
 		"attack":
-			battle.health = maxi(0, battle.health - maxi(0, int(intent.amount) - battle.block))
+			var target = battle.character(intent.target)
+			if target != null and target.alive():
+				target.receive_damage(int(intent.amount))
+				battle.actor_action.emit(target.id, "hurt")
 			battle.action.emit("hurt")
 		"guard": battle.enemy_block += int(intent.amount)
 		"heal": battle.enemy_health = mini(int(battle.enemy.health), battle.enemy_health + int(intent.amount))

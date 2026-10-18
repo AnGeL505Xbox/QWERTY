@@ -13,6 +13,7 @@ func check(value: bool, message: String) -> void:
 
 func _initialize() -> void:
 	var data := Catalog.load_content()
+	data.team = ["lira"]
 	var battle := Battle.new(data, 42)
 	check(battle.hand.size() == 5, "Robo inicial")
 	var same := Battle.new(data, 42)
@@ -31,7 +32,7 @@ func _initialize() -> void:
 	for i in range(20):
 		cycling.health = cycling.max_health
 		cycling.end_turn()
-		check(cycling.hand.size() + cycling.draw_pile.size() + cycling.discard.size() == data.starter_deck.size(), "Conservación del mazo y reciclado")
+		check(cycling.hand.size() + cycling.draw_pile.size() + cycling.discard.size() == data.characters[0].deck.size(), "Conservación del mazo y reciclado")
 	battle.hand = ["corte"]
 	battle.enemy_health = 1
 	battle.play(0)
@@ -81,6 +82,6 @@ func _initialize() -> void:
 		if reserve_index >= 0:
 			exhausted_battle.play(reserve_index, "self")
 		exhausted_battle.end_turn()
-		check(exhausted_battle.hand.size() + exhausted_battle.draw_pile.size() + exhausted_battle.discard.size() + exhausted_battle.exhausted.size() == data.starter_deck.size(), "Conservación incluyendo agotamiento")
+		check(exhausted_battle.hand.size() + exhausted_battle.draw_pile.size() + exhausted_battle.discard.size() + exhausted_battle.exhausted.size() == data.characters[0].deck.size(), "Conservación incluyendo agotamiento")
 	print("PRUEBAS: %d comprobaciones, %d fallos" % [checks, failures])
 	quit(1 if failures > 0 else 0)
