@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "characters": [{"id":"lira","name":"Lira","health":40}],
+  "enemies": [{"id":"eco","name":"Eco del vacío","health":32,"damage":6}],
+  "cards": [
+    {"id":"corte","name":"Corte de nácar","cost":1,"description":"Inflige 7 de daño.","effects":[{"type":"damage","amount":7}]},
+    {"id":"velo","name":"Velo astral","cost":1,"description":"Obtén 6 de escudo hasta tu próximo turno.","effects":[{"type":"block","amount":6}]},
+    {"id":"pulso","name":"Pulso vital","cost":1,"description":"Recupera 4 de vida.","effects":[{"type":"heal","amount":4}]}
+  ],
+  "starter_deck":["corte","corte","corte","corte","velo","velo","pulso"],
+  "balance":{"energy":3,"hand_size":5}
+}
