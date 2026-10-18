@@ -1,12 +1,201 @@
 {
   "version": 1,
-  "characters": [{"id":"lira","name":"Lira","health":40}],
-  "enemies": [{"id":"eco","name":"Eco del vacío","health":32,"damage":6}],
-  "cards": [
-    {"id":"corte","name":"Corte de nácar","cost":1,"description":"Inflige 7 de daño.","effects":[{"type":"damage","amount":7}]},
-    {"id":"velo","name":"Velo astral","cost":1,"description":"Obtén 6 de escudo hasta tu próximo turno.","effects":[{"type":"block","amount":6}]},
-    {"id":"pulso","name":"Pulso vital","cost":1,"description":"Recupera 4 de vida.","effects":[{"type":"heal","amount":4}]}
+  "characters": [
+    {
+      "id": "lira",
+      "name": "Lira",
+      "health": 40
+    }
   ],
-  "starter_deck":["corte","corte","corte","corte","velo","velo","pulso"],
-  "balance":{"energy":3,"hand_size":5}
+  "enemies": [
+    {
+      "id": "eco",
+      "name": "Eco del vacío",
+      "health": 32,
+      "pattern": [
+        {
+          "type": "attack",
+          "amount": 6
+        },
+        {
+          "type": "guard",
+          "amount": 5
+        },
+        {
+          "type": "attack",
+          "amount": 9
+        }
+      ]
+    },
+    {
+      "id": "custodio",
+      "name": "Custodio de sal",
+      "health": 42,
+      "pattern": [
+        {
+          "type": "guard",
+          "amount": 8
+        },
+        {
+          "type": "attack",
+          "amount": 10
+        }
+      ]
+    },
+    {
+      "id": "susurro",
+      "name": "Susurro de ópalo",
+      "health": 28,
+      "pattern": [
+        {
+          "type": "attack",
+          "amount": 4
+        },
+        {
+          "type": "heal",
+          "amount": 5
+        },
+        {
+          "type": "attack",
+          "amount": 8
+        }
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "id": "corte",
+      "name": "Corte de nácar",
+      "cost": 1,
+      "description": "Inflige 7 de daño.",
+      "effects": [
+        {
+          "type": "damage",
+          "amount": 7
+        }
+      ],
+      "target": "enemy",
+      "exhaust": false
+    },
+    {
+      "id": "velo",
+      "name": "Velo astral",
+      "cost": 1,
+      "description": "Obtén 6 de escudo hasta tu próximo turno.",
+      "effects": [
+        {
+          "type": "block",
+          "amount": 6
+        }
+      ],
+      "target": "self",
+      "exhaust": false
+    },
+    {
+      "id": "pulso",
+      "name": "Pulso vital",
+      "cost": 1,
+      "description": "Recupera 4 de vida.",
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 4
+        }
+      ],
+      "target": "self",
+      "exhaust": false
+    },
+    {
+      "id": "destello",
+      "name": "Destello",
+      "cost": 2,
+      "target": "enemy",
+      "exhaust": true,
+      "description": "Inflige 16 de daño. Se agota.",
+      "effects": [
+        {
+          "type": "damage",
+          "amount": 16
+        }
+      ]
+    },
+    {
+      "id": "lectura",
+      "name": "Lectura del umbral",
+      "cost": 1,
+      "target": "self",
+      "exhaust": false,
+      "description": "Roba 2 cartas.",
+      "effects": [
+        {
+          "type": "draw",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "reserva",
+      "name": "Reserva astral",
+      "cost": 0,
+      "target": "self",
+      "exhaust": true,
+      "description": "Obtén 2 de energía. Se agota.",
+      "effects": [
+        {
+          "type": "energy",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "refugio",
+      "name": "Refugio",
+      "cost": 2,
+      "target": "self",
+      "exhaust": false,
+      "description": "Obtén 10 de escudo y recupera 3 de vida.",
+      "effects": [
+        {
+          "type": "block",
+          "amount": 10
+        },
+        {
+          "type": "heal",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "id": "aguja",
+      "name": "Aguja de luz",
+      "cost": 0,
+      "target": "enemy",
+      "exhaust": true,
+      "description": "Inflige 3 de daño. Se agota.",
+      "effects": [
+        {
+          "type": "damage",
+          "amount": 3
+        }
+      ]
+    }
+  ],
+  "starter_deck": [
+    "corte",
+    "corte",
+    "corte",
+    "corte",
+    "velo",
+    "velo",
+    "pulso",
+    "destello",
+    "lectura",
+    "reserva",
+    "refugio",
+    "aguja"
+  ],
+  "balance": {
+    "energy": 3,
+    "hand_size": 5
+  }
 }
