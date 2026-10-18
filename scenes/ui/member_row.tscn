@@ -1,0 +1,4 @@
+[gd_scene format=3]
+[node name="MemberRow" type="Label"]
+theme_override_font_sizes/font_size = 16
+text = "Personaje · PV 40/40 · Escudo 0 · Energía 3 · Estrés 0/10"

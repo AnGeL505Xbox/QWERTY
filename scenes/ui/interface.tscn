@@ -1,0 +1,121 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://scenes/ui/interface.gd" id="1"]
+[ext_resource type="Theme" path="res://scenes/ui/theme.tres" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/action_button.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/card.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/ui/member_row.tscn" id="5"]
+[node name="Interface" type="CanvasLayer"]
+script = ExtResource("1")
+button_scene = ExtResource("3")
+card_scene = ExtResource("4")
+member_scene = ExtResource("5")
+[node name="Margin" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+[node name="Menu" type="VBoxContainer" parent="Margin"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+[node name="Title" type="Label" parent="Margin/Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 44
+text = "UMBRAL DE NÁCAR"
+[node name="Subtitle" type="Label" parent="Margin/Menu"]
+layout_mode = 2
+text = "Expedición 01 · El eco del vacío"
+[node name="Summary" type="Label" parent="Margin/Menu"]
+layout_mode = 2
+text = "Cartas, energía y combate por turnos"
+[node name="TeamHint" type="Label" parent="Margin/Menu"]
+layout_mode = 2
+text = "Equipo (1–3): pulsa para incluir o retirar"
+[node name="TeamChoices" type="HFlowContainer" parent="Margin/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+[node name="EnemyChoices" type="VBoxContainer" parent="Margin/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+[node name="Exit" parent="Margin/Menu" instance=ExtResource("3")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Salir"
+[node name="Battle" type="VBoxContainer" parent="Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+[node name="BattleTitle" type="Label" parent="Margin/Battle"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Equipo contra Eco del vacío · Turno 1"
+[node name="Members" type="VBoxContainer" parent="Margin/Battle"]
+unique_name_in_owner = true
+layout_mode = 2
+[node name="EnemyIntent" type="Label" parent="Margin/Battle"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Enemigo: 32 PV · Intención: atacar por 6 → Lira"
+[node name="Spacer" type="Control" parent="Margin/Battle"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+[node name="Result" type="Label" parent="Margin/Battle"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Victoria"
+[node name="Selection" type="Label" parent="Margin/Battle"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Selecciona una carta y confirma el objetivo resaltado (→)."
+autowrap_mode = 3
+[node name="Targets" type="HFlowContainer" parent="Margin/Battle"]
+unique_name_in_owner = true
+layout_mode = 2
+[node name="HandScroll" type="ScrollContainer" parent="Margin/Battle"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 205)
+layout_mode = 2
+vertical_scroll_mode = 0
+[node name="Cards" type="HBoxContainer" parent="Margin/Battle/HandScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+[node name="Actions" type="HBoxContainer" parent="Margin/Battle"]
+layout_mode = 2
+[node name="EndTurn" parent="Margin/Battle/Actions" instance=ExtResource("3")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Terminar turno"
+[node name="Retry" parent="Margin/Battle/Actions" instance=ExtResource("3")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Reintentar"
+[node name="MenuButton" parent="Margin/Battle/Actions" instance=ExtResource("3")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Menú"
+[node name="Piles" type="Label" parent="Margin/Battle"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Mazo: 14 · Descarte: 0 · Agotadas: 0"
+[node name="Errors" type="Label" parent="Margin"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Errores del catálogo"
+autowrap_mode = 3

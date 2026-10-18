@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="Script" path="res://scenes/ui/card.gd" id="1"]
+[ext_resource type="Resource" path="res://data/cards/corte.tres" id="2"]
+[ext_resource type="Theme" path="res://scenes/ui/theme.tres" id="3"]
+[node name="Card" type="Button"]
+custom_minimum_size = Vector2(210, 190)
+theme = ExtResource("3")
+script = ExtResource("1")
+preview_card = ExtResource("2")
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 10.0
+offset_right = -12.0
+offset_bottom = -10.0
+mouse_filter = 2
+[node name="Content" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+mouse_filter = 2
+[node name="Name" type="Label" parent="Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 20
+text = "Corte de nácar"
+autowrap_mode = 3
+[node name="Cost" type="Label" parent="Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 16
+text = "Lira · 1 energía"
+[node name="Artwork" type="TextureRect" parent="Margin/Content"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+[node name="Description" type="Label" parent="Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 16
+text = "Inflige 7 de daño."
+autowrap_mode = 3

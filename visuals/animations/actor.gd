@@ -1,13 +1,26 @@
+@tool
 extends Node3D
 
 const STATES = ["idle", "enter", "attack", "defend", "hurt", "special", "crisis", "victory", "defeat"]
 var actor_id := ""
-var display_name := ""
-var profile: Resource
-var pivot: Node3D
-var body: AnimatedSprite3D
-var name_label: Label3D
-var marker: MeshInstance3D
+@export var display_name := "Personaje":
+	set(value):
+		display_name = value
+		if is_instance_valid(name_label):
+			name_label.text = value
+@export var profile: RpgVisualProfile:
+	set(value):
+		if profile != null and profile.changed.is_connected(_apply_profile):
+			profile.changed.disconnect(_apply_profile)
+		profile = value
+		if profile != null:
+			profile.changed.connect(_apply_profile)
+		if is_node_ready():
+			_apply_profile()
+@onready var pivot: Node3D = $Pivot
+@onready var body: AnimatedSprite3D = $Pivot/VisualOffset/Body
+@onready var name_label: Label3D = $NameLabel
+@onready var marker: MeshInstance3D = $TargetMarker
 var current := "idle"
 var pending: Array[String] = []
 var terminal := false
@@ -15,14 +28,35 @@ var active: Tween
 var phase := 0.0
 var last_feedback := ""
 
+func _ready() -> void:
+	if profile == null:
+		profile = preload("res://visuals/animations/profile.gd").new()
+	_apply_profile()
+	name_label.text = display_name
+
 func setup(id: String, title: String, visual_profile: Resource) -> void:
+	reset_view()
 	actor_id = id
 	display_name = title
 	profile = visual_profile
-	pivot = Node3D.new()
-	add_child(pivot)
-	body = AnimatedSprite3D.new()
-	body.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	_apply_profile()
+
+func reset_view() -> void:
+	if active != null and active.is_valid():
+		active.kill()
+	pending.clear()
+	terminal = false
+	current = "idle"
+	last_feedback = ""
+	pivot.position = Vector3.ZERO
+	pivot.rotation = Vector3.ZERO
+	pivot.scale = Vector3.ONE
+	marker.visible = false
+	visible = true
+
+func _apply_profile() -> void:
+	if not is_node_ready() or profile == null:
+		return
 	body.pixel_size = profile.pixel_size
 	body.modulate = profile.tint
 	var has_frames := false
@@ -37,30 +71,11 @@ func setup(id: String, title: String, visual_profile: Resource) -> void:
 		frames.rename_animation("default", "idle")
 		frames.add_frame("idle", profile.texture if profile.texture != null else load("res://visuals/traveler.svg"))
 		body.sprite_frames = frames
-	pivot.add_child(body)
-	name_label = Label3D.new()
-	name_label.text = title
-	name_label.position.y = 1.65
-	name_label.font_size = 30
-	name_label.pixel_size = 0.006
-	add_child(name_label)
-	marker = MeshInstance3D.new()
-	var ring := TorusMesh.new()
-	ring.inner_radius = 0.44
-	ring.outer_radius = 0.50
-	ring.rings = 16
-	ring.ring_segments = 8
-	marker.mesh = ring
-	marker.position.y = -1.12
-	var material := StandardMaterial3D.new()
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	material.albedo_color = Color("ffe5a0")
-	marker.material_override = material
-	marker.visible = false
-	add_child(marker)
 	_play_sprite("idle")
 
 func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
 	phase += delta
 	if current == "idle" and pivot != null:
 		pivot.position.y = sin(phase * 2.5) * 0.045

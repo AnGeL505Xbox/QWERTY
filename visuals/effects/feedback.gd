@@ -1,7 +1,7 @@
 extends Node3D
 
 const MAX_EFFECTS = 24
-var enabled := true
+@export var enabled := true
 var count := 0
 
 func show_at(at: Vector3, text: String, color: Color) -> void:

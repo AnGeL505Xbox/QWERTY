@@ -8,3 +8,9 @@
 - Mantener documentación en español y explicar cambios, pruebas, limitaciones y edición de contenido al entregar cada fase.
 - Ejecutar importación, pruebas y arranque con Godot cuando esté disponible. No afirmar exportaciones o rendimiento sin pruebas reales.
 - No incorporar recursos protegidos ni secretos. Documentar migraciones antes de cambios incompatibles.
+
+## Edición visual
+- El catálogo activo es `data/catalog.tres` y sus Resources tipados. `data/content.json` y `visuals/profiles/catalog.json` son referencias históricas; no editar como fuente activa.
+- Mantener escenario, HUD y plantillas en escenas `.tscn`. No volver a reconstruir geometría, cámaras o controles persistentes por código, ni sobrescribir transforms/estilos editados al arrancar.
+- Los controles repetidos se instancian desde PackedScene; conservar los nombres únicos y el contrato de nodos documentado. Usar VisualOffset para ajustes permanentes y Pivot para animación.
+- Validar contenido con errores recuperables y comprobar que los cambios guardados del editor llegan al juego mediante `tests/visual_editing.gd`.

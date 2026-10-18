@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3]
+[ext_resource type="Script" path="res://visuals/animations/actor.gd" id="1"]
+[ext_resource type="Resource" path="res://visuals/profiles/lira.tres" id="2"]
+[ext_resource type="Texture2D" path="res://visuals/traveler.svg" id="3"]
+[sub_resource type="SpriteFrames" id="Frames"]
+animations = [{"frames": [{"duration": 1.0, "texture": ExtResource("3")}], "loop": true, "name": &"idle", "speed": 5.0}]
+[sub_resource type="StandardMaterial3D" id="TargetMaterial"]
+shading_mode = 0
+albedo_color = Color(1, 0.898, 0.627, 1)
+[sub_resource type="TorusMesh" id="Ring"]
+inner_radius = 0.44
+outer_radius = 0.5
+rings = 16
+ring_segments = 8
+
+[node name="Actor" type="Node3D"]
+script = ExtResource("1")
+profile = ExtResource("2")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="VisualOffset" type="Node3D" parent="Pivot"]
+
+[node name="Body" type="AnimatedSprite3D" parent="Pivot/VisualOffset"]
+sprite_frames = SubResource("Frames")
+animation = &"idle"
+billboard = 1
+pixel_size = 0.012
+
+[node name="NameLabel" type="Label3D" parent="."]
+position = Vector3(0, 1.65, 0)
+text = "Personaje"
+font_size = 30
+pixel_size = 0.006
+
+[node name="TargetMarker" type="MeshInstance3D" parent="."]
+visible = false
+position = Vector3(0, -1.12, 0)
+mesh = SubResource("Ring")
+material_override = SubResource("TargetMaterial")

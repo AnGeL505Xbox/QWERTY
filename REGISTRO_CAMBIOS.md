@@ -31,3 +31,12 @@
 - Objetivos resaltados; números y anillos con deltas reales, animaciones por destinatario, especiales y crisis.
 - Eventos de presentación independientes de las reglas; colas y efectos limitados, limpieza al reiniciar y poses finales.
 - Importación y 153 comprobaciones sin fallos: 107 de reglas, 39 de presentación y 7 de escena. Documentación de personalización actualizada. No se han probado FPS, exportaciones ni la composición visual en esta máquina.
+
+## Fase 4.1 — Edición visual antes del roguelike
+- Catálogo activo `data/catalog.tres`, con cartas, efectos, personajes, enemigos, intenciones y estados Resources tipados para el Inspector.
+- Conservados IDs, estadísticas, mazos, efectos y comportamiento del contenido anterior; JSON preservado como referencia y prueba de migración.
+- Escenario, cámara, luz, tres posiciones de aliados, enemigo y personaje visual en escenas `.tscn`; no se reconstruyen al ejecutar.
+- Menú/HUD persistentes, plantillas de carta/botón/fila y tema editable; ilustraciones de cartas y vista previa en el editor.
+- Panel local Contenido con accesos a recursos, escenas y errores recuperables. Sin herramientas externas obligatorias.
+- Pruebas de guardado/recarga de Resources y escenas: daño, costes, estadísticas, cámara, geometría, posiciones, imágenes y controles funcionan tras editarlos.
+- Importación con complemento habilitado y 190 comprobaciones sin fallos. Guías actualizadas en español. Se mantiene pendiente una revisión gráfica manual, exportaciones y dispositivos; aún no se implementa roguelike.

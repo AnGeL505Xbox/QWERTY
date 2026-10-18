@@ -1,0 +1,307 @@
+[gd_scene load_steps=50 format=3]
+[ext_resource type="Script" path="res://visuals/arena.gd" id="arena"]
+[ext_resource type="PackedScene" path="res://scenes/visuals/actor.tscn" id="actor"]
+[ext_resource type="Script" path="res://visuals/effects/feedback.gd" id="feedback"]
+[ext_resource type="Resource" path="res://visuals/profiles/lira.tres" id="lira"]
+[ext_resource type="Resource" path="res://visuals/profiles/noa.tres" id="noa"]
+[ext_resource type="Resource" path="res://visuals/profiles/enemy.tres" id="enemy"]
+[sub_resource type="Environment" id="Environment"]
+background_mode = 1
+background_color = Color(0.0627, 0.0941, 0.1843, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.5686, 0.6471, 0.7843, 1)
+ambient_light_energy = 0.65
+[sub_resource type="StandardMaterial3D" id="Material0"]
+albedo_color = Color(0.1411764705882353, 0.17647058823529413, 0.2823529411764706, 1)
+
+[sub_resource type="BoxMesh" id="Mesh0"]
+size = Vector3(14, 0.2, 7)
+material = SubResource("Material0")
+
+[sub_resource type="StandardMaterial3D" id="Material1"]
+albedo_color = Color(0.1450980392156863, 0.17254901960784313, 0.2784313725490196, 1)
+
+[sub_resource type="BoxMesh" id="Mesh1"]
+size = Vector3(0.32, 5.8, 0.5)
+material = SubResource("Material1")
+
+[sub_resource type="StandardMaterial3D" id="Material2"]
+albedo_color = Color(0.3254901960784314, 0.4549019607843137, 0.5254901960784314, 1)
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="Mesh2"]
+size = Vector3(0.1, 4.8, 0.12)
+material = SubResource("Material2")
+
+[sub_resource type="StandardMaterial3D" id="Material3"]
+albedo_color = Color(0.1450980392156863, 0.17254901960784313, 0.2784313725490196, 1)
+
+[sub_resource type="BoxMesh" id="Mesh3"]
+size = Vector3(0.32, 5.8, 0.5)
+material = SubResource("Material3")
+
+[sub_resource type="StandardMaterial3D" id="Material4"]
+albedo_color = Color(0.3254901960784314, 0.4549019607843137, 0.5254901960784314, 1)
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="Mesh4"]
+size = Vector3(0.1, 4.8, 0.12)
+material = SubResource("Material4")
+
+[sub_resource type="StandardMaterial3D" id="Material5"]
+albedo_color = Color(0.1450980392156863, 0.17254901960784313, 0.2784313725490196, 1)
+
+[sub_resource type="BoxMesh" id="Mesh5"]
+size = Vector3(0.32, 5.8, 0.5)
+material = SubResource("Material5")
+
+[sub_resource type="StandardMaterial3D" id="Material6"]
+albedo_color = Color(0.3254901960784314, 0.4549019607843137, 0.5254901960784314, 1)
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="Mesh6"]
+size = Vector3(0.1, 4.8, 0.12)
+material = SubResource("Material6")
+
+[sub_resource type="StandardMaterial3D" id="Material7"]
+albedo_color = Color(0.1450980392156863, 0.17254901960784313, 0.2784313725490196, 1)
+
+[sub_resource type="BoxMesh" id="Mesh7"]
+size = Vector3(0.32, 5.8, 0.5)
+material = SubResource("Material7")
+
+[sub_resource type="StandardMaterial3D" id="Material8"]
+albedo_color = Color(0.3254901960784314, 0.4549019607843137, 0.5254901960784314, 1)
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="Mesh8"]
+size = Vector3(0.1, 4.8, 0.12)
+material = SubResource("Material8")
+
+[sub_resource type="StandardMaterial3D" id="Material9"]
+albedo_color = Color(0.1450980392156863, 0.17254901960784313, 0.2784313725490196, 1)
+
+[sub_resource type="BoxMesh" id="Mesh9"]
+size = Vector3(0.32, 5.8, 0.5)
+material = SubResource("Material9")
+
+[sub_resource type="StandardMaterial3D" id="Material10"]
+albedo_color = Color(0.3254901960784314, 0.4549019607843137, 0.5254901960784314, 1)
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="Mesh10"]
+size = Vector3(0.1, 4.8, 0.12)
+material = SubResource("Material10")
+
+[sub_resource type="StandardMaterial3D" id="Material11"]
+albedo_color = Color(0.1450980392156863, 0.17254901960784313, 0.2784313725490196, 1)
+
+[sub_resource type="BoxMesh" id="Mesh11"]
+size = Vector3(0.32, 5.8, 0.5)
+material = SubResource("Material11")
+
+[sub_resource type="StandardMaterial3D" id="Material12"]
+albedo_color = Color(0.3254901960784314, 0.4549019607843137, 0.5254901960784314, 1)
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="Mesh12"]
+size = Vector3(0.1, 4.8, 0.12)
+material = SubResource("Material12")
+
+[sub_resource type="StandardMaterial3D" id="Material13"]
+albedo_color = Color(0.1450980392156863, 0.17254901960784313, 0.2784313725490196, 1)
+
+[sub_resource type="BoxMesh" id="Mesh13"]
+size = Vector3(0.32, 5.8, 0.5)
+material = SubResource("Material13")
+
+[sub_resource type="StandardMaterial3D" id="Material14"]
+albedo_color = Color(0.3254901960784314, 0.4549019607843137, 0.5254901960784314, 1)
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="Mesh14"]
+size = Vector3(0.1, 4.8, 0.12)
+material = SubResource("Material14")
+
+[sub_resource type="StandardMaterial3D" id="Material15"]
+albedo_color = Color(0.36470588235294116, 0.39215686274509803, 0.5254901960784314, 1)
+
+[sub_resource type="BoxMesh" id="Mesh15"]
+size = Vector3(0.45, 1.5, 0.45)
+material = SubResource("Material15")
+
+[sub_resource type="StandardMaterial3D" id="Material16"]
+albedo_color = Color(0.36470588235294116, 0.39215686274509803, 0.5254901960784314, 1)
+
+[sub_resource type="BoxMesh" id="Mesh16"]
+size = Vector3(0.45, 1.5, 0.45)
+material = SubResource("Material16")
+
+[sub_resource type="StandardMaterial3D" id="Material17"]
+albedo_color = Color(0.36470588235294116, 0.39215686274509803, 0.5254901960784314, 1)
+
+[sub_resource type="BoxMesh" id="Mesh17"]
+size = Vector3(0.45, 1.5, 0.45)
+material = SubResource("Material17")
+
+[sub_resource type="StandardMaterial3D" id="Material18"]
+albedo_color = Color(0.36470588235294116, 0.39215686274509803, 0.5254901960784314, 1)
+
+[sub_resource type="BoxMesh" id="Mesh18"]
+size = Vector3(0.45, 1.5, 0.45)
+material = SubResource("Material18")
+
+[sub_resource type="StandardMaterial3D" id="Material19"]
+albedo_color = Color(0.36470588235294116, 0.39215686274509803, 0.5254901960784314, 1)
+
+[sub_resource type="BoxMesh" id="Mesh19"]
+size = Vector3(0.45, 1.5, 0.45)
+material = SubResource("Material19")
+
+[sub_resource type="StandardMaterial3D" id="Material20"]
+albedo_color = Color(0.403921568627451, 0.7019607843137254, 0.7686274509803922, 1)
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="Mesh20"]
+size = Vector3(11, 0.025, 0.04)
+material = SubResource("Material20")
+
+[node name="Arena" type="Node3D"]
+script = ExtResource("arena")
+profiles = {"lira": ExtResource("lira"), "noa": ExtResource("noa"), "enemy": ExtResource("enemy")}
+
+[node name="Camera3D" type="Camera3D" parent="."]
+position = Vector3(0, 3.4, 10)
+rotation = Vector3(-0.273, 0, 0)
+fov = 48.0
+current = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-60, -30, 0)
+shadow_enabled = false
+
+[node name="Stage" type="Node3D" parent="."]
+[node name="Floor" type="MeshInstance3D" parent="Stage"]
+position = Vector3(0, -0.8, -1)
+mesh = SubResource("Mesh0")
+
+[node name="Column1" type="MeshInstance3D" parent="Stage"]
+position = Vector3(-7.2, 1.6, -5)
+mesh = SubResource("Mesh1")
+
+[node name="LightStrip1" type="MeshInstance3D" parent="Stage"]
+position = Vector3(-7.2, 1.8, -4.7)
+mesh = SubResource("Mesh2")
+
+[node name="Column2" type="MeshInstance3D" parent="Stage"]
+position = Vector3(-4.800000000000001, 1.6, -5)
+mesh = SubResource("Mesh3")
+
+[node name="LightStrip2" type="MeshInstance3D" parent="Stage"]
+position = Vector3(-4.800000000000001, 1.8, -4.7)
+mesh = SubResource("Mesh4")
+
+[node name="Column3" type="MeshInstance3D" parent="Stage"]
+position = Vector3(-2.4000000000000004, 1.6, -5)
+mesh = SubResource("Mesh5")
+
+[node name="LightStrip3" type="MeshInstance3D" parent="Stage"]
+position = Vector3(-2.4000000000000004, 1.8, -4.7)
+mesh = SubResource("Mesh6")
+
+[node name="Column4" type="MeshInstance3D" parent="Stage"]
+position = Vector3(-8.881784197001252e-16, 1.6, -5)
+mesh = SubResource("Mesh7")
+
+[node name="LightStrip4" type="MeshInstance3D" parent="Stage"]
+position = Vector3(-8.881784197001252e-16, 1.8, -4.7)
+mesh = SubResource("Mesh8")
+
+[node name="Column5" type="MeshInstance3D" parent="Stage"]
+position = Vector3(2.3999999999999995, 1.6, -5)
+mesh = SubResource("Mesh9")
+
+[node name="LightStrip5" type="MeshInstance3D" parent="Stage"]
+position = Vector3(2.3999999999999995, 1.8, -4.7)
+mesh = SubResource("Mesh10")
+
+[node name="Column6" type="MeshInstance3D" parent="Stage"]
+position = Vector3(4.8, 1.6, -5)
+mesh = SubResource("Mesh11")
+
+[node name="LightStrip6" type="MeshInstance3D" parent="Stage"]
+position = Vector3(4.8, 1.8, -4.7)
+mesh = SubResource("Mesh12")
+
+[node name="Column7" type="MeshInstance3D" parent="Stage"]
+position = Vector3(7.199999999999998, 1.6, -5)
+mesh = SubResource("Mesh13")
+
+[node name="LightStrip7" type="MeshInstance3D" parent="Stage"]
+position = Vector3(7.199999999999998, 1.8, -4.7)
+mesh = SubResource("Mesh14")
+
+[node name="Crystal1" type="MeshInstance3D" parent="Stage"]
+position = Vector3(-5.2, -0.05, -2.6)
+mesh = SubResource("Mesh15")
+rotation = Vector3(0, 0, 0.3839724354387525)
+
+[node name="Crystal2" type="MeshInstance3D" parent="Stage"]
+position = Vector3(-2.6, -0.05, -2.6)
+mesh = SubResource("Mesh16")
+rotation = Vector3(0, 0, 0.3839724354387525)
+
+[node name="Crystal3" type="MeshInstance3D" parent="Stage"]
+position = Vector3(0.0, -0.05, -2.6)
+mesh = SubResource("Mesh17")
+rotation = Vector3(0, 0, 0.3839724354387525)
+
+[node name="Crystal4" type="MeshInstance3D" parent="Stage"]
+position = Vector3(2.6000000000000005, -0.05, -2.6)
+mesh = SubResource("Mesh18")
+rotation = Vector3(0, 0, 0.3839724354387525)
+
+[node name="Crystal5" type="MeshInstance3D" parent="Stage"]
+position = Vector3(5.2, -0.05, -2.6)
+mesh = SubResource("Mesh19")
+rotation = Vector3(0, 0, 0.3839724354387525)
+
+[node name="FrontLine" type="MeshInstance3D" parent="Stage"]
+position = Vector3(0, -0.68, 1.4)
+mesh = SubResource("Mesh20")
+
+[node name="AllySlots" type="Node3D" parent="."]
+
+[node name="Slot1" type="Marker3D" parent="AllySlots"]
+position = Vector3(-3.7, 0.5, 0.0)
+
+[node name="Actor" parent="AllySlots/Slot1" instance=ExtResource("actor")]
+display_name = "Lira"
+profile = ExtResource("lira")
+
+[node name="Slot2" type="Marker3D" parent="AllySlots"]
+position = Vector3(-2.5, 0.5, 0.25)
+
+[node name="Actor" parent="AllySlots/Slot2" instance=ExtResource("actor")]
+display_name = "Noa"
+profile = ExtResource("noa")
+
+[node name="Slot3" type="Marker3D" parent="AllySlots"]
+position = Vector3(-1.3000000000000003, 0.5, 0.5)
+
+[node name="Actor" parent="AllySlots/Slot3" instance=ExtResource("actor")]
+display_name = "Tercer integrante"
+profile = ExtResource("lira")
+
+[node name="EnemySlot" type="Marker3D" parent="."]
+position = Vector3(2.9, 0.5, -0.3)
+
+[node name="Actor" parent="EnemySlot" instance=ExtResource("actor")]
+display_name = "Enemigo"
+profile = ExtResource("enemy")
+
+[node name="Feedback" type="Node3D" parent="."]
+script = ExtResource("feedback")

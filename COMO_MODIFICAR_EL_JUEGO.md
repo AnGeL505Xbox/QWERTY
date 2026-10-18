@@ -1,6 +1,15 @@
 # Modificar el juego
-Haz una rama antes de cambiar contenido. Abre `data/content.json`: `characters[].energy` cambia la energía de cada personaje y `balance.hand_size` el robo compartido. `characters[].deck` define sus cartas. `team` define el equipo inicial; su orden determina a quién atacará primero el enemigo.
+Empieza por `EDICION_VISUAL.md`: es el recorrido para editar sin escribir GDScript. El panel **Contenido** abre recursos, escenas y validación.
 
-Las pruebas usan el balance inicial como ejemplo de regresión: si lo cambias deliberadamente, revisa sus expectativas. Ejecuta también el juego para comprobar si el combate sigue siendo justo.
+- **Cartas:** `data/cards/*.tres` → Cost, Effects, Description, Illustration.
+- **Personajes:** `data/characters/*.tres` → estadísticas, energía, estrés, Deck, Special y Visual Profile.
+- **Enemigos:** `data/enemies/*.tres` → vida y Pattern.
+- **Balance y registros:** `data/catalog.tres` → Hand Size, Cards, Characters, Enemies, Statuses y Team.
+- **Escenario y posiciones:** `scenes/visuals/arena.tscn`.
+- **Interfaz y cartas:** `scenes/ui/interface.tscn`, `card.tscn` y `theme.tres`.
 
-Consulta las guías de cartas, personajes, enemigos y gráficos. Haz commits pequeños. No cambies IDs existentes sin considerar futuras partidas guardadas.
+Guarda escenas y recursos antes de ejecutar F5. Los contenedores repetidos se llenan durante el juego desde plantillas; los textos de estadísticas cambian con el estado de combate. Las guías de cartas, personajes, enemigos y gráficos muestran ejemplos concretos.
+
+Las pruebas numéricas incluyen el balance original como regresión. Si lo modificas deliberadamente, revisa esas expectativas; un fallo no significa necesariamente que tu nuevo balance sea incorrecto. Prueba también una partida real.
+
+Haz una rama y commits pequeños. No cambies IDs existentes sin revisar referencias y futuras partidas guardadas. `data/content.json` se conserva como referencia histórica y ya no es la fuente activa.

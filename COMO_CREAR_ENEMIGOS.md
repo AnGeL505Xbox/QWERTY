@@ -1,10 +1,10 @@
-# Crear enemigos
-En `data/content.json`, duplica una entrada de `enemies`, asigna un ID único y configura `name`, `health` y `pattern`. Aparecerá automáticamente en el menú. Ejemplo:
+# Crear enemigos visualmente
+1. Duplica `data/enemies/eco.tres` y asigna un **Id** nuevo y **Display Name** en el Inspector.
+2. Cambia **Health** y despliega **Pattern**. Cada elemento es un `RpgIntentDefinition` con **Type** (`attack`, `guard`, `heal`) y **Amount** entero no negativo.
+3. Ejemplo de un Vigía: vida 35, primera intención `guard` de 4 y segunda `attack` de 7. El patrón se repite en ese orden.
+4. Arrastra un perfil visual a **Visual Profile**. Duplica `visuals/profiles/enemy.tres` si quieres otro gráfico o tinte. Sin perfil propio se utiliza el respaldo de la escena.
+5. Añade el archivo a **Enemies** de `data/catalog.tres`. Guarda, valida y ejecuta F5: aparecerá en el menú automáticamente.
 
-```json
-{"id":"vigia","name":"Vigía","health":35,"pattern":[{"type":"guard","amount":4},{"type":"attack","amount":7}]}
-```
+La intención mostrada es la acción que realizará al terminar tu turno. Los ataques anuncian al primer aliado vivo según el orden del equipo. La defensa reduce daño antes del escudo y el daño real añade estrés. La curación no supera la vida inicial y el escudo enemigo expira antes de su siguiente acción.
 
-Las acciones disponibles son `attack`, `guard` y `heal`. El patrón se repite desde su primera entrada. La intención mostrada es exactamente la acción que ejecutará al terminar tu turno. Los ataques anuncian el primer aliado vivo según el orden del equipo. La defensa del personaje reduce daño antes del escudo y el daño real añade estrés. La curación no supera la vida inicial; la guardia absorbe daño y expira antes de la siguiente acción enemiga. Magnitudes enteras no negativas.
-
-Los tres enemigos reutilizan el sprite provisional; arte por enemigo y selección de encuentros roguelike quedan pendientes. Prueba nuevos patrones y su dificultad antes de publicarlos.
+Para cambiar la posición del enemigo, mueve **EnemySlot** en `scenes/visuals/arena.tscn`. La selección de encuentros roguelike sigue pendiente. Prueba nuevos patrones y su dificultad antes de distribuirlos.

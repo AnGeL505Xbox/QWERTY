@@ -1,13 +1,15 @@
-# Crear personajes
-En `data/content.json`, duplica la definición de Noa o Lira en `characters`. Usa un `id` único y cambia `name`, `health`, `attack`, `defense`, `energy`, `affinity` y `color` (hexadecimal RGB).
+# Crear personajes visualmente
+1. Duplica `data/characters/noa.tres` desde Sistema de archivos. Asigna **Id** único y **Display Name** en el Inspector.
+2. Ajusta **Health**, **Attack**, **Defense**, **Energy**, **Affinity** y **Color**. Affinity sigue siendo información para reglas elementales futuras.
+3. Duplica las cartas que quieras para el nuevo personaje. Cambia sus IDs y **Owner** al nuevo ID. Regístralas en **Cards** de `data/catalog.tres`.
+4. En **Deck** del personaje, reemplaza las cartas de Noa por las nuevas arrastrando sus `.tres`. **Special** debe apuntar a una carta suya. Solo Deck determina las cartas que se roban.
+5. Ajusta las categorías **Estrés y crisis** y **Pasivas**: **Crisis Energy Loss**, **Crisis Relief**, **Passive Start Block**, **Passive Stress Relief**.
+6. Arrastra un perfil de `visuals/profiles/` a **Visual Profile**. Puedes duplicar un perfil para cambiar textura, SpriteFrames o color sin afectar a otros.
+7. Añade el nuevo recurso a **Characters** del catálogo. Para seleccionarlo por defecto, arrástralo también a **Team** (de uno a tres integrantes). Todos los registrados aparecen en el menú.
+8. Guarda, valida y ejecuta F5. La prueba de tres integrantes demuestra que no hace falta duplicar el código de combate.
 
-1. Duplica las cartas que quieras para el nuevo personaje, asigna IDs únicos y cambia `owner` a su nuevo ID.
-2. En `deck`, escribe los IDs de sus cartas. Repetir un ID añade copias. El mazo solo admite cartas de ese propietario.
-3. En `special`, referencia una de sus cartas especiales. Aparece con ★; inclúyela en `deck` si quieres robarla.
-4. Configura `stress_limit`, `crisis.energy_loss` y `crisis.relief`. `passive.start_block` da escudo al empezar turno y `passive.stress_relief` reduce estrés después de evaluar la crisis.
-5. Añade su ID a `team` para seleccionarlo por defecto (máximo tres); todos los personajes aparecen automáticamente en el menú y pueden incluirse o retirarse. Se requiere al menos uno.
-6. Abre el juego y ejecuta las pruebas del README. La prueba de tres integrantes demuestra que no hace falta duplicar el combate.
+El orden de Team es el orden de los slots y del objetivo enemigo. Modifica `scenes/visuals/arena.tscn` → `AllySlots/Slot1…3` para moverlos en el escenario. La escena `scenes/visuals/actor.tscn` define la estructura visual compartida.
 
-Las estadísticas de combate y el color son funcionales. `affinity` identifica el elemento para contenido futuro; aún no aplica resistencias ni ventajas elementales. No existe selección de retratos ni progresión persistente todavía. Para asociar imagen o SpriteFrames propios, crea un perfil visual según `COMO_CAMBIAR_GRAFICOS.md`; Lira y Noa ya tienen ilustraciones provisionales distintas.
+**Color** es el respaldo para un personaje sin perfil; si tiene Visual Profile, manda su **Tint**. No hay selección de retratos, resistencias elementales ni progresión persistente todavía.
 
-Consulta `documentation/PERSONAJES_Y_ESTRES.md` para el orden exacto de turnos y estados.
+Consulta `EDICION_VISUAL.md` y `documentation/PERSONAJES_Y_ESTRES.md` para las reglas exactas.

@@ -1,16 +1,25 @@
-# Crear cartas
-En `data/content.json`, duplica una entrada de `cards`, asigna un `id` único y añade ese ID al `deck` de su propietario en `characters` para jugarla.
+# Crear cartas desde el Inspector
+## Cambiar una carta existente
+Abre `data/cards/corte.tres` o selecciónala en el panel **Contenido**. Cambia **Cost**, **Description** y **Effects → 0 → Amount**. Guarda y ejecuta F5. **Illustration** admite una textura arrastrada desde Sistema de archivos.
 
-Ejemplo: `{"id":"chispa","name":"Chispa","cost":2,"owner":"lira","target":"enemy","exhaust":false,"description":"Inflige 10 de daño.","effects":[{"type":"damage","amount":10}]}`.
+## Duplicar una carta
+1. Duplica `data/cards/corte.tres` desde Sistema de archivos y nómbrala `chispa.tres`.
+2. En el Inspector usa **Id** `chispa`, **Display Name** `Chispa`, **Owner** `lira`, **Cost** `2`, **Target** `enemy`.
+3. En **Effects**, edita el recurso `RpgEffectDefinition`: **Type** `damage`, **Amount** `10`. Actualiza la descripción.
+4. Abre `data/catalog.tres`, amplía **Cards** y arrastra `chispa.tres` al elemento nuevo.
+5. Abre `data/characters/lira.tres`, amplía **Deck** y arrastra el mismo archivo. Repetir el recurso añade copias al mazo.
+6. Guarda y pulsa **Validar contenido**. El registro en Cards permite reconocerla; Deck determina que pueda robarse.
 
-`cost` controla energía y `amount` la magnitud entera no negativa. `owner` debe ser un ID de personaje. `target` es `enemy` (daño), `self` (dueño) o `ally` (aliado vivo elegido, para curación, escudo, calma o estados). El coste siempre lo paga el dueño. `exhaust: true` retira la carta del combate después de jugarla; si solo la descartas al terminar turno, no se agota.
+Los efectos incrustados se copian al duplicar el archivo. Si tú vinculas un efecto externo compartido entre cartas, sus cambios afectarán a ambas; usa **Hacer único** si quieres separarlos.
 
-Efectos: `calm` (reduce estrés), `status` (estado temporal), `damage`, `block`, `heal`, `draw` (robar) y `energy` (ganar energía durante este turno). Una carta puede combinar efectos del mismo destino, ejecutados en orden. La descripción se edita manualmente y debe coincidir con las reglas. Ejemplos reales: `lectura`, `reserva` y `refugio`.
+## Campos y efectos
+**Owner** es el ID estable del personaje que paga el coste. **Target**: `enemy` para daño, `self` para el dueño, `ally` para un aliado vivo elegido (curación, escudo, calma o estado). **Exhaust** retira la carta después de jugarla; no se agota solo por descartarla al terminar turno.
 
-Para un nuevo efecto, crea un módulo en `core/effects/` con `static func apply(battle, amount: int) -> void`. Regístralo en `registry.gd` junto con su destino y añade pruebas de comportamiento en `tests/run.gd`. No necesitas editar el bucle de `Battle.play`.
+Efectos disponibles: `damage`, `block`, `heal`, `draw`, `energy`, `calm`, `status`. La magnitud **Amount** es entera no negativa; para `status` es una duración positiva. En ese caso arrastra un `.tres` de `data/statuses/` al campo **Status**. `impulso.tres` muestra Resonancia de dos rondas y `refugio.tres` combina dos efectos compatibles con el mismo destino.
 
-Las mejoras, rarezas y editor visual quedan pendientes. Para comprobar cambios, ejecuta los comandos del README; las expectativas numéricas de pruebas deben revisarse si cambias el balance deliberadamente.
+El daño suma el ataque efectivo del dueño. Una habilidad especial es una carta referenciada por **Special** del personaje y marcada con ★; añade esa carta a Deck para robarla. Rarezas y mejoras todavía no están implementadas.
 
-Ejemplo de estado: `{"type":"status","status":"strength","amount":2}` aplica Resonancia durante dos rondas. `amount` es duración entera positiva; la magnitud se define en `statuses.strength.attack`. La carta `impulso` muestra un ejemplo completo. El daño suma `attack` efectivo del propietario al `amount` de la carta.
+## Nuevas reglas
+Para un tipo de efecto totalmente nuevo, crea su módulo en `core/effects/`, regístralo en `registry.gd`, añade la opción al enum de `core/data/resources/effect_definition.gd` y añade pruebas de comportamiento. No hace falta modificar el bucle de Battle.play. La edición visual configura las reglas disponibles; no genera código de combate.
 
-Una habilidad especial es una carta normal referenciada por `characters[].special` y marcada con ★. No tiene un segundo sistema de costes ni botón oculto; `destello` y `aurora` se agotan tras usarse.
+El diseño visual se modifica en `scenes/ui/card.tscn`. Selecciona su raíz y cambia **Preview Card** para ver otra carta en el editor. Consulta `EDICION_VISUAL.md`.

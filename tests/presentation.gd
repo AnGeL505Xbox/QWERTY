@@ -22,7 +22,7 @@ func run() -> void:
 	profile.frames = SpriteFrames.new() # Recurso sin fotogramas: debe usar el SVG de respaldo.
 	for state in profile.durations:
 		profile.durations[state] = 0.05
-	var view := Actor.new()
+	var view = load("res://scenes/visuals/actor.tscn").instantiate()
 	root.add_child(view)
 	view.setup("prueba", "Nombre de prueba", profile)
 	check(view.body.sprite_frames.has_animation("idle") and view.body.sprite_frames.get_frame_count("idle") == 1, "Respaldo sin spritesheet")
@@ -48,7 +48,7 @@ func run() -> void:
 	check(view.terminal and view.current == "victory", "Victoria persistente")
 	view.play_animation("attack")
 	check(view.current == "victory", "No sobreescribir estado final")
-	var defeated := Actor.new()
+	var defeated = load("res://scenes/visuals/actor.tscn").instantiate()
 	root.add_child(defeated)
 	defeated.setup("caido", "Caído", profile)
 	defeated.play_animation("hurt")
@@ -61,7 +61,7 @@ func run() -> void:
 	native_profile.frames.add_animation("golpe")
 	native_profile.frames.add_frame("golpe", load("res://visuals/traveler.svg"))
 	native_profile.animation_names = {"attack": "golpe"}
-	var native_view := Actor.new()
+	var native_view = load("res://scenes/visuals/actor.tscn").instantiate()
 	root.add_child(native_view)
 	native_view.setup("native", "Native", native_profile)
 	native_view.play_animation("attack")
@@ -69,7 +69,7 @@ func run() -> void:
 	var data := Catalog.load_content()
 	var battle := Battle.new(data, 14)
 	var plain := Battle.new(data, 14)
-	var arena := Arena.new()
+	var arena = load("res://scenes/visuals/arena.tscn").instantiate()
 	root.add_child(arena)
 	arena.set_team(battle.team)
 	arena.set_enemy(battle.enemy)

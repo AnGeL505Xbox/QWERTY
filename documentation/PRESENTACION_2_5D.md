@@ -4,7 +4,7 @@ El combate emite `combat_event` después de aplicar una acción. Contiene `sourc
 
 Arena escucha los eventos; nunca entrega resultados a Battle. Jugar cartas rápidas puede dejar animaciones pendientes, pero el estado de combate ya está resuelto. No se bloquean acciones mientras se animan sprites y no se consulta el final de un clip para calcular daño. La interfaz conserva el estado final y el objetivo enemigo anunciado.
 
-Cada Actor tiene una cola de máximo ocho animaciones pendientes. Los estados finales se añaden después de los impactos pendientes, impiden nuevos movimientos y conservan su pose. La derrota sustituye la ocultación instantánea anterior. Cambiar de combate elimina actores, tweens vinculados a esos nodos y efectos; no se acumulan enemigos entre reinicios.
+Cada Actor tiene una cola de máximo ocho animaciones pendientes. Los estados finales se añaden después de los impactos pendientes, impiden nuevos movimientos y conservan su pose. La derrota sustituye la ocultación instantánea anterior. Desde la fase de edición visual, los actores son instancias de escena en slots permanentes. Cambiar de combate reinicia sus tweens, colas y estado final y limpia efectos; no se acumulan enemigos entre reinicios.
 
 ## Nueve estados
 | Estado | Disparador | Respaldo procedural |
@@ -26,4 +26,4 @@ La presentación utiliza una luz sin sombras, geometría ligera, texto 3D y anil
 
 `tests/presentation.gd` comprueba los nueve estados, clips nativos, respaldo, objetivos, deltas reales, limpieza, límites y equivalencia de reglas con/sin presentación. Es una prueba sin renderizado gráfico: no demuestra composición visual, legibilidad, FPS ni compatibilidad efectiva en dispositivos. Revisar manualmente menú, tres integrantes, cartas, ambos resultados y sustitución de spritesheets antes de una distribución.
 
-No se agregan sonidos ni arte final en esta fase. Perfiles de calidad, accesibilidad completa y exportaciones se mantienen en fase 6. La siguiente fase incorpora mapa roguelike, recompensas, mejoras y guardado versionado.
+No se agregan sonidos ni arte final en esta fase. Perfiles de calidad, accesibilidad completa y exportaciones se mantienen en fase 6. Antes del roguelike se añadió la fase de edición visual descrita en `EDICION_VISUAL.md`; mapa, recompensas, mejoras y guardado versionado siguen pendientes.

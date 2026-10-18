@@ -6,6 +6,11 @@ Importa `project.godot` en Godot y pulsa F6 sobre `scenes/main.tscn` o F5. Selec
 
 Los botones admiten ratón, toque y navegación de foco de Godot. No requieren hover. La verificación táctil en un dispositivo real sigue pendiente.
 
+## Edición visual
+Abre el panel **Contenido** en Godot para acceder al catálogo, escenas y validación. Las cartas, personajes, enemigos y estados son Resources `.tres` editables en el Inspector. Escenario, cámara, posiciones, menú, HUD y plantillas están en escenas `.tscn`.
+
+Empieza por [EDICION_VISUAL.md](EDICION_VISUAL.md). Por ejemplo, abre `data/cards/corte.tres`, modifica **Effects → 0 → Amount**, guarda y pulsa F5. **La fuente activa es `data/catalog.tres`**; el JSON anterior se conserva como referencia histórica y ya no se lee al ejecutar.
+
 ## Validar
 ```sh
 godot --headless --path . --editor --import --quit
@@ -13,6 +18,7 @@ godot --headless --path . --script tests/run.gd
 godot --headless --path . --script tests/party.gd
 godot --headless --path . --script tests/presentation.gd
 godot --headless --path . --script tests/scene_smoke.gd
+godot --headless --path . --script tests/visual_editing.gd
 ```
 En la máquina de nube, usa directorios escribibles antes de estos comandos:
 ```sh
@@ -23,11 +29,11 @@ mkdir -p "$XDG_DATA_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 ```
 
 ## Alcance
-Fases 1–4: dos personajes originales con estadísticas, pasivas y crisis configurables; tres enemigos seleccionables; catorce cartas y diecinueve entradas entre los mazos de Lira y Noa; robo, descarte, barajado reproducible, energía, daño, escudo, curación, agotamiento y victoria/derrota. Los enemigos alternan ataques, guardia o curación según patrones editables. Escenario 3D ligero con profundidad y paralaje, perfiles visuales editables, sprites SVG originales, nueve animaciones de respaldo y efectos de combate. No es todavía el vertical slice completo.
+Fases 1–4 y edición visual previa al roguelike: dos personajes originales con estadísticas, pasivas y crisis configurables; tres enemigos seleccionables; catorce cartas y diecinueve entradas entre los mazos de Lira y Noa; robo, descarte, barajado reproducible, energía, daño, escudo, curación, agotamiento y victoria/derrota. Los enemigos alternan ataques, guardia o curación según patrones editables. Escenario 3D ligero con profundidad y paralaje, perfiles visuales editables, sprites SVG originales, nueve animaciones de respaldo y efectos de combate. No es todavía el vertical slice completo.
 
 Consulta `PLAN_DE_DESARROLLO.md`, `ARQUITECTURA.md` y las guías `COMO_*.md`. No se han probado exportaciones, calidad visual en pantalla ni rendimiento Android. No hay guardado todavía.
 
-Pruebas de fase 4: 107 comprobaciones de reglas, 39 de presentación y siete verificaciones de escena (153 en total), sin fallos. Validación sin interfaz gráfica; revisión visual y dispositivos reales pendiente.
+Validación actual: 190 comprobaciones sin fallos (53 de combate, 54 de personajes, 39 de presentación, 7 de escena y 37 de edición visual). La nueva suite comprueba migración, validación y persistencia de cambios en Resources y escenas. Validación sin interfaz gráfica; revisión visual y dispositivos reales pendiente.
 
 Para probar los estados, juega **Resonancia** o **Pacto protector** de Noa. Usa **Ancla serena** antes de que el estrés alcance el umbral. El menú conserva al menos un integrante y permite volver a jugar con Lira sola. Las reglas detalladas están en `documentation/PERSONAJES_Y_ESTRES.md`.
 

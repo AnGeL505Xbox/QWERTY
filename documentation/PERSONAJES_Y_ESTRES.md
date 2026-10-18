@@ -7,7 +7,7 @@ Los ataques y apoyos tienen propietario. `self` afecta al dueño, `ally` permite
 ## Estadísticas y pasivas
 Daño de carta = valor base + ataque efectivo del dueño. Para recibir un ataque: se resta defensa efectiva, después se consume escudo y finalmente vida. No se genera daño negativo. La energía se repone al inicio de cada turno individual y no se conserva entre rondas. Todos los integrantes tienen turno simultáneo dentro de la fase del jugador.
 
-Noa tiene ataque 1, defensa 1 y pasiva de 1 de escudo al empezar turno. Lira conserva las estadísticas de la fase 2 (ataque/defensa 0). Las pasivas admitidas son `start_block` y `stress_relief`, valores no negativos. Un tipo nuevo de pasiva exige su regla y pruebas; no se evalúa código desde JSON.
+Noa tiene ataque 1, defensa 1 y pasiva de 1 de escudo al empezar turno. Lira conserva las estadísticas de la fase 2 (ataque/defensa 0). Las pasivas admitidas son `start_block` y `stress_relief`, valores no negativos. Un tipo nuevo de pasiva exige su regla y pruebas; no se evalúa código desde los datos de contenido.
 
 ## Estrés y crisis
 Cada punto de vida perdido añade un punto de estrés hasta `stress_limit`. El daño absorbido no añade estrés. Curar vida no lo elimina; `calm` sí. Al iniciar turno, si un integrante vivo alcanzó su umbral, se marca CRISIS, se resta `crisis.energy_loss` de su energía (mínimo cero) y se reduce estrés en `crisis.relief`. La crisis se reevalúa en cada turno; no impide jugar cartas que se puedan pagar.
@@ -30,4 +30,6 @@ Para trasladar contenido personalizado de fase 2:
 5. Añade `team` (IDs de uno a tres personajes) y `statuses` (puede ser vacío si ninguna carta usa estados).
 6. Ejecuta importación, validación del catálogo y pruebas. No renombres IDs sin revisar todas sus referencias.
 
-La validación de integridad actual usa aserciones en modo de depuración. No es todavía un editor de contenido con mensajes recuperables para usuarios finales. El guardado y sus futuras migraciones pertenecen a la fase roguelike.
+La fase de edición visual sustituyó las aserciones de catálogo por mensajes recuperables y Resources editables. El panel Contenido valida antes de jugar. La migración JSON v1 → v2 de esta sección es histórica; la fuente activa actual es `data/catalog.tres`. El guardado y sus futuras migraciones pertenecen a la fase roguelike.
+
+Los campos del Inspector `Crisis Energy Loss`, `Crisis Relief`, `Passive Start Block` y `Passive Stress Relief` se convierten a las definiciones de esta guía sin cambiar sus reglas. Consulta `EDICION_VISUAL.md`.
