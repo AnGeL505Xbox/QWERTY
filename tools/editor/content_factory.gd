@@ -3,7 +3,7 @@ extends RefCounted
 
 const Catalog = preload("res://core/data/catalog.gd")
 const RunValidator = preload("res://core/save_system/run_validator.gd")
-const GROUPS = {"card": "cards", "character": "characters", "enemy": "enemies", "status": "statuses", "reward": "rewards", "event": "events"}
+const GROUPS = {"card": "cards", "character": "characters", "enemy": "enemies", "status": "statuses", "reward": "rewards", "event": "events", "relic": "relics", "biome": "biomes"}
 
 # Prepara una propuesta sin escribir ni modificar los recursos del usuario.
 static func plan(kind: String, id: String, title: String, catalog: RpgContentCatalog, rules: RpgRunDefinition, source: Resource = null, owner_id: String = "", activate_reward: bool = false, directory: String = "res://data") -> Dictionary:
@@ -24,6 +24,8 @@ static func plan(kind: String, id: String, title: String, catalog: RpgContentCat
 		proposed.set(group, catalog.get(group).duplicate())
 	proposed.hand_size = catalog.hand_size
 	var proposed_rules: RpgRunDefinition = rules.duplicate(false)
+	proposed_rules.relics = rules.relics.duplicate()
+	proposed_rules.biomes = rules.biomes.duplicate()
 	proposed_rules.events = rules.events.duplicate()
 	proposed_rules.encounters = rules.encounters.duplicate()
 	var created: Resource
@@ -78,6 +80,15 @@ static func plan(kind: String, id: String, title: String, catalog: RpgContentCat
 		"reward":
 			created = source.duplicate(false) if source != null else RpgRewardTable.new()
 			if activate_reward or rules.reward_table == null: proposed_rules.reward_table = created
+		"relic":
+			created = source.duplicate(false) if source != null else RpgRelicDefinition.new()
+			proposed_rules.relics.append(created)
+		"biome":
+			created = source.duplicate(false) if source != null else RpgBiomeDefinition.new()
+			if source == null: created.last_row = rules.rows - 1
+			else:
+				created.encounters = source.encounters.duplicate()
+				created.events = source.events.duplicate()
 		"event":
 			created = source.duplicate(false) if source != null else RpgEventDefinition.new()
 			var empty_choices: Array[RpgEventChoice] = []
@@ -100,6 +111,15 @@ static func plan(kind: String, id: String, title: String, catalog: RpgContentCat
 	if kind == "reward" and proposed_rules.reward_table != created:
 		var check_rules: RpgRunDefinition = proposed_rules.duplicate(false)
 		check_rules.reward_table = created
+		errors.append_array(RunValidator.resource_configuration(proposed, check_rules))
+	if kind == "biome":
+		if created.first_row < 0 or created.last_row < created.first_row or created.last_row >= rules.rows:
+			errors.append("Bioma: rango de etapas inválido.")
+		var check_rules: RpgRunDefinition = proposed_rules.duplicate(false)
+		var check_biome: RpgBiomeDefinition = created.duplicate(false)
+		check_biome.first_row = 0
+		check_biome.last_row = rules.rows - 1
+		check_rules.biomes = [check_biome]
 		errors.append_array(RunValidator.resource_configuration(proposed, check_rules))
 	return {"errors": errors, "catalog": proposed, "rules": proposed_rules, "resource": created, "files": files}
 
@@ -124,6 +144,8 @@ static func kind_of(resource: Resource) -> String:
 	if resource is RpgStatusDefinition: return "status"
 	if resource is RpgRewardTable: return "reward"
 	if resource is RpgEventDefinition: return "event"
+	if resource is RpgRelicDefinition: return "relic"
+	if resource is RpgBiomeDefinition: return "biome"
 	return ""
 
 static func _file(directory: String, group: String, resource: Resource) -> Dictionary:

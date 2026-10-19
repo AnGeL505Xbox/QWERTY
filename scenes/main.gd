@@ -57,6 +57,7 @@ func _menu() -> void:
 		_save_run()
 		run = null
 	run_ui.visible = false
+	arena.apply_biome({})
 	selected = -1
 	arena.highlight_targets([])
 	var errors := Catalog.validate_resource(catalog)
@@ -91,6 +92,7 @@ func _start() -> void:
 	_bind_battle()
 
 func _bind_battle() -> void:
+	arena.apply_biome(run.active_biome() if run != null else {})
 	run_ui.visible = false
 	arena.set_profiles(catalog.visual_profiles())
 	if run != null and expedition_rules != null and expedition_rules.boss != null and expedition_rules.boss.visual_profile != null:
@@ -114,6 +116,11 @@ func _render() -> void:
 	arena.highlight_targets(highlighted)
 	ui.show_battle(battle, selected)
 	ui.set_expedition_mode(run != null, battle.result != "")
+	var details: Array[String] = []
+	if run != null:
+		if not run.active_biome().is_empty(): details.append(str(run.active_biome().name))
+		for id in run.relic_ids: details.append(run.relic_description(id))
+	ui.set_adventure_info("\n".join(details))
 	ui.set_save_notice(save_notice if run != null else "")
 
 func _select(index: int) -> void:
@@ -168,6 +175,7 @@ func _continue_expedition() -> void:
 	_show_run()
 
 func _show_run() -> void:
+	arena.apply_biome(run.active_biome())
 	selected = -1
 	arena.highlight_targets([])
 	if run.phase == "combat":

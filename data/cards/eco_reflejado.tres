@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=5 format=3]
+[ext_resource type="Script" path="res://core/data/resources/card_definition.gd" id="1"]
+[ext_resource type="Script" path="res://core/data/resources/effect_definition.gd" id="2"]
+[ext_resource type="Texture2D" path="res://visuals/characters/noa.svg" id="3"]
+[sub_resource type="Resource" id="e0"]
+script = ExtResource("2")
+type = "damage"
+amount = 8
+[resource]
+script = ExtResource("1")
+id = "eco_reflejado"
+display_name = "Eco reflejado"
+owner = "noa"
+cost = 1
+target = "enemy"
+exhaust = true
+description = "Inflige 8 de daño. Se agota."
+illustration = ExtResource("3")
+effects = Array[ExtResource("2")]([SubResource("e0")])

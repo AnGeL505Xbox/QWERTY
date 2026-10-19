@@ -22,12 +22,12 @@ func _process(_delta: float) -> void:
 		if fingerprint != preview_hash and not rules.encounters.is_empty() and rules.boss.has("id"):
 			preview_hash = fingerprint
 			var preview: Array = preload("res://core/progression/route.gd").generate(preview_seed, rules)
-			_build(preview, preview.filter(func(node): return node.row == 0).map(func(node): return node.id), [], int(rules.rows))
+			_build(preview, preview.filter(func(node): return node.row == 0).map(func(node): return node.id), [], int(rules.rows), rules.get("biomes", []))
 
 func display(run) -> void:
-	_build(run.nodes, run.available(), run.visited, int(run.config.rows))
+	_build(run.nodes, run.available(), run.visited, int(run.config.rows), run.config.get("biomes", []))
 
-func _build(route_nodes: Array, available: Array, visited: Array, rows: int) -> void:
+func _build(route_nodes: Array, available: Array, visited: Array, rows: int, biomes: Array = []) -> void:
 	for child in get_children():
 		remove_child(child)
 		child.queue_free()
@@ -38,6 +38,10 @@ func _build(route_nodes: Array, available: Array, visited: Array, rows: int) -> 
 		var view: Button = node_scene.instantiate()
 		view.position = origin + Vector2(node.row * step.x, node.column * step.y)
 		view.text = ("✓ " if node.id in visited else "") + title(node.type) + "\n" + node.id
+		for biome in biomes:
+			if biome.id == node.get("biome", ""):
+				view.text = ("✓ " if node.id in visited else "") + title(node.type) + "\n" + str(biome.name) + "\n" + node.id
+				view.modulate = Color(str(biome.color)).lightened(0.4)
 		view.disabled = not node.id in available
 		view.pressed.connect(func(): selected.emit(node.id))
 		add_child(view)

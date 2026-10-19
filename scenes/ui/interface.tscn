@@ -96,6 +96,13 @@ theme_override_font_sizes/font_size = 24
 text = "Equipo contra Eco del vacío · Turno 1"
 autowrap_mode = 3
 
+[node name="AdventureInfo" type="Label" parent="Scroll/Margin/Battle"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
+
 [node name="Members" type="VBoxContainer" parent="Scroll/Margin/Battle"]
 unique_name_in_owner = true
 layout_mode = 2

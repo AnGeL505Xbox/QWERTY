@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://core/data/resources/relic_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+id = "semilla"
+display_name = "Semilla de ópalo"
+description = "La victoria hace florecer una recuperación leve."
+turn_block = 0
+turn_energy = 0
+victory_heal = 3
+victory_gold = 0

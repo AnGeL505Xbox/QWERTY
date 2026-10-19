@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=5 format=3]
+[ext_resource type="Script" path="res://core/data/resources/card_definition.gd" id="1"]
+[ext_resource type="Script" path="res://core/data/resources/effect_definition.gd" id="2"]
+[ext_resource type="Texture2D" path="res://visuals/characters/noa.svg" id="3"]
+[sub_resource type="Resource" id="e0"]
+script = ExtResource("2")
+type = "heal"
+amount = 9
+[resource]
+script = ExtResource("1")
+id = "marea"
+display_name = "Marea reparadora"
+owner = "noa"
+cost = 2
+target = "ally"
+exhaust = false
+description = "Cura 9 PV a un aliado vivo."
+illustration = ExtResource("3")
+effects = Array[ExtResource("2")]([SubResource("e0")])

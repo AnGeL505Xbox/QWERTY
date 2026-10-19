@@ -1,0 +1,28 @@
+[gd_resource type="Resource" load_steps=20 format=3]
+[ext_resource type="Script" path="res://core/data/resources/run_definition.gd" id="run"]
+[ext_resource type="Script" path="res://core/data/resources/enemy_definition.gd" id="enemy"]
+[ext_resource type="Script" path="res://core/data/resources/event_definition.gd" id="event"]
+[ext_resource type="Script" path="res://core/data/resources/relic_definition.gd" id="relic"]
+[ext_resource type="Script" path="res://core/data/resources/biome_definition.gd" id="biome"]
+[ext_resource type="Resource" path="res://data/enemies/eco.tres" id="eco"]
+[ext_resource type="Resource" path="res://data/enemies/susurro.tres" id="susurro"]
+[ext_resource type="Resource" path="res://data/enemies/espinero.tres" id="espinero"]
+[ext_resource type="Resource" path="res://data/progression/boss.tres" id="boss"]
+[ext_resource type="Resource" path="res://data/rewards/standard.tres" id="reward"]
+[ext_resource type="Resource" path="res://data/events/fountain.tres" id="fountain"]
+[ext_resource type="Resource" path="res://data/events/archive.tres" id="archive"]
+[ext_resource type="Resource" path="res://data/events/caravan.tres" id="caravan"]
+[ext_resource type="Resource" path="res://data/relics/concha.tres" id="concha"]
+[ext_resource type="Resource" path="res://data/relics/brasa.tres" id="brasa"]
+[ext_resource type="Resource" path="res://data/relics/semilla.tres" id="semilla"]
+[ext_resource type="Resource" path="res://data/relics/medallon.tres" id="medallon"]
+[ext_resource type="Resource" path="res://data/biomes/ruinas_nacar.tres" id="ruinas"]
+[ext_resource type="Resource" path="res://data/biomes/jardin_opalo.tres" id="jardin"]
+[resource]
+script = ExtResource("run")
+boss = ExtResource("boss")
+reward_table = ExtResource("reward")
+encounters = Array[ExtResource("enemy")]([ExtResource("eco"), ExtResource("susurro"), ExtResource("espinero")])
+events = Array[ExtResource("event")]([ExtResource("fountain"), ExtResource("archive"), ExtResource("caravan")])
+relics = Array[ExtResource("relic")]([ExtResource("concha"), ExtResource("brasa"), ExtResource("semilla"), ExtResource("medallon")])
+biomes = Array[ExtResource("biome")]([ExtResource("ruinas"), ExtResource("jardin")])

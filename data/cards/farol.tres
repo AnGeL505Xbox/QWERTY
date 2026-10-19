@@ -1,0 +1,23 @@
+[gd_resource type="Resource" load_steps=6 format=3]
+[ext_resource type="Script" path="res://core/data/resources/card_definition.gd" id="1"]
+[ext_resource type="Script" path="res://core/data/resources/effect_definition.gd" id="2"]
+[ext_resource type="Texture2D" path="res://visuals/characters/noa.svg" id="3"]
+[sub_resource type="Resource" id="e0"]
+script = ExtResource("2")
+type = "block"
+amount = 7
+[sub_resource type="Resource" id="e1"]
+script = ExtResource("2")
+type = "calm"
+amount = 2
+[resource]
+script = ExtResource("1")
+id = "farol"
+display_name = "Farol compartido"
+owner = "noa"
+cost = 1
+target = "ally"
+exhaust = false
+description = "Otorga 7 de escudo y reduce 2 de estrés a un aliado."
+illustration = ExtResource("3")
+effects = Array[ExtResource("2")]([SubResource("e0"), SubResource("e1")])

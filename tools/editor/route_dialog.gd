@@ -86,6 +86,7 @@ func _render() -> void:
 		var box := GraphNode.new()
 		box.name = "%d_%d" % [node.row, node.column]
 		box.title = "Etapa %d · Carril %d" % [node.row + 1, node.column + 1]
+		var biome := preload("res://core/data/expansion_validator.gd").biome_for_row(_preview_config(), node.row)
 		box.position_offset = Vector2(node.row * 240, node.column * 200 + 20)
 		var fields := VBoxContainer.new()
 		box.add_child(fields)
@@ -107,6 +108,7 @@ func _render() -> void:
 		enemy.set_item_metadata(0, null)
 		for encounter in rules.encounters:
 			if encounter == null: continue
+			if not biome.get("encounters", []).is_empty() and not encounter.id in biome.encounters: continue
 			enemy.add_item(encounter.display_name)
 			enemy.set_item_metadata(enemy.item_count - 1, encounter)
 			if encounter == node.enemy: enemy.select(enemy.item_count - 1)
@@ -118,6 +120,12 @@ func _render() -> void:
 		var resolved := Label.new()
 		resolved.text = "Semilla: " + nodes[index].enemy if nodes[index].type in ["combat", "elite", "boss"] else "Sin combate"
 		fields.add_child(resolved)
+		if not biome.is_empty():
+			var biome_label := Label.new()
+			biome_label.text = "Bioma: " + str(biome.name)
+			biome_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			biome_label.tooltip_text = str(biome.description)
+			fields.add_child(biome_label)
 		box.set_slot(0, node.row > 0, 0, Color.SKY_BLUE, node.row < draft_rows - 1, 0, Color.PALE_GREEN)
 		graph.add_child(box)
 	for node in nodes:

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=8 format=3]
+[ext_resource type="Script" path="res://core/data/resources/biome_definition.gd" id="1"]
+[ext_resource type="Script" path="res://core/data/resources/enemy_definition.gd" id="2"]
+[ext_resource type="Script" path="res://core/data/resources/event_definition.gd" id="3"]
+[ext_resource type="Resource" path="res://data/enemies/eco.tres" id="enemy_eco"]
+[ext_resource type="Resource" path="res://data/enemies/susurro.tres" id="enemy_susurro"]
+[ext_resource type="Resource" path="res://data/events/fountain.tres" id="event_fountain"]
+[ext_resource type="Resource" path="res://data/events/caravan.tres" id="event_caravan"]
+[resource]
+script = ExtResource("1")
+id = "ruinas_nacar"
+display_name = "Ruinas de nácar"
+description = "Senderos azules entre los ecos de una ciudad perdida."
+first_row = 0
+last_row = 1
+color = Color(0.36, 0.64, 0.75, 1)
+encounters = Array[ExtResource("2")]([ExtResource("enemy_eco"), ExtResource("enemy_susurro")])
+events = Array[ExtResource("3")]([ExtResource("event_fountain"), ExtResource("event_caravan")])

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=28 format=3]
+[gd_resource type="Resource" load_steps=35 format=3]
 [ext_resource type="Script" path="res://core/data/resources/content_catalog.gd" id="script"]
 [ext_resource type="Script" path="res://core/data/resources/card_definition.gd" id="cards_type"]
 [ext_resource type="Resource" path="res://data/cards/corte.tres" id="cards_corte"]
@@ -28,11 +28,19 @@
 [ext_resource type="Resource" path="res://data/statuses/fragile.tres" id="statuses_fragile"]
 
 
+[ext_resource type="Resource" path="res://data/cards/estocada.tres" id="cards_estocada"]
+[ext_resource type="Resource" path="res://data/cards/paso_bruma.tres" id="cards_paso_bruma"]
+[ext_resource type="Resource" path="res://data/cards/respiro.tres" id="cards_respiro"]
+[ext_resource type="Resource" path="res://data/cards/farol.tres" id="cards_farol"]
+[ext_resource type="Resource" path="res://data/cards/marea.tres" id="cards_marea"]
+[ext_resource type="Resource" path="res://data/cards/eco_reflejado.tres" id="cards_eco_reflejado"]
+[ext_resource type="Resource" path="res://data/enemies/espinero.tres" id="enemies_espinero"]
+
 [resource]
 script = ExtResource("script")
-cards = Array[ExtResource("cards_type")]([ExtResource("cards_corte"), ExtResource("cards_velo"), ExtResource("cards_pulso"), ExtResource("cards_destello"), ExtResource("cards_lectura"), ExtResource("cards_reserva"), ExtResource("cards_refugio"), ExtResource("cards_aguja"), ExtResource("cards_eco_noa"), ExtResource("cards_sutura"), ExtResource("cards_calma"), ExtResource("cards_impulso"), ExtResource("cards_bastion"), ExtResource("cards_aurora")])
+cards = Array[ExtResource("cards_type")]([ExtResource("cards_corte"), ExtResource("cards_velo"), ExtResource("cards_pulso"), ExtResource("cards_destello"), ExtResource("cards_lectura"), ExtResource("cards_reserva"), ExtResource("cards_refugio"), ExtResource("cards_aguja"), ExtResource("cards_eco_noa"), ExtResource("cards_sutura"), ExtResource("cards_calma"), ExtResource("cards_impulso"), ExtResource("cards_bastion"), ExtResource("cards_aurora"), ExtResource("cards_estocada"), ExtResource("cards_paso_bruma"), ExtResource("cards_respiro"), ExtResource("cards_farol"), ExtResource("cards_marea"), ExtResource("cards_eco_reflejado")])
 characters = Array[ExtResource("characters_type")]([ExtResource("characters_lira"), ExtResource("characters_noa")])
-enemies = Array[ExtResource("enemies_type")]([ExtResource("enemies_eco"), ExtResource("enemies_custodio"), ExtResource("enemies_susurro")])
+enemies = Array[ExtResource("enemies_type")]([ExtResource("enemies_eco"), ExtResource("enemies_custodio"), ExtResource("enemies_susurro"), ExtResource("enemies_espinero")])
 statuses = Array[ExtResource("statuses_type")]([ExtResource("statuses_strength"), ExtResource("statuses_ward"), ExtResource("statuses_fragile")])
 team = Array[ExtResource("characters_type")]([ExtResource("characters_lira"), ExtResource("characters_noa")])
 hand_size = 5

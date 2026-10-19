@@ -7,6 +7,8 @@ var actors: Dictionary = {}
 @onready var feedback: Node3D = $Feedback
 @export var profiles: Dictionary = {}
 var outcome := ""
+@export var biome_tint_enabled := true
+var base_environment: Environment
 @onready var camera: Camera3D = $Camera3D
 var camera_rest_x := 0.0
 var elapsed := 0.0
@@ -16,6 +18,7 @@ var presentation_motion := true
 
 func _ready() -> void:
 	camera_rest_x = camera.position.x
+	base_environment = $WorldEnvironment.environment
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -117,3 +120,13 @@ func sync_battle(battle) -> void:
 			actors[member.id].play_animation("victory" if outcome == "Victoria" else "defeat")
 		if outcome == "Derrota" and enemy_view != null:
 			enemy_view.play_animation("victory")
+
+func apply_biome(biome: Dictionary) -> void:
+	if not biome_tint_enabled or biome.is_empty():
+		$WorldEnvironment.environment = base_environment
+		return
+	var environment: Environment = base_environment.duplicate(false)
+	var tint := Color(str(biome.get("color", "ffffff")))
+	environment.ambient_light_color = tint
+	environment.background_color = tint.darkened(0.88)
+	$WorldEnvironment.environment = environment

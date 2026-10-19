@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=7 format=3]
+[ext_resource type="Script" path="res://core/data/resources/biome_definition.gd" id="1"]
+[ext_resource type="Script" path="res://core/data/resources/enemy_definition.gd" id="2"]
+[ext_resource type="Script" path="res://core/data/resources/event_definition.gd" id="3"]
+[ext_resource type="Resource" path="res://data/enemies/susurro.tres" id="enemy_susurro"]
+[ext_resource type="Resource" path="res://data/enemies/espinero.tres" id="enemy_espinero"]
+[ext_resource type="Resource" path="res://data/events/archive.tres" id="event_archive"]
+[resource]
+script = ExtResource("1")
+id = "jardin_opalo"
+display_name = "Jardín de ópalo"
+description = "Raíces luminosas y guardianes que protegen el umbral."
+first_row = 2
+last_row = 4
+color = Color(0.48, 0.72, 0.48, 1)
+encounters = Array[ExtResource("2")]([ExtResource("enemy_susurro"), ExtResource("enemy_espinero")])
+events = Array[ExtResource("3")]([ExtResource("event_archive")])

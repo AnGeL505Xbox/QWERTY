@@ -9,7 +9,7 @@ const Wizard = preload("res://tools/editor/creation_dialog.gd")
 const DeckDialog = preload("res://tools/editor/deck_dialog.gd")
 const EventDialog = preload("res://tools/editor/event_dialog.gd")
 const RouteDialog = preload("res://tools/editor/route_dialog.gd")
-const LABELS = {"card": "Cartas", "character": "Personajes", "enemy": "Enemigos", "status": "Estados", "reward": "Recompensas", "event": "Eventos"}
+const LABELS = {"card": "Cartas", "character": "Personajes", "enemy": "Enemigos", "status": "Estados", "reward": "Recompensas", "event": "Eventos", "relic": "Reliquias", "biome": "Biomas"}
 var dock: ScrollContainer
 var body: VBoxContainer
 var list: ItemList
@@ -38,7 +38,7 @@ func _enter_tree() -> void:
 	title.text = "Umbral · Herramientas de contenido"
 	body.add_child(title)
 	_add_button("Catálogo", func(): EditorInterface.edit_resource(load(Catalog.DEFAULT_PATH)))
-	_add_button("Expedición", func(): EditorInterface.edit_resource(load("res://data/progression/expedition.tres")))
+	_add_button("Expedición", func(): EditorInterface.edit_resource(load("res://data/progression/expanded_expedition.tres")))
 	for path in ["scenes/visuals/arena.tscn", "scenes/ui/interface.tscn", "scenes/visuals/actor.tscn", "scenes/ui/card.tscn", "scenes/exploration/run_ui.tscn"]:
 		_add_button(path.get_file(), func(): EditorInterface.open_scene_from_path("res://" + path))
 	search = LineEdit.new()
@@ -108,7 +108,7 @@ func _contexts() -> void:
 	if inspected is RpgContentCatalog: current_catalog = inspected
 	if inspected is RpgRunDefinition: current_run_rules = inspected
 	if current_catalog == null: current_catalog = load(Catalog.DEFAULT_PATH)
-	if current_run_rules == null: current_run_rules = load("res://data/progression/expedition.tres")
+	if current_run_rules == null: current_run_rules = load("res://data/progression/expanded_expedition.tres")
 
 func _refresh() -> void:
 	_contexts()
@@ -119,6 +119,8 @@ func _refresh() -> void:
 	candidates.append(current_run_rules.boss)
 	candidates.append(current_run_rules.reward_table)
 	candidates.append_array(current_run_rules.events)
+	candidates.append_array(current_run_rules.relics)
+	candidates.append_array(current_run_rules.biomes)
 	var filter_kind := str(category.get_item_metadata(category.selected)) if category.selected > 0 else ""
 	var query := search.text.to_lower()
 	for resource in candidates:
@@ -148,7 +150,7 @@ func _register(proposal: Dictionary) -> void:
 	for group in ["cards", "characters", "enemies", "statuses"]:
 		history.add_do_property(current_catalog, group, proposal.catalog.get(group).duplicate())
 		history.add_undo_property(current_catalog, group, current_catalog.get(group).duplicate())
-	for property in ["events", "reward_table"]:
+	for property in ["events", "reward_table", "relics", "biomes"]:
 		history.add_do_property(current_run_rules, property, proposal.rules.get(property))
 		history.add_undo_property(current_run_rules, property, current_run_rules.get(property))
 	history.add_do_method(current_catalog, "emit_changed")

@@ -128,3 +128,7 @@ func focus_targets() -> void:
 		if button is Button and not button.disabled:
 			button.grab_focus()
 			return
+
+func set_adventure_info(text: String) -> void:
+	%AdventureInfo.text = text
+	%AdventureInfo.visible = text != ""

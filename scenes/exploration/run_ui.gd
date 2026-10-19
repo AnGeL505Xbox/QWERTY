@@ -18,6 +18,14 @@ func display(run, notice: String = "") -> void:
 	for id in run.team_ids:
 		var state: Dictionary = run.party[id]
 		summaries.append("%s: %d PV · %d estrés" % [id.capitalize(), state.health, state.stress])
+	var biome: Dictionary = run.active_biome()
+	%Biome.visible = not biome.is_empty()
+	%Biome.text = str(biome.get("name", "")) + " · " + str(biome.get("description", ""))
+	%Biome.modulate = Color(str(biome.get("color", "ffffff"))).lightened(0.3)
+	%Relics.visible = run.config.has("relics")
+	var relics: Array[String] = []
+	for id in run.relic_ids: relics.append(run.relic_description(id))
+	%Relics.text = "Reliquias: ninguna. Busca una entre las recompensas." if relics.is_empty() else "Reliquias:\n" + "\n".join(relics)
 	%Party.text = " / ".join(summaries)
 	%Inventory.text = "Mazo: %d cartas · Mejoras: %s" % [_deck_size(run), str(run.upgrades)]
 	%Notice.text = notice
@@ -59,6 +67,7 @@ func _choice(text: String, action: String, id: String = "", enabled: bool = true
 	%Choices.add_child(button)
 
 func _offer_title(run, offer: Dictionary) -> String:
+	if offer.action == "relic": return "Reliquia · " + run.relic_description(offer.id)
 	if offer.action == "skip":
 		return "Conservar el mazo sin cambios"
 	return ("Añadir copia: " if offer.action == "card" else "Mejorar: ") + str(run.card(offer.id).name)

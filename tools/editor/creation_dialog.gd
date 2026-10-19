@@ -4,7 +4,7 @@ extends ConfirmationDialog
 signal resource_created(proposal: Dictionary)
 const DialogLayout = preload("res://tools/editor/dialog_layout.gd")
 const Factory = preload("res://tools/editor/content_factory.gd")
-const KINDS = ["card", "character", "enemy", "status", "reward", "event"]
+const KINDS = ["card", "character", "enemy", "status", "reward", "event", "relic", "biome"]
 var catalog: RpgContentCatalog
 var rules: RpgRunDefinition
 var source: Resource
@@ -23,7 +23,7 @@ func _ready() -> void:
 	body.custom_minimum_size = Vector2(540, 400)
 	DialogLayout.wrap(self, body)
 	type_input = OptionButton.new()
-	for label in ["Carta", "Personaje", "Enemigo", "Estado", "Tabla de recompensas", "Evento"]: type_input.add_item(label)
+	for label in ["Carta", "Personaje", "Enemigo", "Estado", "Tabla de recompensas", "Evento", "Reliquia", "Bioma"]: type_input.add_item(label)
 	body.add_child(type_input)
 	id_input = LineEdit.new()
 	id_input.placeholder_text = "ID único, por ejemplo mi_carta"
@@ -89,6 +89,8 @@ func _preview() -> void:
 	var lines: Array[String] = []
 	for file in proposal.files: lines.append(file.path)
 	details.text = "Se crearán estos archivos, sin sobrescribir existentes:\n" + "\n".join(lines) + "\n\nEl registro puede deshacerse. Guarda catálogo y reglas para conservarlo."
+	if KINDS[type_input.selected] == "biome":
+		details.text += "\nBioma guardado sin activar. Asígnalo en Biomes de la expedición y ajusta rangos sin solapamientos."
 	if KINDS[type_input.selected] == "reward" and proposal.rules.reward_table != proposal.resource:
 		details.text += "\nLa tabla se guarda sin activarla: asígnala a Reward Table cuando quieras usarla."
 

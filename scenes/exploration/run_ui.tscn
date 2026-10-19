@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/action_button.tscn" id="3"]
 [ext_resource type="Script" path="res://scenes/exploration/route_graph.gd" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/exploration/node_button.tscn" id="5"]
-[ext_resource type="Resource" path="res://data/progression/expedition.tres" id="6"]
+[ext_resource type="Resource" path="res://data/progression/expanded_expedition.tres" id="6"]
 [ext_resource type="Script" path="res://core/platform/safe_area.gd" id="safe"]
 [node name="ExpeditionUI" type="CanvasLayer"]
 visible = false
@@ -38,6 +38,11 @@ theme_override_font_sizes/font_size = 28
 text = "Expedición · Semilla 42 · Oro 20"
 autowrap_mode = 3
 
+[node name="Biome" type="Label" parent="Scroll/Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+autowrap_mode = 3
 [node name="Party" type="Label" parent="Scroll/Margin/Layout"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -49,6 +54,12 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Mazo: 19 cartas"
+autowrap_mode = 3
+
+[node name="Relics" type="Label" parent="Scroll/Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
 autowrap_mode = 3
 
 [node name="Notice" type="Label" parent="Scroll/Margin/Layout"]

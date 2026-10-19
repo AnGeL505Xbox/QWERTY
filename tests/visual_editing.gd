@@ -28,10 +28,15 @@ func run() -> void:
 	for status in legacy.statuses.values():
 		status["attack"] = status.get("attack", 0.0)
 		status["defense"] = status.get("defense", 0.0)
-	check(JSON.parse_string(JSON.stringify(baseline)) == legacy, "Migración conserva todo el contenido de fase 4")
+	var migrated := baseline.duplicate(true)
+	# Comparar todos los datos históricos sin impedir registrar contenido nuevo.
+	for group in ["cards", "enemies"]:
+		var original_ids: Array = legacy[group].map(func(entry): return entry.id)
+		migrated[group] = migrated[group].filter(func(entry): return entry.id in original_ids)
+	check(JSON.parse_string(JSON.stringify(migrated)) == legacy, "Migración conserva todo el contenido de fase 4")
 	check(Catalog.validate_resource(original).is_empty(), "Catálogo Resources válido")
 	var legacy_battle := Battle.new(legacy, 123)
-	var resource_battle := Battle.new(baseline, 123)
+	var resource_battle := Battle.new(migrated, 123)
 	var actions := 0
 	var equivalent := true
 	for round_index in range(8):

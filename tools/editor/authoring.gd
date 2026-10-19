@@ -27,13 +27,15 @@ static func issues(catalog: RpgContentCatalog, rules: RpgRunDefinition) -> Array
 	if errors.is_empty(): errors.append_array(RunValidator.resource_configuration(catalog, rules))
 	var all := resources(catalog, rules)
 	for message in errors:
-		var target: Resource = rules if message.begins_with("Evento") or message.begins_with("Recompensas") or message.begins_with("Ruta") else catalog
+		var target: Resource = rules if message.begins_with("Evento") or message.begins_with("Recompensas") or message.begins_with("Ruta") or message.begins_with("Bioma") or message.begins_with("Reliquia") else catalog
 		for resource in all:
 			if resource is RpgCardDefinition and message.begins_with("Carta " + resource.id + ":"): target = resource
 			elif resource is RpgCharacterDefinition and message.begins_with("Personaje " + resource.id + ":"): target = resource
 			elif resource is RpgEnemyDefinition and message.begins_with("Enemigo " + resource.id + ":"): target = resource
 			elif resource is RpgEventDefinition and message.begins_with("Evento " + resource.id + ":"): target = resource
 			elif resource is RpgRewardTable and message.begins_with("Recompensas:"): target = resource
+			if resource is RpgRelicDefinition and message.begins_with("Reliquia " + resource.id + ":"): target = resource
+			elif resource is RpgBiomeDefinition and message.begins_with("Bioma " + resource.id + ":"): target = resource
 		result.append({"message": message, "resource": target})
 	return result
 
@@ -53,4 +55,4 @@ static func save_all(catalog: RpgContentCatalog, rules: RpgRunDefinition) -> Dic
 	return {"saved": saved, "errors": errors}
 
 static func _supported(resource: Resource) -> bool:
-	return resource is RpgContentCatalog or resource is RpgRunDefinition or resource is RpgCardDefinition or resource is RpgCharacterDefinition or resource is RpgEnemyDefinition or resource is RpgStatusDefinition or resource is RpgEffectDefinition or resource is RpgIntentDefinition or resource is RpgRewardTable or resource is RpgEventDefinition or resource is RpgEventChoice or resource is RpgRouteNode
+	return resource is RpgContentCatalog or resource is RpgRunDefinition or resource is RpgCardDefinition or resource is RpgCharacterDefinition or resource is RpgEnemyDefinition or resource is RpgStatusDefinition or resource is RpgEffectDefinition or resource is RpgIntentDefinition or resource is RpgRewardTable or resource is RpgEventDefinition or resource is RpgEventChoice or resource is RpgRouteNode or resource is RpgRelicDefinition or resource is RpgBiomeDefinition

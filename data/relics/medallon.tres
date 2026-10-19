@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://core/data/resources/relic_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+id = "medallon"
+display_name = "Medallón del caminante"
+description = "Cada combate ganado deja un pequeño hallazgo."
+turn_block = 0
+turn_energy = 0
+victory_heal = 0
+victory_gold = 5
