@@ -38,3 +38,7 @@ El sobre de guardado sigue en versión 1. Los nuevos campos de configuración so
 Ejecuta `godot --headless --path . --script tests/authoring.gd`. Comprueba creación/duplicación, archivos protegidos, guardado aislado, validación, ofertas configuradas, eventos y compatibilidad anterior. Usa `data/.editor-tests/` ignorado por Git y lo limpia al terminar. La regresión completa está en README. Las comprobaciones sin ventana no sustituyen la revisión de disposición del panel y Deshacer/Rehacer en una sesión gráfica.
 
 Reliquias, biomas, metaprogresión y exportaciones reales siguen pendientes; no forman parte de esta fase.
+
+## Editores especializados
+
+El panel incorpora edición de mazos, formularios de decisiones y un grafo de rutas. Consulta [EDITORES_DE_MAZOS_EVENTOS_Y_RUTAS.md](EDITORES_DE_MAZOS_EVENTOS_Y_RUTAS.md) para el flujo, restricciones y compatibilidad.

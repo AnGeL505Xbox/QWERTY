@@ -5,6 +5,9 @@ const Catalog = preload("res://core/data/catalog.gd")
 const Authoring = preload("res://tools/editor/authoring.gd")
 const Factory = preload("res://tools/editor/content_factory.gd")
 const Wizard = preload("res://tools/editor/creation_dialog.gd")
+const DeckDialog = preload("res://tools/editor/deck_dialog.gd")
+const EventDialog = preload("res://tools/editor/event_dialog.gd")
+const RouteDialog = preload("res://tools/editor/route_dialog.gd")
 const LABELS = {"card": "Cartas", "character": "Personajes", "enemy": "Enemigos", "status": "Estados", "reward": "Recompensas", "event": "Eventos"}
 var dock: ScrollContainer
 var body: VBoxContainer
@@ -16,6 +19,7 @@ var category: OptionButton
 var wizard: ConfirmationDialog
 var preview: AcceptDialog
 var preview_text: RichTextLabel
+var editors: Array[ConfirmationDialog] = []
 var entries: Array[Resource] = []
 var problem_resources: Array[Resource] = []
 var current_catalog: RpgContentCatalog
@@ -54,6 +58,9 @@ func _enter_tree() -> void:
 	body.add_child(list)
 	_add_button("Crear recurso…", func(): _open_wizard(false))
 	_add_button("Duplicar selección…", func(): _open_wizard(true))
+	_add_button("Editar mazo del personaje…", func(): _open_editor("deck"))
+	_add_button("Editar evento seleccionado…", func(): _open_editor("event"))
+	_add_button("Editar rutas de expedición…", func(): _open_editor("route"))
 	_add_button("Vista previa de selección", _preview_selection)
 	_add_button("Validar contenido", _validate)
 	issues_list = ItemList.new()
@@ -75,8 +82,19 @@ func _enter_tree() -> void:
 	preview_text.custom_minimum_size = Vector2(560, 360)
 	preview.add_child(preview_text)
 	EditorInterface.get_base_control().add_child(preview)
+	for script in [DeckDialog, EventDialog, RouteDialog]:
+		var editor: ConfirmationDialog = script.new()
+		EditorInterface.get_base_control().add_child(editor)
+		editor.proposal_ready.connect(_apply_proposal)
+		editors.append(editor)
 	add_control_to_dock(DOCK_SLOT_LEFT_UL, dock)
 	_refresh()
+	if "--test-content-editors" in OS.get_cmdline_user_args():
+		call_deferred("_test_content_editors")
+
+func _test_content_editors() -> void:
+	var runner = load("res://tests/editor_native.gd").new()
+	await runner.run(self)
 
 func _add_button(text: String, callback: Callable) -> void:
 	var button := Button.new()
@@ -187,3 +205,35 @@ func _exit_tree() -> void:
 	dock.queue_free()
 	wizard.queue_free()
 	preview.queue_free()
+	for editor in editors: editor.queue_free()
+
+func _open_editor(kind: String) -> void:
+	_contexts()
+	match kind:
+		"deck":
+			if not selected_resource is RpgCharacterDefinition or not selected_resource in current_catalog.characters:
+				report.text = "Selecciona un personaje de la lista para editar su mazo."
+				return
+			editors[0].open_for(current_catalog, selected_resource)
+		"event":
+			if not selected_resource is RpgEventDefinition or not selected_resource in current_run_rules.events:
+				report.text = "Selecciona un evento de la lista; puedes crearlo primero con Crear recurso."
+				return
+			editors[1].open_for(current_catalog, current_run_rules, selected_resource)
+		"route": editors[2].open_for(current_catalog, current_run_rules)
+
+func _apply_proposal(proposal: Dictionary) -> void:
+	if not proposal.errors.is_empty(): return
+	var target: Resource = proposal.target
+	var history := get_undo_redo()
+	history.create_action("Aplicar " + str(target.get_class()) + " de contenido", UndoRedo.MERGE_DISABLE, target)
+	for property in proposal.changes:
+		history.add_do_property(target, property, proposal.changes[property])
+		history.add_undo_property(target, property, target.get(property))
+	history.add_do_method(target, "emit_changed")
+	history.add_undo_method(target, "emit_changed")
+	history.add_do_method(self, "_refresh")
+	history.add_undo_method(self, "_refresh")
+	history.commit_action()
+	EditorInterface.edit_resource(target)
+	report.text = "Borrador aplicado. Puedes deshacerlo. Pulsa Guardar contenido para conservarlo antes de jugar."

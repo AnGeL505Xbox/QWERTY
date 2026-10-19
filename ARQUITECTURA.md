@@ -43,3 +43,7 @@ Los scripts `@tool` ofrecen vista previa de Actor y de la plantilla de carta. El
 Battle acepta vida/estrés iniciales opcionales y exporta/restaura su estado sin introducir nodos ni dependencias de disco. `core/save_system/store.gd` conserva el payload versionado con checksum, temporal, copia anterior y recuperación; `run_validator.gd` comprueba la instantánea antes de cargar. Los RNG de combate y expedición se serializan como texto de 64 bits. Las animaciones se reconstruyen desde el estado cargado y no se serializan.
 
 Main coordina ambas interfaces y autosalva en cambios reales del modelo; seleccionar una carta no modifica ni escribe la partida. El entrenamiento conserva su flujo anterior. Consulta `documentation/ROGUELIKE_Y_GUARDADO.md` para contrato de persistencia y futuras migraciones.
+
+## Authoring especializado
+
+`tools/editor/editing.gd` prepara propuestas validadas de mazos, eventos y rutas sin mutar Resources originales. Los diálogos mantienen borradores y el plugin aplica sus propiedades mediante `EditorUndoRedoManager`. El guardado sigue siendo explícito. `RpgRunDefinition.route_nodes` guarda nodos tipados opcionales; `Route.generate()` conserva el algoritmo procedural anterior en su ausencia. `Route.preview_custom()` comparte la resolución de enemigos para dibujar borradores con enlaces pendientes de reparar; la ejecución exige validación topológica completa.

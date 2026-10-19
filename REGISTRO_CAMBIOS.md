@@ -55,3 +55,9 @@
 - Búsqueda, filtros, creación/duplicación sin sobrescritura, previsualización, errores seleccionables, guardado y registro reversible.
 - Recompensas y eventos editables como Resources; compatibilidad con instantáneas anteriores de versión 1.
 - Pruebas de herramientas y guía de edición en español. Sin cambios de exportación ni expansión de biomas/reliquias.
+
+## Ampliación de fase 7 — mazos, eventos y rutas
+- Formularios con borradores validados y registro reversible: copias, orden y especial de mazos; texto y efectos de decisiones; tipos, enemigos y conexiones de rutas.
+- `RpgRouteNode` y rutas personalizadas opcionales, con dos carriles, 4–8 etapas y jefe final. Las instantáneas anteriores conservan el generador procedural.
+- Pruebas de formularios, persistencia y recorrido personalizado completo; documentación de edición en español.
+- Verificación: 414 comprobaciones sin fallos, incluidas 15 del plugin con historial nativo; importación correcta en Godot 4.6.3. Arrastre físico y disposición gráfica pendientes de revisión.

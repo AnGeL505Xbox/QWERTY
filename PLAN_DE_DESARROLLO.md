@@ -6,7 +6,7 @@
 4.1. **Completada antes del roguelike:** edición visual con escenas de escenario/actores/UI, Resources tipados de contenido, panel de acceso y validación, y pruebas de persistencia. Véase `EDICION_VISUAL.md`.
 5. **Completada:** expedición corta por semilla con rutas conectadas, combate/élite/jefe, eventos, descanso, tienda y tesoros; oro, adquisición y mejoras; guardado local versión 1, validación, copia de recuperación y restauración de combate. Sistemas de reliquias, biomas y metaprogresión pendientes.
 6. **Pendiente:** multiplataforma: zonas seguras, accesos de teclado, perfiles gráficos, Android y Windows con pruebas reales.
-7. **Implementada antes de 6 y 8:** panel con búsqueda/filtros, asistentes de creación y duplicación, vista previa, errores seleccionables y guardado; tablas de recompensas y eventos tipados conectados a las expediciones. Ver `HERRAMIENTAS_DE_CONTENIDO.md`. Revisión gráfica del panel pendiente.
+7. **Implementada antes de 6 y 8:** panel con búsqueda/filtros, asistentes de creación y duplicación, vista previa, errores seleccionables y guardado; tablas de recompensas y eventos tipados conectados a las expediciones. Ver `HERRAMIENTAS_DE_CONTENIDO.md`. Ampliada con editor de mazos, decisiones de eventos y rutas conectadas. Ver `EDITORES_DE_MAZOS_EVENTOS_Y_RUTAS.md`. Revisión gráfica del panel pendiente.
 8. Expansión: biomas, reliquias y contenido adicional.
 
 El vertical slice de dos personajes, veinte cartas, cuatro enemigos y jefe es una meta posterior, no el alcance completado de fase 1. Cada ampliación debe mantener pruebas de regresión y documentación.

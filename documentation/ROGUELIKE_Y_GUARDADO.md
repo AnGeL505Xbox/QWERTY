@@ -65,3 +65,7 @@ El guardado de partida es independiente de guardar `.tres` y `.tscn` en el edito
 Las pruebas recorren una expedición completa con cartas y turnos reales, prueban entrada por botones, guardado intermedio, continuidad exacta, recuperación de copia, versiones incompatibles, economía, mejoras, estados de derrota y edición persistida de configuración/mapa. Las pruebas usan archivos `test_roguelike*` separados del espacio del jugador.
 
 La validación se realiza sin renderizado gráfico. Sigue pendiente revisar composición, tacto, exportaciones y rendimiento real en Windows/Android. El recorrido y los eventos son cortos; reliquias, biomas, narrativa ramificada, eliminación de cartas y metaprogresión quedan preparados como ampliaciones, no implementados.
+
+## Edición de rutas y decisiones
+
+El panel Contenido incluye formularios de eventos y rutas: véase [la guía de editores](../EDITORES_DE_MAZOS_EVENTOS_Y_RUTAS.md). Con `route_nodes` vacío se conserva el generador original. Una ruta personalizada mantiene tipos, coordenadas y conexiones, y resuelve enemigos automáticos por semilla. La configuración guardada incluye el campo opcional solo cuando hay una ruta personalizada. Los guardados anteriores siguen usando su algoritmo original y no se actualizan al modificar Resources. Las decisiones modernas se editan en `events`; `event_gold` y `event_damage` se conservan para la fuente de partidas/configuraciones anteriores sin esa lista.

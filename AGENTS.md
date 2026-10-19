@@ -24,3 +24,7 @@
 - Conservar asistentes sin sobrescritura, propuestas sin mutar originales y registro con Deshacer/Rehacer. Deshacer no borra archivos.
 - Mantener recompensas/eventos como Resources; los campos nuevos son opcionales para conservar reglas y RNG de partidas anteriores.
 - Probar authoring en rutas aisladas; nunca guardar copias de prueba sobre Resources de producción.
+
+- Los editores especializados usan `tools/editor/editing.gd` para propuestas sin mutación y el historial del editor para aplicarlas. No aplicar borradores inválidos ni guardar automáticamente al cerrar.
+- `route_nodes` es opcional: conservar el generador original cuando falte. Validar conectividad y reproducibilidad; el editor comparte la resolución de enemigos con el juego.
+- Ejecutar `tests/editor_workflows.gd` al modificar mazos, decisiones o rutas personalizadas. Para integración con el historial nativo, usar una instancia nueva: `godot --headless --editor --path . -- --test-content-editors`; el comando prueba copias en memoria y cierra el editor.

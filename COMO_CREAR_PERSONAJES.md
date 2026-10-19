@@ -15,3 +15,5 @@ El orden de Team es el orden de los slots y del objetivo enemigo. Modifica `scen
 Consulta `EDICION_VISUAL.md` y `documentation/PERSONAJES_Y_ESTRES.md` para las reglas exactas.
 
 El panel permite crear y duplicar Resources con validación previa. Consulta [HERRAMIENTAS_DE_CONTENIDO.md](HERRAMIENTAS_DE_CONTENIDO.md) para el flujo actualizado.
+
+Para ajustar copias y habilidad especial sin editar arrays manualmente, usa **Editar mazo del personaje…** en el panel. Véase [la guía de editores](EDITORES_DE_MAZOS_EVENTOS_Y_RUTAS.md).
