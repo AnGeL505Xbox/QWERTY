@@ -13,3 +13,5 @@ El orden de Team es el orden de los slots y del objetivo enemigo. Modifica `scen
 **Color** es el respaldo para un personaje sin perfil; si tiene Visual Profile, manda su **Tint**. No hay selección de retratos, resistencias elementales ni desbloqueos permanentes todavía. La expedición conserva vida, estrés, mazos y mejoras en su guardado local.
 
 Consulta `EDICION_VISUAL.md` y `documentation/PERSONAJES_Y_ESTRES.md` para las reglas exactas.
+
+El panel permite crear y duplicar Resources con validación previa. Consulta [HERRAMIENTAS_DE_CONTENIDO.md](HERRAMIENTAS_DE_CONTENIDO.md) para el flujo actualizado.

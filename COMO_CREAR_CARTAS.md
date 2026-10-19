@@ -23,3 +23,5 @@ El daño suma el ataque efectivo del dueño. Una habilidad especial es una carta
 Para un tipo de efecto totalmente nuevo, crea su módulo en `core/effects/`, regístralo en `registry.gd`, añade la opción al enum de `core/data/resources/effect_definition.gd` y añade pruebas de comportamiento. No hace falta modificar el bucle de Battle.play. La edición visual configura las reglas disponibles; no genera código de combate.
 
 El diseño visual se modifica en `scenes/ui/card.tscn`. Selecciona su raíz y cambia **Preview Card** para ver otra carta en el editor. Consulta `EDICION_VISUAL.md`.
+
+El panel permite crear y duplicar Resources con validación previa. Consulta [HERRAMIENTAS_DE_CONTENIDO.md](HERRAMIENTAS_DE_CONTENIDO.md) para el flujo actualizado.

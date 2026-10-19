@@ -60,3 +60,5 @@ Pulsa **Validar contenido** antes de jugar. Detecta IDs repetidos, referencias a
 Las pruebas guardan y recargan escenas/Resources temporales y comprueban su comportamiento en juego. No se ha realizado una sesión gráfica manual en esta máquina ni pruebas de exportación o dispositivos. El guardado de `.tres` y `.tscn` guarda el proyecto, no una partida: el guardado de expedición se describe en `documentation/ROGUELIKE_Y_GUARDADO.md`.
 
 El panel incorpora accesos a la configuración de expedición y a sus pantallas. La raíz Main permite asignar otro Expedition Rules. Los cambios de reglas se aplican al iniciar una partida nueva; las guardadas mantienen sus definiciones originales.
+
+El panel permite crear y duplicar Resources con validación previa. Consulta [HERRAMIENTAS_DE_CONTENIDO.md](HERRAMIENTAS_DE_CONTENIDO.md) para el flujo actualizado.

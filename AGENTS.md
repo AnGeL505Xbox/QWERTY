@@ -19,3 +19,8 @@
 - Las reglas de recorrido y economía se editan en `data/progression/expedition.tres`; mantener sus pantallas/plantillas en `scenes/exploration/`.
 - No modificar Resources del catálogo al obtener recompensas. Las partidas conservan su instantánea de datos y sus RNG; mantener compatibilidad o migración explícita al cambiar el formato o algoritmo de rutas.
 - Conservar originales/copia de recuperación ante errores de carga. Las pruebas deben usar rutas de guardado diferentes de `user://expedition.json`.
+
+## Herramientas de contenido
+- Conservar asistentes sin sobrescritura, propuestas sin mutar originales y registro con Deshacer/Rehacer. Deshacer no borra archivos.
+- Mantener recompensas/eventos como Resources; los campos nuevos son opcionales para conservar reglas y RNG de partidas anteriores.
+- Probar authoring en rutas aisladas; nunca guardar copias de prueba sobre Resources de producción.

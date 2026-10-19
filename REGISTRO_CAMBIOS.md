@@ -50,3 +50,8 @@
 - Pruebas de expedición real completa, flujo de botones, carga exacta, economía, élites/eventos, versión incompatible y edición visual persistida.
 - Importación con complemento y 280 comprobaciones sin fallos, incluidas las suites anteriores y dos recorridos completos con combates reales.
 - Pendientes revisión gráfica manual, exportaciones/dispositivos, reliquias, biomas y metaprogresión.
+
+## Fase 7 — herramientas antes de 6 y 8
+- Búsqueda, filtros, creación/duplicación sin sobrescritura, previsualización, errores seleccionables, guardado y registro reversible.
+- Recompensas y eventos editables como Resources; compatibilidad con instantáneas anteriores de versión 1.
+- Pruebas de herramientas y guía de edición en español. Sin cambios de exportación ni expansión de biomas/reliquias.

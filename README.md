@@ -26,6 +26,7 @@ godot --headless --path . --script tests/scene_smoke.gd
 godot --headless --path . --script tests/visual_editing.gd
 godot --headless --path . --script tests/roguelike.gd
 godot --headless --path . --script tests/roguelike_scene.gd
+godot --headless --path . --script tests/authoring.gd
 ```
 En la máquina de nube, usa directorios escribibles antes de estos comandos:
 ```sh
@@ -40,10 +41,12 @@ Fases 1–5 y edición visual: dos personajes originales con estadísticas, pasi
 
 Consulta `PLAN_DE_DESARROLLO.md`, `ARQUITECTURA.md` y las guías `COMO_*.md`. No se han probado exportaciones, calidad visual en pantalla ni rendimiento Android. Hay guardado de expedición; no hay metaprogresión todavía.
 
-Validación actual: 280 comprobaciones sin fallos (53 de combate, 54 de personajes, 39 de presentación, 7 de escena, 37 de edición visual, 64 de roguelike y 26 de su interfaz). Incluyen expediciones completas con cartas/turnos reales, carga intermedia y recuperación de copia. Validación sin interfaz gráfica; revisión visual y dispositivos reales pendiente.
+Validación actual: 332 comprobaciones sin fallos (53 de combate, 54 de personajes, 39 de presentación, 7 de escena, 37 de edición visual, 64 de roguelike 26 de su interfaz y 52 de herramientas). Incluyen expediciones completas con cartas/turnos reales, carga intermedia y recuperación de copia. Validación sin interfaz gráfica; revisión visual y dispositivos reales pendiente.
 
 Para probar los estados, juega **Resonancia** o **Pacto protector** de Noa. Usa **Ancla serena** antes de que el estrés alcance el umbral. El menú conserva al menos un integrante y permite volver a jugar con Lira sola. Las reglas detalladas están en `documentation/PERSONAJES_Y_ESTRES.md`.
 
 Fase 4: los objetivos se resaltan en el escenario y los efectos muestran cambios reales. Puedes sustituir imágenes, SpriteFrames y nombres de clips desde perfiles `.tres`: consulta `COMO_CAMBIAR_GRAFICOS.md` y `documentation/PRESENTACION_2_5D.md`.
 
 La configuración roguelike se edita en `data/progression/expedition.tres`; las nuevas pantallas están en `scenes/exploration/`. El catálogo original no se modifica al obtener cartas o mejoras durante una partida.
+
+Fase 7 implementada antes de 6 y 8: consulta [HERRAMIENTAS_DE_CONTENIDO.md](HERRAMIENTAS_DE_CONTENIDO.md) para crear y duplicar contenido desde el panel, configurar recompensas y editar eventos.
