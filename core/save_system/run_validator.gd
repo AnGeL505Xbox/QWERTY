@@ -1,6 +1,7 @@
 extends RefCounted
 
 const ContentValidator = preload("res://core/data/validator.gd")
+const Progression = preload("res://core/data/progression_validator.gd")
 const Route = preload("res://core/progression/route.gd")
 
 static func configuration(content: Dictionary, config: Dictionary) -> PackedStringArray:
@@ -35,6 +36,7 @@ static func configuration(content: Dictionary, config: Dictionary) -> PackedStri
 			errors.append("Valor de expedición inválido: " + key)
 	if not _integer(config.get("max_upgrade_level"), 1, 5) or not _integer(config.get("upgrade_amount"), 1, 9):
 		errors.append("Reglas de mejora inválidas.")
+	errors.append_array(Progression.validate(content, config))
 	return errors
 
 static func validate(saved: Dictionary) -> PackedStringArray:
@@ -128,7 +130,7 @@ static func validate(saved: Dictionary) -> PackedStringArray:
 	for id in saved.upgrades:
 		if not id in owned or not cards.has(id) or not cards[id].owner in saved.team or not _integer(saved.upgrades[id], 1, int(saved.config.max_upgrade_level)):
 			errors.append("Mejora guardada inválida.")
-	if saved.offers.size() > 6:
+	if saved.offers.size() > (11 if saved.config.has("rewards") else 6):
 		errors.append("Demasiadas recompensas guardadas.")
 	var offer_ids: Array = []
 	for offer in saved.offers:
@@ -151,6 +153,10 @@ static func validate(saved: Dictionary) -> PackedStringArray:
 		errors.append_array(_battle(saved, definitions, cards))
 	elif saved.phase != "combat" and not saved.battle.is_empty():
 		errors.append("Combate guardado fuera de fase.")
+	if saved.config.has("events"):
+		var event_id = saved.get("event_id", "")
+		if not event_id is String or (saved.phase == "event" and not saved.config.events.any(func(event): return event.id == event_id)):
+			errors.append("Evento activo desconocido.")
 	return errors
 
 static func _battle(run: Dictionary, definitions: Dictionary, cards: Dictionary) -> PackedStringArray:
@@ -248,6 +254,15 @@ static func resource_configuration(catalog: RpgContentCatalog, rules: RpgRunDefi
 	if catalog == null or rules == null:
 		return PackedStringArray(["Falta el catálogo o la configuración de expedición."])
 	var errors := configuration(catalog.to_dict(), rules.to_dict())
+	if rules.reward_table != null:
+		for card in rules.reward_table.cards:
+			if card != null and not card in catalog.cards:
+				errors.append("Recompensas: usa el mismo recurso registrado en Cards.")
+	for event in rules.events:
+		if event != null:
+			for choice in event.choices:
+				if choice != null and choice.card != null and not choice.card in catalog.cards:
+					errors.append("Evento " + event.id + ": carta no registrada con el mismo recurso.")
 	for enemy in rules.encounters:
 		if enemy != null and not enemy in catalog.enemies:
 			errors.append("Encuentro " + enemy.id + ": usa el mismo recurso registrado en Enemies del catálogo.")

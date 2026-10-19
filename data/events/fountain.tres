@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=5 format=3]
+[ext_resource type="Script" path="res://core/data/resources/event_definition.gd" id="1"]
+[ext_resource type="Script" path="res://core/data/resources/event_choice.gd" id="2"]
+[sub_resource type="Resource" id="Risk"]
+script = ExtResource("2")
+id = "risk"
+label = "Aceptar: +18 oro, -3 PV por integrante vivo"
+gold_delta = 18
+health_delta = -3
+[sub_resource type="Resource" id="Heal"]
+script = ExtResource("2")
+id = "heal"
+label = "Recuperar +8 PV y aliviar 6 de estrés"
+health_delta = 8
+stress_delta = -6
+[resource]
+script = ExtResource("1")
+id = "fuente_nacar"
+display_name = "Fuente de nácar"
+description = "Una fuente de nácar emerge entre las ruinas. Acepta su riesgo por oro o recupérate sin coste."
+choices = Array[ExtResource("2")]([SubResource("Risk"), SubResource("Heal")])

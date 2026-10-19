@@ -39,6 +39,12 @@ func display(run, notice: String = "") -> void:
 		for id in run.upgradeable():
 			_choice("Mejorar %s · %d oro" % [run.card(id).name, run.config.upgrade_price], "upgrade", id, run.gold >= int(run.config.upgrade_price))
 		_choice("Salir de la tienda", "leave")
+	elif run.phase == "event" and run.config.has("events"):
+		var event: Dictionary = run.active_event()
+		%Message.text = str(event.get("name", "Evento")) + "\n" + str(event.get("description", ""))
+		for choice in event.get("choices", []):
+			_choice(choice.label, "event_choice", choice.id, run.event_choice_enabled(choice))
+		_choice("Abandonar el evento", "event_leave")
 	elif run.phase == "event":
 		_choice("Aceptar: +%d oro, -%d PV por integrante vivo" % [run.config.event_gold, run.config.event_damage], "risk")
 		_choice("Recuperar +%d PV y aliviar estrés" % run.config.rest_heal, "heal")

@@ -14,6 +14,7 @@ var gold := 0
 var party: Dictionary = {}
 var upgrades: Dictionary = {}
 var offers: Array = []
+var event_id := ""
 var battle: RefCounted
 var rng := RandomNumberGenerator.new()
 
@@ -49,6 +50,7 @@ func enter(id: String) -> bool:
 		return false
 	current = id
 	offers.clear()
+	event_id = ""
 	var selected := node(id)
 	phase = selected.type
 	if phase in ["combat", "elite", "boss"]:
@@ -61,6 +63,8 @@ func enter(id: String) -> bool:
 		battle = Battle.new(data, int(rng.randi()), index, team_ids, party)
 	elif phase == "reward":
 		_open_rewards()
+	elif phase == "event" and config.has("events"):
+		event_id = config.events[rng.randi_range(0, config.events.size() - 1)].id
 	elif phase == "shop":
 		offers = _card_offers(3)
 	return true
@@ -107,15 +111,23 @@ func _open_rewards() -> void:
 	gold += int(config.combat_gold)
 	if node(current).type == "elite":
 		gold += int(config.elite_gold_bonus)
-	offers = _card_offers(3)
+	var table: Dictionary = config.get("rewards", {"card_choices": 3, "upgrade_choices": 2, "allow_skip": true})
+	offers = _card_offers(int(table.card_choices), true)
+	var count := 0
+	# El algoritmo antiguo completaba hasta cinco ofertas si había pocas cartas.
+	var upgrade_count := int(table.upgrade_choices) if config.has("rewards") else maxi(0, 5 - offers.size())
 	for id in upgradeable():
-		offers.append({"action": "upgrade", "id": id})
-		if offers.size() >= 5:
+		if count >= upgrade_count:
 			break
-	offers.append({"action": "skip", "id": ""})
+		offers.append({"action": "upgrade", "id": id})
+		count += 1
+	if table.allow_skip or offers.is_empty():
+		offers.append({"action": "skip", "id": ""})
 
-func _card_offers(count: int) -> Array:
+func _card_offers(count: int, use_table: bool = false) -> Array:
 	var candidates: Array = content.cards.filter(func(card): return card.owner in team_ids)
+	if use_table and config.has("rewards") and not config.rewards.pool.is_empty():
+		candidates = candidates.filter(func(card): return card.id in config.rewards.pool)
 	var result: Array = []
 	while not candidates.is_empty() and result.size() < count:
 		var index := rng.randi_range(0, candidates.size() - 1)
@@ -175,6 +187,8 @@ func choose(action: String, id: String = "") -> bool:
 			gold -= int(config.upgrade_price)
 			upgrades[id] = int(upgrades.get(id, 0)) + 1
 			return true
+	if phase == "event" and config.has("events"):
+		return _choose_event(action, id)
 	if phase == "event" and action in ["risk", "heal"]:
 		if action == "risk":
 			gold += int(config.event_gold)
@@ -209,9 +223,14 @@ func _complete_node() -> void:
 	phase = "map"
 	offers.clear()
 	battle = null
+	event_id = ""
 
 func export_state() -> Dictionary:
-	return {"seed": str(seed_value), "rng_state": str(rng.state), "content": content.duplicate(true), "config": config.duplicate(true), "team": team_ids.duplicate(), "nodes": nodes.duplicate(true), "visited": visited.duplicate(), "current": current, "phase": phase, "gold": gold, "party": party.duplicate(true), "upgrades": upgrades.duplicate(), "offers": offers.duplicate(true), "battle": battle.export_state() if phase == "combat" and battle != null else {}}
+	var saved := {"seed": str(seed_value), "rng_state": str(rng.state), "content": content.duplicate(true), "config": config.duplicate(true), "team": team_ids.duplicate(), "nodes": nodes.duplicate(true), "visited": visited.duplicate(), "current": current, "phase": phase, "gold": gold, "party": party.duplicate(true), "upgrades": upgrades.duplicate(), "offers": offers.duplicate(true), "battle": battle.export_state() if phase == "combat" and battle != null else {}}
+
+	if config.has("events"):
+		saved["event_id"] = event_id
+	return saved
 
 static func restore(saved: Dictionary):
 	var base: Dictionary = saved.content.duplicate(true)
@@ -228,7 +247,47 @@ static func restore(saved: Dictionary):
 	for id in saved.upgrades:
 		run.upgrades[id] = int(saved.upgrades[id])
 	run.offers = saved.offers.duplicate(true)
+	run.event_id = saved.get("event_id", "")
 	run.rng.state = int(saved.rng_state)
 	if run.phase == "combat":
 		run.battle = Battle.restore(run.combat_content(), saved.battle, run.team_ids)
 	return run
+
+func active_event() -> Dictionary:
+	for event in config.get("events", []):
+		if event.id == event_id:
+			return event
+	return {}
+
+func event_choice_enabled(choice: Dictionary) -> bool:
+	return gold + int(choice.gold) >= 0 and (choice.card == "" or card(choice.card).get("owner", "") in team_ids)
+
+func _choose_event(action: String, id: String) -> bool:
+	# Compatibilidad con clientes de fase 5 que usaban estos IDs de la fuente.
+	if action in ["risk", "heal"] and id == "":
+		id = action
+		action = "event_choice"
+	if action == "event_leave":
+		_complete_node()
+		return true
+	if action != "event_choice":
+		return false
+	for choice in active_event().get("choices", []):
+		if choice.id != id or not event_choice_enabled(choice):
+			continue
+		gold += int(choice.gold)
+		for definition in content.characters:
+			if not party.has(definition.id) or party[definition.id].health <= 0:
+				continue
+			var member: Dictionary = party[definition.id]
+			var before := int(member.health)
+			member.health = clampi(before + int(choice.health), 0, int(definition.health))
+			var lost := maxi(0, before - int(member.health))
+			member.stress = clampi(int(member.stress) + lost + int(choice.stress), 0, int(definition.stress_limit))
+		if choice.card != "":
+			_add_card(choice.card)
+		_complete_node()
+		if party.values().all(func(member): return member.health <= 0):
+			phase = "defeat"
+		return true
+	return false
