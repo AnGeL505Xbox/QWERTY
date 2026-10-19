@@ -17,7 +17,7 @@ El registro en catálogo/reglas admite Deshacer/Rehacer del editor. Deshacer con
 
 ## Recompensas editables
 
-`data/progression/expedition.tres` referencia `data/rewards/standard.tres`:
+`data/progression/expanded_expedition.tres` referencia `data/rewards/standard.tres`:
 
 - `card_choices` y `upgrade_choices`: de 0 a 5 ofertas de cada tipo, limitadas por candidatos disponibles.
 - `cards`: pool opcional; vacío usa cartas elegibles del equipo. No cambia las cartas de la tienda.
@@ -37,8 +37,10 @@ El sobre de guardado sigue en versión 1. Los nuevos campos de configuración so
 
 Ejecuta `godot --headless --path . --script tests/authoring.gd`. Comprueba creación/duplicación, archivos protegidos, guardado aislado, validación, ofertas configuradas, eventos y compatibilidad anterior. Usa `data/.editor-tests/` ignorado por Git y lo limpia al terminar. La regresión completa está en README. Las comprobaciones sin ventana no sustituyen la revisión de disposición del panel y Deshacer/Rehacer en una sesión gráfica.
 
-Reliquias, biomas, metaprogresión y exportaciones reales siguen pendientes; no forman parte de esta fase.
+Biomas y reliquias se incorporan en la fase 8.1; la preparación y exportaciones se documentan en `EXPORTAR_PC_ANDROID.md`. Metaprogresión pendiente.
 
 ## Editores especializados
 
 El panel incorpora edición de mazos, formularios de decisiones y un grafo de rutas. Consulta [EDITORES_DE_MAZOS_EVENTOS_Y_RUTAS.md](EDITORES_DE_MAZOS_EVENTOS_Y_RUTAS.md) para el flujo, restricciones y compatibilidad.
+
+La expedición anterior `data/progression/expedition.tres` se conserva como referencia. Para editar biomas/reliquias y sus rangos, consulta [FASE_8_BIOMAS_Y_RELIQUIAS.md](FASE_8_BIOMAS_Y_RELIQUIAS.md).

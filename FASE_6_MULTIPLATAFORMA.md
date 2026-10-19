@@ -57,6 +57,10 @@ Se comprobaron el menú a 640×360 con desplazamiento y foco, la conversión mat
 
 La prueba nativa del plugin comprueba que las ventanas caben en el editor, tienen desplazamiento y conservan el historial. Las pruebas sin ventana no sustituyen la revisión gráfica con ratón o tacto físico.
 
-Consulta `EXPORTAR_PC_ANDROID.md` para generar binarios y comprobarlos en dispositivos. La base de fase 6 está implementada; su aceptación en Windows/Android reales, notch/barra de navegación, suspensión/reanudación, teclado virtual, legibilidad y rendimiento sigue pendiente. La fase 8 no se ha empezado.
+Consulta `EXPORTAR_PC_ANDROID.md` para generar binarios y comprobarlos en dispositivos. La base de fase 6 está implementada; su aceptación en Windows/Android reales, notch/barra de navegación, suspensión/reanudación, teclado virtual, legibilidad y rendimiento sigue pendiente. La expansión posterior se documenta en `FASE_8_BIOMAS_Y_RELIQUIAS.md`.
 
-Se generaron un ejecutable Windows x86_64 con su PCK y un APK Android arm64 de depuración, cuya firma y alineación se verificaron. La batería tiene 458 comprobaciones sin fallos, más las siete comprobaciones por paquete de recursos. No se han ejecutado esos binarios en Windows o Android.
+Se generaron un ejecutable Windows x86_64 con su PCK y un APK Android arm64 de depuración, cuya firma y alineación se verificaron. La batería tiene 458 comprobaciones sin fallos, más las siete comprobaciones por paquete de recursos. El agente no ejecutó esos binarios en Windows o Android; la comprobación posterior del usuario se recoge a continuación.
+
+## Comprobación posterior del usuario
+
+El usuario confirmó que la fase 6 funciona en Android y PC, con 60 FPS estables en su PC. Es una observación comunicada por el usuario, sin modelos de equipo ni medición Android especificados. La lista anterior conserva las comprobaciones detalladas que no se documentaron individualmente. Las versiones posteriores necesitan revisar de nuevo su rendimiento.

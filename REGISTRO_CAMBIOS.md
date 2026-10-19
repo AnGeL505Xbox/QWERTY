@@ -67,3 +67,9 @@
 - Pantalla de ajustes editable, preferencias independientes, perfiles gráficos, límites 30/60 FPS, movimiento/efectos y pantalla completa PC. Atajos y gestión de Atrás/pausa/cierre conservan las reglas y guardados anteriores.
 - Presets Windows x86_64 y Android arm64, preparación reproducible de herramientas con comprobación de integridad. Windows EXE/PCK y APK de depuración generados localmente; sin publicar binarios ni clave de producción.
 - 458 comprobaciones sin fallos y siete comprobaciones adicionales por paquete Windows/Android en Linux. ConfigFile emite un diagnóstico esperado en su prueba de archivo malformado. Revisión visual, ejecución en dispositivos y mediciones pendientes.
+
+## Fase 8.1 — biomas, reliquias y contenido
+- Dos tramos de bioma con pools de encuentros/eventos y ambiente visual, cuatro reliquias acumulables de expedición y categorías/asistentes de edición.
+- Seis cartas nuevas sin cambiar mazos iniciales, un cuarto enemigo de entrenamiento y dos eventos; veinte cartas en total y jefe conservado.
+- Snapshot opcional de expansión, inventario único, validación y continuidad exacta comprobada con fixtures reales de fase 6.
+- 596 comprobaciones sin fallos, incluidas 130 de expansión. La fase 6 fue comprobada por el usuario en Android y PC, con 60 FPS estables en su PC; revisión física y balance de esta ampliación pendientes.

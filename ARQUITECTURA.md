@@ -51,3 +51,7 @@ Main coordina ambas interfaces y autosalva en cambios reales del modelo; selecci
 ## Plataforma y preferencias
 
 `core/platform/preferences.gd` normaliza y guarda ajustes en un ConfigFile independiente de la expedición. Aplica resolución 3D, MSAA, FPS y multiplicadores de cámara/efectos; no modifica reglas de combate ni Resources. `safe_area.gd` suma insets físicos convertidos a márgenes lógicos de las escenas. La raíz Scroll de las UI mantiene desplazamiento y foco. `scenes/settings/settings.tscn` define los controles persistentes; `main.gd` coordina señales, atajos y guardado al pausar/cerrar. `tools/editor/dialog_layout.gd` comparte la limitación de tamaño y el scroll de ventanas del editor.
+
+## Expansión 8.1
+
+`RpgRunDefinition` añade arrays opcionales de `RpgBiomeDefinition` y `RpgRelicDefinition`. El generador asigna biomas por rango y resuelve sus pools por semilla; la ausencia de esos datos mantiene la ruta antigua. `core/progression/relics.gd` aplica bonificaciones a copias de combate y calcula recuperación/oro de victoria, mientras Expedition mantiene los IDs únicos adquiridos. `expansion_validator.gd` y RunValidator comprueban cobertura, referencias, ofertas e inventario. La presentación usa Environment duplicado temporalmente y lo restaura; no controla reglas. El catálogo histórico se verifica como subconjunto para permitir nuevas entradas sin cambiar sus definiciones originales.

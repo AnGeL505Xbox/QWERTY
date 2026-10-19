@@ -43,7 +43,7 @@ El comprobador CLI consulta las variables SDK/JDK anteriores y presencia de arch
 
 Distribuye **EXE y PCK juntos** en Windows. En Android instala el APK de depuración en un dispositivo arm64 compatible: desde su administrador de archivos o mediante `adb install -r build/android/UmbralDeNacar.apk`. No se ha ejecutado ese paso en un dispositivo de esta máquina.
 
-El identificador actual es `org.angel505.umbraldenacar`, versión 0.6.0/código 1. Cámbialo antes de tu distribución si corresponde. Para publicación Android configura tu clave de producción y versión de lanzamiento fuera de Git; los presets no incluyen credenciales. `build/`, keystores y archivos de credenciales están ignorados. No se ha publicado ningún binario en GitHub o tiendas.
+El identificador actual es `org.angel505.umbraldenacar`, versión 0.8.0/código 2. Cámbialo antes de tu distribución si corresponde. Para publicación Android configura tu clave de producción y versión de lanzamiento fuera de Git; los presets no incluyen credenciales. `build/`, keystores y archivos de credenciales están ignorados. No se ha publicado ningún binario en GitHub o tiendas.
 
 ## Paquetes de recursos para regresión
 
@@ -69,4 +69,6 @@ Referencia oficial: https://docs.godotengine.org/en/stable/tutorials/export/inde
 
 ## Resultado de esta máquina
 
-Se generaron `build/windows/UmbralDeNacar.exe` y su PCK (Windows x86_64) y `build/android/UmbralDeNacar.apk` (depuración arm64). Se verificaron firma APK v2/v3 y alineación; sus metadatos indican paquete `org.angel505.umbraldenacar`, versión 0.6.0, mínimo Android API 24 y destino API 36. El manifiesto incluye una actividad alias de lanzamiento y no solicita Internet. El PCK del ejecutable Windows también superó las siete comprobaciones de arranque. Esto no demuestra ejecución nativa en esos sistemas. Los binarios permanecen en `build/`, fuera de Git.
+Se generaron `build/windows/UmbralDeNacar.exe` y su PCK (Windows x86_64) y `build/android/UmbralDeNacar.apk` (depuración arm64). Se verificaron firma APK v2/v3 y alineación; sus metadatos indican paquete `org.angel505.umbraldenacar`, versión 0.8.0, mínimo Android API 24 y destino API 36. El manifiesto incluye una actividad alias de lanzamiento y no solicita Internet. El PCK del ejecutable Windows también superó las siete comprobaciones de arranque. Esto no demuestra ejecución nativa en esos sistemas. Los binarios permanecen en `build/`, fuera de Git.
+
+Comprobación comunicada por el usuario: la fase 6 funciona en Android y PC, con 60 FPS estables en su PC. Los binarios 0.8.0 incorporan contenido nuevo y necesitan repetir esa comprobación; no se extrapolan esas mediciones a esta versión.

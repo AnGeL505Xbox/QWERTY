@@ -4,7 +4,7 @@ Empieza por `EDICION_VISUAL.md`: es el recorrido para editar sin escribir GDScri
 - **Cartas:** `data/cards/*.tres` → Cost, Effects, Description, Illustration.
 - **Personajes:** `data/characters/*.tres` → estadísticas, energía, estrés, Deck, Special y Visual Profile.
 - **Enemigos:** `data/enemies/*.tres` → vida y Pattern.
-- **Roguelike:** `data/progression/expedition.tres` y `scenes/exploration/`; consulta `documentation/ROGUELIKE_Y_GUARDADO.md`.
+- **Roguelike:** `data/progression/expanded_expedition.tres` y `scenes/exploration/`; consulta `documentation/ROGUELIKE_Y_GUARDADO.md`.
 - **Balance y registros:** `data/catalog.tres` → Hand Size, Cards, Characters, Enemies, Statuses y Team.
 - **Escenario y posiciones:** `scenes/visuals/arena.tscn`.
 - **Interfaz y cartas:** `scenes/ui/interface.tscn`, `card.tscn` y `theme.tres`.
@@ -14,3 +14,5 @@ Guarda escenas y recursos antes de ejecutar F5. Los contenedores repetidos se ll
 Las pruebas numéricas incluyen el balance original como regresión. Si lo modificas deliberadamente, revisa esas expectativas; un fallo no significa necesariamente que tu nuevo balance sea incorrecto. Prueba también una partida real.
 
 Haz una rama y commits pequeños. No cambies IDs existentes sin revisar referencias y futuras partidas guardadas. `data/content.json` se conserva como referencia histórica y ya no es la fuente activa.
+
+La expedición anterior `data/progression/expedition.tres` se conserva como referencia. Para editar biomas/reliquias y sus rangos, consulta [FASE_8_BIOMAS_Y_RELIQUIAS.md](FASE_8_BIOMAS_Y_RELIQUIAS.md).

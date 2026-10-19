@@ -16,7 +16,7 @@
 - Validar contenido con errores recuperables y comprobar que los cambios guardados del editor llegan al juego mediante `tests/visual_editing.gd`.
 
 ## Expediciones y persistencia
-- Las reglas de recorrido y economía se editan en `data/progression/expedition.tres`; mantener sus pantallas/plantillas en `scenes/exploration/`.
+- Las reglas activas de recorrido y economía se editan en `data/progression/expanded_expedition.tres` (`expedition.tres` se conserva como referencia anterior); mantener sus pantallas/plantillas en `scenes/exploration/`.
 - No modificar Resources del catálogo al obtener recompensas. Las partidas conservan su instantánea de datos y sus RNG; mantener compatibilidad o migración explícita al cambiar el formato o algoritmo de rutas.
 - Conservar originales/copia de recuperación ante errores de carga. Las pruebas deben usar rutas de guardado diferentes de `user://expedition.json`.
 
@@ -34,3 +34,9 @@
 - Guardar preferencias en un ConfigFile independiente de la partida; mantener ajustes como multiplicadores de cámara/efectos de la escena. Atajos solo en contextos válidos y fuera de edición de texto.
 - Ejecutar `tests/platform_ui.gd` para cambios de plataforma. Las pruebas de paquetes requieren exportar antes y ejecutar `tests/package_smoke.gd` desde disco con `--main-pack`. No confundir el motor Linux con una prueba nativa Windows/Android.
 - Mantener builds, SDK, plantillas, claves y credenciales fuera de Git. Usar Godot/plantillas 4.6.3, formatos S3TC/BPTC y ETC2/ASTC. Véase `EXPORTAR_PC_ANDROID.md`.
+
+## Biomas y reliquias
+- Mantener `biomes`/`relics` opcionales para conservar estados y RNG anteriores. No regenerar fixtures de fase 6 con código nuevo para hacer pasar pruebas.
+- Aplicar bonificaciones sobre copias de combate y solo una vez al completar una victoria; no modificar catálogo, mazos iniciales o Resources al adquirir reliquias.
+- Los rangos de biomas cubren cada etapa una sola vez; sus pools referencian los mismos Resources globales. Crear/duplicar biomas no debe activarlos ni solapar tramos automáticamente.
+- Ejecutar `tests/expansion.gd` al modificar estos sistemas. Distinguir comprobaciones del usuario (fase 6: Android/PC y 60 FPS estables en su PC) de mediciones del agente y de validación de nuevas versiones.

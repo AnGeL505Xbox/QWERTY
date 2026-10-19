@@ -66,3 +66,5 @@ El panel permite crear y duplicar Resources con validación previa. Consulta [HE
 ## UI y ventanas de fase 6
 
 La interfaz y la expedición incorporan un `Scroll` por encima de `Margin`: las rutas literales anteriores `Margin/...` pasan a `Scroll/Margin/...`, conservando los nombres únicos. Ajusta márgenes y estilos en esas mismas escenas. La nueva pantalla editable es `scenes/settings/settings.tscn`. Las ventanas de herramientas limitan su tamaño y desplazan su contenido, dejando Aplicar/Cancelar accesibles. Consulta [FASE_6_MULTIPLATAFORMA.md](FASE_6_MULTIPLATAFORMA.md). Se generaron un EXE y un APK de depuración; su revisión en dispositivos reales permanece pendiente.
+
+La fase 8.1 añade categorías de biomas y reliquias al panel; el botón Expedición abre ahora `data/progression/expanded_expedition.tres`. Su configuración anterior sigue disponible. Consulta [la guía de expansión](FASE_8_BIOMAS_Y_RELIQUIAS.md).

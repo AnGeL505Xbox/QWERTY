@@ -29,6 +29,7 @@ godot --headless --path . --script tests/roguelike_scene.gd
 godot --headless --path . --script tests/authoring.gd
 godot --headless --path . --script tests/editor_workflows.gd
 godot --headless --path . --script tests/platform_ui.gd
+godot --headless --path . --script tests/expansion.gd
 godot --headless --editor --path . -- --test-content-editors
 ```
 En la máquina de nube, usa directorios escribibles antes de estos comandos:
@@ -40,20 +41,22 @@ mkdir -p "$XDG_DATA_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 ```
 
 ## Alcance
-Fases 1–5 y edición visual: dos personajes originales con estadísticas, pasivas y crisis configurables; tres enemigos seleccionables; catorce cartas y diecinueve entradas entre los mazos de Lira y Noa; robo, descarte, barajado reproducible, energía, daño, escudo, curación, agotamiento y victoria/derrota. Los enemigos alternan ataques, guardia o curación según patrones editables. Escenario 3D ligero con profundidad y paralaje, perfiles visuales editables, sprites SVG originales, nueve animaciones de respaldo y efectos de combate. No es todavía el vertical slice completo.
+Fases 1–8.1 y edición visual: dos personajes originales con estadísticas, pasivas y crisis configurables; cuatro enemigos seleccionables y jefe de expedición; veinte cartas y diecinueve entradas entre los mazos de Lira y Noa; robo, descarte, barajado reproducible, energía, daño, escudo, curación, agotamiento y victoria/derrota. Los enemigos alternan ataques, guardia o curación según patrones editables. Escenario 3D ligero con profundidad y paralaje, perfiles visuales editables, sprites SVG originales, nueve animaciones de respaldo y efectos de combate. No es todavía el vertical slice completo.
 
-Consulta `PLAN_DE_DESARROLLO.md`, `ARQUITECTURA.md` y las guías `COMO_*.md`. Se generaron exportaciones Windows y Android; su ejecución nativa, la revisión gráfica y el rendimiento en dispositivos siguen pendientes. Hay guardado de expedición; no hay metaprogresión todavía.
+Consulta `PLAN_DE_DESARROLLO.md`, `ARQUITECTURA.md` y las guías `COMO_*.md`. Se generaron exportaciones Windows y Android; el usuario confirmó funcionamiento de la fase 6 en Android y PC y 60 FPS estables en su PC. La ampliación 8.1 necesita su propia revisión física y de balance. Hay guardado de expedición; no hay metaprogresión todavía.
 
-Validación actual: 458 comprobaciones sin fallos (53 de combate, 54 de personajes, 39 de presentación, 7 de escena, 37 de edición visual, 64 de roguelike, 26 de su interfaz, 52 de herramientas, 67 de editores y 19 de integración con el editor nativo y 40 de plataforma/UI). Incluyen expediciones completas con cartas/turnos reales, carga intermedia y recuperación de copia. Validación sin interfaz gráfica; revisión visual y dispositivos reales pendiente.
+Validación actual: 596 comprobaciones sin fallos (53 de combate, 54 de personajes, 39 de presentación, 7 de escena, 37 de edición visual, 64 de roguelike, 26 de su interfaz, 60 de herramientas, 67 de editores, 19 de integración con el editor nativo, 40 de plataforma/UI y 130 de expansión). Incluyen expediciones completas con cartas/turnos reales, carga intermedia y recuperación de copia. Validación del agente sin interfaz gráfica; la ampliación 8.1 requiere revisión en dispositivos.
 
 Para probar los estados, juega **Resonancia** o **Pacto protector** de Noa. Usa **Ancla serena** antes de que el estrés alcance el umbral. El menú conserva al menos un integrante y permite volver a jugar con Lira sola. Las reglas detalladas están en `documentation/PERSONAJES_Y_ESTRES.md`.
 
 Fase 4: los objetivos se resaltan en el escenario y los efectos muestran cambios reales. Puedes sustituir imágenes, SpriteFrames y nombres de clips desde perfiles `.tres`: consulta `COMO_CAMBIAR_GRAFICOS.md` y `documentation/PRESENTACION_2_5D.md`.
 
-La configuración roguelike se edita en `data/progression/expedition.tres`; las nuevas pantallas están en `scenes/exploration/`. El catálogo original no se modifica al obtener cartas o mejoras durante una partida.
+La configuración roguelike activa se edita en `data/progression/expanded_expedition.tres` (la anterior `expedition.tres` se conserva como referencia); las nuevas pantallas están en `scenes/exploration/`. El catálogo original no se modifica al obtener cartas o mejoras durante una partida.
 
 Fase 7 implementada antes de 6 y 8: consulta [HERRAMIENTAS_DE_CONTENIDO.md](HERRAMIENTAS_DE_CONTENIDO.md) para crear y duplicar contenido desde el panel, configurar recompensas y editar eventos.
 
 Puedes editar mazos, decisiones de eventos y rutas desde el panel **Contenido**: [guía de los tres editores](EDITORES_DE_MAZOS_EVENTOS_Y_RUTAS.md). Aplicar admite Deshacer/Rehacer; después usa Guardar contenido. Las rutas siguen admitiendo generación procedural.
 
 Fase 6: [UI, controles y ajustes](FASE_6_MULTIPLATAFORMA.md); [preparación y exportación](EXPORTAR_PC_ANDROID.md). Pulsa **Ajustes** o F10; 1–9 seleccionan cartas y E termina turno. Las ventanas de herramientas ahora se acotan al área disponible y permiten desplazarse. Cada paquete de recursos Windows/Android pasó además siete comprobaciones en Linux; esto no prueba sus binarios nativos.
+
+Fase 8.1: [biomas, reliquias y contenido editable](FASE_8_BIOMAS_Y_RELIQUIAS.md). Inicia **Nueva expedición** para usar la ampliación; Continuar conserva el contenido de tu partida anterior.
