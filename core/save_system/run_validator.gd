@@ -1,5 +1,7 @@
 extends RefCounted
 
+const Relics = preload("res://core/progression/relics.gd")
+const Expansion = preload("res://core/data/expansion_validator.gd")
 const ContentValidator = preload("res://core/data/validator.gd")
 const Progression = preload("res://core/data/progression_validator.gd")
 const Route = preload("res://core/progression/route.gd")
@@ -130,18 +132,30 @@ static func validate(saved: Dictionary) -> PackedStringArray:
 	for id in saved.upgrades:
 		if not id in owned or not cards.has(id) or not cards[id].owner in saved.team or not _integer(saved.upgrades[id], 1, int(saved.config.max_upgrade_level)):
 			errors.append("Mejora guardada inválida.")
-	if saved.offers.size() > (11 if saved.config.has("rewards") else 6):
+	var acquired: Array = []
+	if saved.config.has("relics"):
+		if not saved.get("relics") is Array or saved.get("relics", []).size() > saved.config.relics.size():
+			errors.append("Reliquias guardadas: inventario inválido.")
+		else:
+			for id in saved.relics:
+				if not id is String or id in acquired or Relics.definition(saved.config, id).is_empty(): errors.append("Reliquias guardadas: ID desconocido o repetido.")
+				acquired.append(id)
+	elif saved.has("relics"):
+		errors.append("Reliquias guardadas sin configuración.")
+	if saved.offers.size() > (12 if saved.config.has("relics") else 11 if saved.config.has("rewards") else 6):
 		errors.append("Demasiadas recompensas guardadas.")
 	var offer_ids: Array = []
 	for offer in saved.offers:
-		if not offer is Dictionary or not offer.get("action") in ["card", "upgrade", "skip"] or not offer.get("id") is String:
+		if not offer is Dictionary or not offer.get("action") in ["card", "upgrade", "skip", "relic"] or not offer.get("id") is String:
 			errors.append("Oferta guardada inválida.")
 			continue
 		var key: String = offer.action + ":" + offer.id
 		if key in offer_ids:
 			errors.append("Oferta duplicada.")
 		offer_ids.append(key)
-		if offer.action != "skip" and (not cards.has(offer.id) or not cards[offer.id].owner in saved.team):
+		if offer.action == "relic":
+			if Relics.definition(saved.config, offer.id).is_empty() or offer.id in acquired: errors.append("Oferta de reliquia desconocida o ya adquirida.")
+		elif offer.action != "skip" and (not cards.has(offer.id) or not cards[offer.id].owner in saved.team):
 			errors.append("Carta de recompensa desconocida o ajena.")
 		if saved.phase == "shop" and offer.action != "card":
 			errors.append("Oferta de tienda inválida.")
@@ -157,6 +171,10 @@ static func validate(saved: Dictionary) -> PackedStringArray:
 		var event_id = saved.get("event_id", "")
 		if not event_id is String or (saved.phase == "event" and not saved.config.events.any(func(event): return event.id == event_id)):
 			errors.append("Evento activo desconocido.")
+	if saved.phase == "event" and saved.config.has("biomes"):
+		var biome := Expansion.biome_for_row(saved.config, int(indexed[saved.current].row))
+		if not biome.get("events", []).is_empty() and not saved.get("event_id", "") in biome.events:
+			errors.append("Evento activo fuera del bioma.")
 	return errors
 
 static func _battle(run: Dictionary, definitions: Dictionary, cards: Dictionary) -> PackedStringArray:
@@ -254,6 +272,12 @@ static func resource_configuration(catalog: RpgContentCatalog, rules: RpgRunDefi
 	if catalog == null or rules == null:
 		return PackedStringArray(["Falta el catálogo o la configuración de expedición."])
 	var errors := configuration(catalog.to_dict(), rules.to_dict())
+	for biome in rules.biomes:
+		if biome == null: continue
+		for enemy in biome.encounters:
+			if enemy != null and not enemy in rules.encounters: errors.append("Bioma " + biome.id + ": usa enemigos registrados con el mismo recurso en Encounters.")
+		for event in biome.events:
+			if event != null and not event in rules.events: errors.append("Bioma " + biome.id + ": usa eventos registrados con el mismo recurso en Events.")
 	if rules.reward_table != null:
 		for card in rules.reward_table.cards:
 			if card != null and not card in catalog.cards:

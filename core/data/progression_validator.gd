@@ -1,6 +1,7 @@
 @tool
 extends RefCounted
 
+const Expansion = preload("res://core/data/expansion_validator.gd")
 const Values = preload("res://core/data/validator.gd")
 
 static func validate(content: Dictionary, config: Dictionary) -> PackedStringArray:
@@ -56,6 +57,7 @@ static func validate(content: Dictionary, config: Dictionary) -> PackedStringArr
 				if not choice.get("card") is String or (choice.get("card", "") != "" and not cards.has(choice.card)):
 					errors.append(prefix + choice.id + ": carta desconocida.")
 	errors.append_array(validate_route(config))
+	errors.append_array(Expansion.validate(config))
 	return errors
 
 static func _identity(value: Dictionary) -> bool:

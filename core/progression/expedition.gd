@@ -1,5 +1,7 @@
 extends RefCounted
 
+const Relics = preload("res://core/progression/relics.gd")
+const Expansion = preload("res://core/data/expansion_validator.gd")
 const Route = preload("res://core/progression/route.gd")
 const Battle = preload("res://core/combat/battle.gd")
 var content: Dictionary
@@ -15,6 +17,7 @@ var party: Dictionary = {}
 var upgrades: Dictionary = {}
 var offers: Array = []
 var event_id := ""
+var relic_ids: Array = []
 var battle: RefCounted
 var rng := RandomNumberGenerator.new()
 
@@ -64,7 +67,10 @@ func enter(id: String) -> bool:
 	elif phase == "reward":
 		_open_rewards()
 	elif phase == "event" and config.has("events"):
-		event_id = config.events[rng.randi_range(0, config.events.size() - 1)].id
+		var pool: Array = config.events
+		var event_ids: Array = active_biome().get("events", [])
+		if not event_ids.is_empty(): pool = pool.filter(func(event): return event.id in event_ids)
+		event_id = pool[rng.randi_range(0, pool.size() - 1)].id
 	elif phase == "shop":
 		offers = _card_offers(3)
 	return true
@@ -85,6 +91,7 @@ func combat_content() -> Dictionary:
 				for intent in enemy.pattern:
 					if intent.type == "attack":
 						intent.amount = int(intent.amount) + int(config.elite_damage_bonus)
+	Relics.apply_combat(data, config, relic_ids)
 	return data
 
 func sync_party() -> void:
@@ -99,11 +106,15 @@ func finish_battle() -> bool:
 	sync_party()
 	if battle.result == "Derrota":
 		phase = "defeat"
-	elif node(current).type == "boss":
-		visited.append(current)
-		phase = "victory"
 	else:
-		_open_rewards()
+		var bonus := Relics.bonuses(config, relic_ids)
+		Relics.heal_after_victory(party, content, int(bonus.victory_heal))
+		gold += int(bonus.victory_gold)
+		if node(current).type == "boss":
+			visited.append(current)
+			phase = "victory"
+		else:
+			_open_rewards()
 	return true
 
 func _open_rewards() -> void:
@@ -121,6 +132,10 @@ func _open_rewards() -> void:
 			break
 		offers.append({"action": "upgrade", "id": id})
 		count += 1
+	if config.has("relics"):
+		var candidates: Array = config.relics.filter(func(relic): return not relic.id in relic_ids)
+		if not candidates.is_empty():
+			offers.append({"action": "relic", "id": candidates[rng.randi_range(0, candidates.size() - 1)].id})
 	if table.allow_skip or offers.is_empty():
 		offers.append({"action": "skip", "id": ""})
 
@@ -157,7 +172,10 @@ func choose(action: String, id: String = "") -> bool:
 	if phase == "reward":
 		if not {"action": action, "id": id} in offers:
 			return false
-		if action == "card":
+		if action == "relic":
+			if id in relic_ids or Relics.definition(config, id).is_empty(): return false
+			relic_ids.append(id)
+		elif action == "card":
 			_add_card(id)
 		elif action == "upgrade":
 			if not id in upgradeable():
@@ -228,6 +246,7 @@ func _complete_node() -> void:
 func export_state() -> Dictionary:
 	var saved := {"seed": str(seed_value), "rng_state": str(rng.state), "content": content.duplicate(true), "config": config.duplicate(true), "team": team_ids.duplicate(), "nodes": nodes.duplicate(true), "visited": visited.duplicate(), "current": current, "phase": phase, "gold": gold, "party": party.duplicate(true), "upgrades": upgrades.duplicate(), "offers": offers.duplicate(true), "battle": battle.export_state() if phase == "combat" and battle != null else {}}
 
+	if config.has("relics"): saved["relics"] = relic_ids.duplicate()
 	if config.has("events"):
 		saved["event_id"] = event_id
 	return saved
@@ -246,6 +265,7 @@ static func restore(saved: Dictionary):
 		run.party[id] = {"health": int(saved.party[id].health), "stress": int(saved.party[id].stress)}
 	for id in saved.upgrades:
 		run.upgrades[id] = int(saved.upgrades[id])
+	run.relic_ids = saved.get("relics", []).duplicate()
 	run.offers = saved.offers.duplicate(true)
 	run.event_id = saved.get("event_id", "")
 	run.rng.state = int(saved.rng_state)
@@ -291,3 +311,15 @@ func _choose_event(action: String, id: String) -> bool:
 			phase = "defeat"
 		return true
 	return false
+
+func active_biome() -> Dictionary:
+	return Expansion.biome_for_row(config, int(node(current).get("row", 0)))
+
+func relic_description(id: String) -> String:
+	var relic := Relics.definition(config, id)
+	var pieces: Array[String] = []
+	if relic.get("turn_block", 0) > 0: pieces.append("+%d escudo por integrante al iniciar cada turno" % relic.turn_block)
+	if relic.get("turn_energy", 0) > 0: pieces.append("+%d energía por integrante cada turno" % relic.turn_energy)
+	if relic.get("victory_heal", 0) > 0: pieces.append("+%d PV por integrante vivo al ganar un combate" % relic.victory_heal)
+	if relic.get("victory_gold", 0) > 0: pieces.append("+%d oro al ganar un combate" % relic.victory_gold)
+	return str(relic.get("name", id)) + ": " + "; ".join(pieces)
