@@ -1,0 +1,23 @@
+[gd_resource type="Resource" load_steps=7 format=3]
+[ext_resource type="Script" path="res://core/data/resources/enemy_definition.gd" id="1"]
+[ext_resource type="Script" path="res://core/data/resources/intent_definition.gd" id="2"]
+[ext_resource type="Resource" path="res://visuals/profiles/enemy.tres" id="3"]
+[sub_resource type="Resource" id="Attack1"]
+script = ExtResource("2")
+type = "attack"
+amount = 8
+[sub_resource type="Resource" id="Guard"]
+script = ExtResource("2")
+type = "guard"
+amount = 8
+[sub_resource type="Resource" id="Attack2"]
+script = ExtResource("2")
+type = "attack"
+amount = 12
+[resource]
+script = ExtResource("1")
+id = "guardian_umbral"
+display_name = "Guardián del umbral"
+health = 60
+pattern = Array[ExtResource("2")]([SubResource("Attack1"), SubResource("Guard"), SubResource("Attack2")])
+visual_profile = ExtResource("3")

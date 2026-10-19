@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=6 format=3]
+[ext_resource type="Script" path="res://core/data/resources/run_definition.gd" id="1"]
+[ext_resource type="Script" path="res://core/data/resources/enemy_definition.gd" id="2"]
+[ext_resource type="Resource" path="res://data/enemies/eco.tres" id="3"]
+[ext_resource type="Resource" path="res://data/enemies/susurro.tres" id="4"]
+[ext_resource type="Resource" path="res://data/progression/boss.tres" id="5"]
+[resource]
+script = ExtResource("1")
+encounters = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4")])
+boss = ExtResource("5")

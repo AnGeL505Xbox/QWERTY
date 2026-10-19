@@ -38,7 +38,7 @@ var energy: int:
 	get: return team[0].energy
 	set(value): team[0].energy = value
 
-func _init(data: Dictionary, seed_value: int = 1, enemy_index: int = 0, team_ids: Array = []) -> void:
+func _init(data: Dictionary, seed_value: int = 1, enemy_index: int = 0, team_ids: Array = [], party: Dictionary = {}) -> void:
 	content = data
 	rng.seed = seed_value
 	var ids: Array = data.team if team_ids.is_empty() else team_ids
@@ -47,7 +47,11 @@ func _init(data: Dictionary, seed_value: int = 1, enemy_index: int = 0, team_ids
 		for definition in data.characters:
 			if definition.id == id:
 				assert(character(id) == null, "Personaje repetido")
-				team.append(Character.new(definition, data.statuses))
+				var member = Character.new(definition, data.statuses)
+				if party.has(id):
+					member.health = int(party[id].health)
+					member.stress = int(party[id].stress)
+				team.append(member)
 				draw_pile.append_array(definition.deck)
 	assert(team.size() == ids.size(), "Personaje desconocido")
 	enemy = content.enemies[enemy_index].duplicate(true)
@@ -185,3 +189,37 @@ func _emit_event(source: String, animation: String, before: Dictionary) -> void:
 				status_names.append(str(content.statuses[status].name))
 		changes.append({"target": id, "health": now.health - old.health, "shield": now.shield - old.shield, "stress": now.stress - old.stress, "status": ", ".join(status_names)})
 	combat_event.emit({"source": source, "animation": animation, "changes": changes})
+
+# Guardado de reglas, sin nodos ni recursos gráficos. Los enteros RNG se guardan como texto.
+func export_state() -> Dictionary:
+	var members: Dictionary = {}
+	for member in team:
+		members[member.id] = {"health": member.health, "stress": member.stress, "energy": member.energy, "block": member.block, "statuses": member.statuses.duplicate(), "crisis": member.crisis}
+	return {"enemy": enemy.id, "enemy_health": enemy_health, "enemy_block": enemy_block, "turn": turn, "intent": intent.duplicate(true), "hand": hand.duplicate(), "draw": draw_pile.duplicate(), "discard": discard.duplicate(), "exhausted": exhausted.duplicate(), "result": result, "members": members, "rng_seed": str(rng.seed), "rng_state": str(rng.state)}
+
+static func restore(data: Dictionary, saved: Dictionary, ids: Array):
+	var enemy_index := 0
+	for i in range(data.enemies.size()):
+		if data.enemies[i].id == saved.enemy:
+			enemy_index = i
+	var restored = load("res://core/combat/battle.gd").new(data, 1, enemy_index, ids)
+	restored.enemy_health = int(saved.enemy_health)
+	restored.enemy_block = int(saved.enemy_block)
+	restored.turn = int(saved.turn)
+	restored.intent = saved.intent.duplicate(true)
+	restored.hand = saved.hand.duplicate()
+	restored.draw_pile = saved.draw.duplicate()
+	restored.discard = saved.discard.duplicate()
+	restored.exhausted = saved.exhausted.duplicate()
+	restored.result = saved.result
+	for member in restored.team:
+		var state: Dictionary = saved.members[member.id]
+		member.health = int(state.health)
+		member.stress = int(state.stress)
+		member.energy = int(state.energy)
+		member.block = int(state.block)
+		member.statuses = state.statuses.duplicate()
+		member.crisis = state.crisis
+	restored.rng.seed = int(saved.rng_seed)
+	restored.rng.state = int(saved.rng_state)
+	return restored
