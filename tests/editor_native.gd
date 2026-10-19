@@ -28,6 +28,9 @@ func run(plugin: EditorPlugin) -> void:
 	EditorInterface.edit_resource(plugin.selected_resource)
 	plugin._open_editor("deck")
 	var deck_editor = plugin.editors[0]
+	await plugin.get_tree().process_frame
+	check(deck_editor.size.y <= plugin.get_tree().root.size.y and deck_editor.size.x <= plugin.get_tree().root.size.x, "Ventana de mazo cabe en el editor")
+	check(deck_editor.get_node("ScrollableContent") is ScrollContainer, "Mazo dispone de desplazamiento")
 	check(deck_editor.visible, "Botón del plugin abre editor de mazo")
 	var character := catalog.characters[0]
 	var deck := character.deck.duplicate()
@@ -47,6 +50,8 @@ func run(plugin: EditorPlugin) -> void:
 	plugin.selected_resource = event
 	plugin._open_editor("event")
 	var event_editor = plugin.editors[1]
+	await plugin.get_tree().process_frame
+	check(event_editor.size.y <= plugin.get_tree().root.size.y, "Ventana de eventos cabe en el editor")
 	check(event_editor.visible, "Botón del plugin abre evento")
 	var old_name := event.display_name
 	event_editor.name_input.text = "Evento de prueba nativa"
@@ -65,6 +70,8 @@ func run(plugin: EditorPlugin) -> void:
 	history.clear_history()
 	plugin._open_editor("route")
 	var route_editor = plugin.editors[2]
+	await plugin.get_tree().process_frame
+	check(route_editor.size.y <= plugin.get_tree().root.size.y, "Ventana de rutas cabe en el editor")
 	check(route_editor.visible, "Botón del plugin abre grafo")
 	route_editor.rows.value = 4
 	route_editor._generate()

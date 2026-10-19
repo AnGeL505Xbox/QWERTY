@@ -44,7 +44,7 @@ func open_for(content: RpgContentCatalog, run_rules: RpgRunDefinition) -> void:
 	procedural = rules.route_nodes.is_empty()
 	draft = Editing.route_draft(rules, int(seed_input.value))
 	_render()
-	popup_centered()
+	DialogLayout.open(self)
 
 func _generate() -> void:
 	var probe: RpgRunDefinition = rules.duplicate(false)

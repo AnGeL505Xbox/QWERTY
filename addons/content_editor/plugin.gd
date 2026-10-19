@@ -1,6 +1,7 @@
 @tool
 extends EditorPlugin
 
+const DialogLayout = preload("res://tools/editor/dialog_layout.gd")
 const Catalog = preload("res://core/data/catalog.gd")
 const Authoring = preload("res://tools/editor/authoring.gd")
 const Factory = preload("res://tools/editor/content_factory.gd")
@@ -80,7 +81,7 @@ func _enter_tree() -> void:
 	preview.title = "Vista previa de contenido"
 	preview_text = RichTextLabel.new()
 	preview_text.custom_minimum_size = Vector2(560, 360)
-	preview.add_child(preview_text)
+	DialogLayout.wrap(preview, preview_text)
 	EditorInterface.get_base_control().add_child(preview)
 	for script in [DeckDialog, EventDialog, RouteDialog]:
 		var editor: ConfirmationDialog = script.new()
@@ -198,7 +199,7 @@ func _preview_selection() -> void:
 		lines.append("Pool: todas las cartas del equipo" if selected_resource.cards.is_empty() else ", ".join(selected_resource.cards.map(func(card): return card.id if card != null else "NULO")))
 	elif selected_resource.has_method("to_dict"): lines.append(JSON.stringify(selected_resource.to_dict(), "  "))
 	preview_text.text = "\n".join(lines)
-	preview.popup_centered()
+	DialogLayout.open(preview, Vector2i(760, 540))
 
 func _exit_tree() -> void:
 	remove_control_from_docks(dock)

@@ -1,6 +1,8 @@
 @tool
 extends ConfirmationDialog
 
+const DialogLayout = preload("res://tools/editor/dialog_layout.gd")
+
 signal proposal_ready(proposal: Dictionary)
 var form: VBoxContainer
 var report: Label
@@ -10,7 +12,7 @@ func _ready() -> void:
 	get_ok_button().text = "Aplicar borrador"
 	form = VBoxContainer.new()
 	form.custom_minimum_size = Vector2(820, 540)
-	add_child(form)
+	DialogLayout.wrap(self, form)
 	build()
 	report = Label.new()
 	report.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

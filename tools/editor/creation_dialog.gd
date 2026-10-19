@@ -2,6 +2,7 @@
 extends ConfirmationDialog
 
 signal resource_created(proposal: Dictionary)
+const DialogLayout = preload("res://tools/editor/dialog_layout.gd")
 const Factory = preload("res://tools/editor/content_factory.gd")
 const KINDS = ["card", "character", "enemy", "status", "reward", "event"]
 var catalog: RpgContentCatalog
@@ -20,7 +21,7 @@ func _ready() -> void:
 	get_ok_button().text = "Crear y registrar"
 	var body := VBoxContainer.new()
 	body.custom_minimum_size = Vector2(540, 400)
-	add_child(body)
+	DialogLayout.wrap(self, body)
 	type_input = OptionButton.new()
 	for label in ["Carta", "Personaje", "Enemigo", "Estado", "Tabla de recompensas", "Evento"]: type_input.add_item(label)
 	body.add_child(type_input)
@@ -69,7 +70,7 @@ func open_for(content: RpgContentCatalog, run_rules: RpgRunDefinition, original:
 	activate.button_pressed = rules.reward_table == null
 	activate.disabled = rules.reward_table == null
 	_preview()
-	popup_centered()
+	DialogLayout.open(self, Vector2i(660, 620))
 	id_input.grab_focus()
 
 func _proposal() -> Dictionary:

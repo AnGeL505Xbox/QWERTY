@@ -85,7 +85,7 @@ func open_for(content: RpgContentCatalog, run_rules: RpgRunDefinition, event: Rp
 		gift.set_item_metadata(gift.item_count - 1, card)
 	report.text = "Borrador sin aplicar. Las opciones se muestran en su orden de lista."
 	_refresh(0 if not draft.choices.is_empty() else -1)
-	popup_centered()
+	DialogLayout.open(self)
 
 func _refresh(index: int) -> void:
 	choices.clear()

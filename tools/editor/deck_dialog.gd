@@ -56,7 +56,7 @@ func open_for(content: RpgContentCatalog, target: RpgCharacterDefinition) -> voi
 	report.text = "Borrador sin aplicar. Cancelar conserva el mazo anterior."
 	_pool()
 	_refresh()
-	popup_centered()
+	DialogLayout.open(self)
 
 func _pool() -> void:
 	if catalog == null: return
