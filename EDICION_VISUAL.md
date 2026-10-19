@@ -16,6 +16,8 @@ El panel Contenido se incluye como complemento local. Si no aparece, actívalo e
 | Vida, ataque, defensa, energía, estrés, pasivas y mazo | `data/characters/*.tres` |
 | Vida y patrón de un enemigo | `data/enemies/*.tres` |
 | Nombre y magnitud de un estado | `data/statuses/*.tres` |
+| Reglas roguelike, encuentros, precios y mejoras | `data/progression/expedition.tres` |
+| Mapa, recompensas y plantilla de nodos | `scenes/exploration/run_ui.tscn`, `node_button.tscn` |
 | Catálogo, equipo inicial y tamaño de mano | `data/catalog.tres` |
 | Suelo, columnas, cristales, materiales y luz | `scenes/visuals/arena.tscn` → `Stage`, `Sun`, `WorldEnvironment` |
 | Cámara y paralaje | `arena.tscn` → `Camera3D`; raíz Arena → Motion Enabled / Motion Amplitude |
@@ -55,4 +57,6 @@ Pulsa **Validar contenido** antes de jugar. Detecta IDs repetidos, referencias a
 
 `data/catalog.tres` es la fuente activa. `data/content.json` y `visuals/profiles/catalog.json` se conservan como referencia de la migración, **no se leen para ejecutar el juego**. Los scripts `tools/convert_legacy_content.py` y `tools/bake_legacy_stage.py` documentan el traslado original y se niegan a sobrescribir sus salidas; no forman parte del arranque y no deben ejecutarse para editar contenido nuevo.
 
-Las pruebas guardan y recargan escenas/Resources temporales y comprueban su comportamiento en juego. No se ha realizado una sesión gráfica manual en esta máquina ni pruebas de exportación o dispositivos. El guardado de `.tres` y `.tscn` guarda el proyecto, no una partida: el guardado roguelike sigue pendiente.
+Las pruebas guardan y recargan escenas/Resources temporales y comprueban su comportamiento en juego. No se ha realizado una sesión gráfica manual en esta máquina ni pruebas de exportación o dispositivos. El guardado de `.tres` y `.tscn` guarda el proyecto, no una partida: el guardado de expedición se describe en `documentation/ROGUELIKE_Y_GUARDADO.md`.
+
+El panel incorpora accesos a la configuración de expedición y a sus pantallas. La raíz Main permite asignar otro Expedition Rules. Los cambios de reglas se aplican al iniciar una partida nueva; las guardadas mantienen sus definiciones originales.

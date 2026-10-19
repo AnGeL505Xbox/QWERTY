@@ -6,6 +6,11 @@ Importa `project.godot` en Godot y pulsa F6 sobre `scenes/main.tscn` o F5. Selec
 
 Los botones admiten ratón, toque y navegación de foco de Godot. No requieren hover. La verificación táctil en un dispositivo real sigue pendiente.
 
+## Expedición roguelike
+En el menú elige equipo y semilla (por ejemplo **42**) y pulsa **Nueva expedición**. Recorre cinco etapas conectadas hasta el jefe; gana oro, cartas y mejoras, visita tienda o descanso y decide en eventos. Vida y estrés se conservan entre combates. **Continuar expedición** recupera incluso un combate interrumpido; el guardado es local en `user://expedition.json` y hay un solo espacio.
+
+Los combates de entrenamiento siguen disponibles. Consulta [ROGUELIKE_Y_GUARDADO.md](documentation/ROGUELIKE_Y_GUARDADO.md) para reglas, edición visual y recuperación.
+
 ## Edición visual
 Abre el panel **Contenido** en Godot para acceder al catálogo, escenas y validación. Las cartas, personajes, enemigos y estados son Resources `.tres` editables en el Inspector. Escenario, cámara, posiciones, menú, HUD y plantillas están en escenas `.tscn`.
 
@@ -19,6 +24,8 @@ godot --headless --path . --script tests/party.gd
 godot --headless --path . --script tests/presentation.gd
 godot --headless --path . --script tests/scene_smoke.gd
 godot --headless --path . --script tests/visual_editing.gd
+godot --headless --path . --script tests/roguelike.gd
+godot --headless --path . --script tests/roguelike_scene.gd
 ```
 En la máquina de nube, usa directorios escribibles antes de estos comandos:
 ```sh
@@ -29,12 +36,14 @@ mkdir -p "$XDG_DATA_HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 ```
 
 ## Alcance
-Fases 1–4 y edición visual previa al roguelike: dos personajes originales con estadísticas, pasivas y crisis configurables; tres enemigos seleccionables; catorce cartas y diecinueve entradas entre los mazos de Lira y Noa; robo, descarte, barajado reproducible, energía, daño, escudo, curación, agotamiento y victoria/derrota. Los enemigos alternan ataques, guardia o curación según patrones editables. Escenario 3D ligero con profundidad y paralaje, perfiles visuales editables, sprites SVG originales, nueve animaciones de respaldo y efectos de combate. No es todavía el vertical slice completo.
+Fases 1–5 y edición visual: dos personajes originales con estadísticas, pasivas y crisis configurables; tres enemigos seleccionables; catorce cartas y diecinueve entradas entre los mazos de Lira y Noa; robo, descarte, barajado reproducible, energía, daño, escudo, curación, agotamiento y victoria/derrota. Los enemigos alternan ataques, guardia o curación según patrones editables. Escenario 3D ligero con profundidad y paralaje, perfiles visuales editables, sprites SVG originales, nueve animaciones de respaldo y efectos de combate. No es todavía el vertical slice completo.
 
-Consulta `PLAN_DE_DESARROLLO.md`, `ARQUITECTURA.md` y las guías `COMO_*.md`. No se han probado exportaciones, calidad visual en pantalla ni rendimiento Android. No hay guardado todavía.
+Consulta `PLAN_DE_DESARROLLO.md`, `ARQUITECTURA.md` y las guías `COMO_*.md`. No se han probado exportaciones, calidad visual en pantalla ni rendimiento Android. Hay guardado de expedición; no hay metaprogresión todavía.
 
-Validación actual: 190 comprobaciones sin fallos (53 de combate, 54 de personajes, 39 de presentación, 7 de escena y 37 de edición visual). La nueva suite comprueba migración, validación y persistencia de cambios en Resources y escenas. Validación sin interfaz gráfica; revisión visual y dispositivos reales pendiente.
+Validación actual: 280 comprobaciones sin fallos (53 de combate, 54 de personajes, 39 de presentación, 7 de escena, 37 de edición visual, 64 de roguelike y 26 de su interfaz). Incluyen expediciones completas con cartas/turnos reales, carga intermedia y recuperación de copia. Validación sin interfaz gráfica; revisión visual y dispositivos reales pendiente.
 
 Para probar los estados, juega **Resonancia** o **Pacto protector** de Noa. Usa **Ancla serena** antes de que el estrés alcance el umbral. El menú conserva al menos un integrante y permite volver a jugar con Lira sola. Las reglas detalladas están en `documentation/PERSONAJES_Y_ESTRES.md`.
 
 Fase 4: los objetivos se resaltan en el escenario y los efectos muestran cambios reales. Puedes sustituir imágenes, SpriteFrames y nombres de clips desde perfiles `.tres`: consulta `COMO_CAMBIAR_GRAFICOS.md` y `documentation/PRESENTACION_2_5D.md`.
+
+La configuración roguelike se edita en `data/progression/expedition.tres`; las nuevas pantallas están en `scenes/exploration/`. El catálogo original no se modifica al obtener cartas o mejoras durante una partida.

@@ -14,3 +14,8 @@
 - Mantener escenario, HUD y plantillas en escenas `.tscn`. No volver a reconstruir geometría, cámaras o controles persistentes por código, ni sobrescribir transforms/estilos editados al arrancar.
 - Los controles repetidos se instancian desde PackedScene; conservar los nombres únicos y el contrato de nodos documentado. Usar VisualOffset para ajustes permanentes y Pivot para animación.
 - Validar contenido con errores recuperables y comprobar que los cambios guardados del editor llegan al juego mediante `tests/visual_editing.gd`.
+
+## Expediciones y persistencia
+- Las reglas de recorrido y economía se editan en `data/progression/expedition.tres`; mantener sus pantallas/plantillas en `scenes/exploration/`.
+- No modificar Resources del catálogo al obtener recompensas. Las partidas conservan su instantánea de datos y sus RNG; mantener compatibilidad o migración explícita al cambiar el formato o algoritmo de rutas.
+- Conservar originales/copia de recuperación ante errores de carga. Las pruebas deben usar rutas de guardado diferentes de `user://expedition.json`.

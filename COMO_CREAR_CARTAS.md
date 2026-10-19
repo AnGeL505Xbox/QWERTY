@@ -17,7 +17,7 @@ Los efectos incrustados se copian al duplicar el archivo. Si tú vinculas un efe
 
 Efectos disponibles: `damage`, `block`, `heal`, `draw`, `energy`, `calm`, `status`. La magnitud **Amount** es entera no negativa; para `status` es una duración positiva. En ese caso arrastra un `.tres` de `data/statuses/` al campo **Status**. `impulso.tres` muestra Resonancia de dos rondas y `refugio.tres` combina dos efectos compatibles con el mismo destino.
 
-El daño suma el ataque efectivo del dueño. Una habilidad especial es una carta referenciada por **Special** del personaje y marcada con ★; añade esa carta a Deck para robarla. Rarezas y mejoras todavía no están implementadas.
+El daño suma el ataque efectivo del dueño. Una habilidad especial es una carta referenciada por **Special** del personaje y marcada con ★; añade esa carta a Deck para robarla. Las rarezas no están implementadas. Las mejoras roguelike añaden magnitud a daño, escudo, curación y calma durante la expedición; se configuran en `data/progression/expedition.tres`. Una carta registrada puede aparecer como recompensa si su dueño está en el equipo, aunque no esté en su mazo inicial.
 
 ## Nuevas reglas
 Para un tipo de efecto totalmente nuevo, crea su módulo en `core/effects/`, regístralo en `registry.gd`, añade la opción al enum de `core/data/resources/effect_definition.gd` y añade pruebas de comportamiento. No hace falta modificar el bucle de Battle.play. La edición visual configura las reglas disponibles; no genera código de combate.

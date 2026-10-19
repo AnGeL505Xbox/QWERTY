@@ -4,6 +4,7 @@ Empieza por `EDICION_VISUAL.md`: es el recorrido para editar sin escribir GDScri
 - **Cartas:** `data/cards/*.tres` → Cost, Effects, Description, Illustration.
 - **Personajes:** `data/characters/*.tres` → estadísticas, energía, estrés, Deck, Special y Visual Profile.
 - **Enemigos:** `data/enemies/*.tres` → vida y Pattern.
+- **Roguelike:** `data/progression/expedition.tres` y `scenes/exploration/`; consulta `documentation/ROGUELIKE_Y_GUARDADO.md`.
 - **Balance y registros:** `data/catalog.tres` → Hand Size, Cards, Characters, Enemies, Statuses y Team.
 - **Escenario y posiciones:** `scenes/visuals/arena.tscn`.
 - **Interfaz y cartas:** `scenes/ui/interface.tscn`, `card.tscn` y `theme.tres`.

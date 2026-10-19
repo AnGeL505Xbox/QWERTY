@@ -34,3 +34,12 @@ La escena principal instancia `scenes/visuals/arena.tscn` y `scenes/ui/interface
 Los scripts `@tool` ofrecen vista previa de Actor y de la plantilla de carta. El complemento local `addons/content_editor/` permite seleccionar definiciones, abrir escenas y mostrar errores. No escribe Resources ni regenera escenas automáticamente.
 
 `tools/convert_legacy_content.py` y `tools/bake_legacy_stage.py` documentan la migración inicial y rechazan sobrescrituras. No son dependencias del juego. No crear una segunda fuente activa de contenido ni un importador que reemplace cambios del usuario al arrancar.
+
+## Roguelike y guardado — Fase 5
+`core/progression/route.gd` genera un grafo conectado por semilla. `expedition.gd` es una máquina de fases sin nodos: mapa, combate, recompensa, descanso, tienda, evento, victoria o derrota. Mantiene una copia propia del contenido y aplica mejoras al generar datos de combate; no modifica Resources del proyecto.
+
+`RpgRunDefinition` configura recorrido y economía desde `data/progression/expedition.tres`. El jefe tiene su propio Resource. `scenes/exploration/` contiene pantalla de expedición, gráfico de ruta y plantilla de nodo. La interfaz emite decisiones; el modelo comprueba fase, conectividad, ofertas, límites y coste antes de aplicarlas.
+
+Battle acepta vida/estrés iniciales opcionales y exporta/restaura su estado sin introducir nodos ni dependencias de disco. `core/save_system/store.gd` conserva el payload versionado con checksum, temporal, copia anterior y recuperación; `run_validator.gd` comprueba la instantánea antes de cargar. Los RNG de combate y expedición se serializan como texto de 64 bits. Las animaciones se reconstruyen desde el estado cargado y no se serializan.
+
+Main coordina ambas interfaces y autosalva en cambios reales del modelo; seleccionar una carta no modifica ni escribe la partida. El entrenamiento conserva su flujo anterior. Consulta `documentation/ROGUELIKE_Y_GUARDADO.md` para contrato de persistencia y futuras migraciones.

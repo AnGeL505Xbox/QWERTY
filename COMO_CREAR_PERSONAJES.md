@@ -10,6 +10,6 @@
 
 El orden de Team es el orden de los slots y del objetivo enemigo. Modifica `scenes/visuals/arena.tscn` → `AllySlots/Slot1…3` para moverlos en el escenario. La escena `scenes/visuals/actor.tscn` define la estructura visual compartida.
 
-**Color** es el respaldo para un personaje sin perfil; si tiene Visual Profile, manda su **Tint**. No hay selección de retratos, resistencias elementales ni progresión persistente todavía.
+**Color** es el respaldo para un personaje sin perfil; si tiene Visual Profile, manda su **Tint**. No hay selección de retratos, resistencias elementales ni desbloqueos permanentes todavía. La expedición conserva vida, estrés, mazos y mejoras en su guardado local.
 
 Consulta `EDICION_VISUAL.md` y `documentation/PERSONAJES_Y_ESTRES.md` para las reglas exactas.

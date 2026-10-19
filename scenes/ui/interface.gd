@@ -8,6 +8,9 @@ signal cancel_selection
 signal end_turn
 signal retry
 signal menu
+signal new_expedition(seed_text: String)
+signal continue_expedition
+signal complete_run_battle
 signal exit_game
 
 @export var button_scene: PackedScene
@@ -16,6 +19,9 @@ signal exit_game
 var artwork: Dictionary = {}
 
 func _ready() -> void:
+	%NewRun.pressed.connect(func(): new_expedition.emit(%Seed.text))
+	%ContinueRun.pressed.connect(func(): continue_expedition.emit())
+	%ContinueBattle.pressed.connect(func(): complete_run_battle.emit())
 	%Exit.pressed.connect(func(): exit_game.emit())
 	%EndTurn.pressed.connect(func(): end_turn.emit())
 	%Retry.pressed.connect(func(): retry.emit())
@@ -54,6 +60,7 @@ func show_battle(battle, selected: int) -> void:
 	%Menu.visible = false
 	%Errors.visible = false
 	%Battle.visible = true
+	%ContinueBattle.visible = false
 	%BattleTitle.text = "Equipo contra %s · Turno %d" % [battle.enemy.name, battle.turn]
 	_clear(%Members)
 	for member in battle.team:
@@ -94,3 +101,21 @@ func show_battle(battle, selected: int) -> void:
 			view.disabled = battle.valid_targets(i).is_empty()
 			view.pressed.connect(func(): select_card.emit(i))
 	%Piles.text = "Mazo: %d · Descarte: %d · Agotadas: %d" % [battle.draw_pile.size(), battle.discard.size(), battle.exhausted.size()]
+
+func hide_all() -> void:
+	%Menu.visible = false
+	%Battle.visible = false
+	%Errors.visible = false
+
+func set_run_status(message: String, can_continue: bool = true) -> void:
+	%RunStatus.text = message
+	%ContinueRun.disabled = not can_continue
+
+func set_expedition_mode(enabled: bool, ended: bool) -> void:
+	%ContinueBattle.visible = enabled and ended
+	if enabled:
+		%Retry.visible = false
+
+func set_save_notice(message: String) -> void:
+	%SaveNotice.text = message
+	%SaveNotice.visible = message != ""

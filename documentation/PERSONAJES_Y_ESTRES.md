@@ -30,6 +30,6 @@ Para trasladar contenido personalizado de fase 2:
 5. Añade `team` (IDs de uno a tres personajes) y `statuses` (puede ser vacío si ninguna carta usa estados).
 6. Ejecuta importación, validación del catálogo y pruebas. No renombres IDs sin revisar todas sus referencias.
 
-La fase de edición visual sustituyó las aserciones de catálogo por mensajes recuperables y Resources editables. El panel Contenido valida antes de jugar. La migración JSON v1 → v2 de esta sección es histórica; la fuente activa actual es `data/catalog.tres`. El guardado y sus futuras migraciones pertenecen a la fase roguelike.
+La fase de edición visual sustituyó las aserciones de catálogo por mensajes recuperables y Resources editables. El panel Contenido valida antes de jugar. La migración JSON v1 → v2 de esta sección es histórica; la fuente activa actual es `data/catalog.tres`. La fase 5 incorpora guardado de expedición versión 1; consulta `ROGUELIKE_Y_GUARDADO.md`.
 
 Los campos del Inspector `Crisis Energy Loss`, `Crisis Relief`, `Passive Start Block` y `Passive Stress Relief` se convierten a las definiciones de esta guía sin cambiar sus reglas. Consulta `EDICION_VISUAL.md`.

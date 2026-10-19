@@ -40,3 +40,13 @@
 - Panel local Contenido con accesos a recursos, escenas y errores recuperables. Sin herramientas externas obligatorias.
 - Pruebas de guardado/recarga de Resources y escenas: daño, costes, estadísticas, cámara, geometría, posiciones, imágenes y controles funcionan tras editarlos.
 - Importación con complemento habilitado y 190 comprobaciones sin fallos. Guías actualizadas en español. Se mantiene pendiente una revisión gráfica manual, exportaciones y dispositivos; aún no se implementa roguelike.
+
+## Fase 5 — Expedición roguelike
+- Mapa conectado reproducible de cinco etapas con combates, élites, eventos, descanso, tienda, tesoros y jefe.
+- Oro, cartas adquiridas y mejoras por ID; vida y estrés persistentes entre encuentros, sin alterar el catálogo del proyecto.
+- Configuración RpgRunDefinition y jefe Resources; pantalla y plantilla de nodos editables con vista previa del mapa.
+- Nueva/continuar expedición, semilla y resumen; conservados los combates de entrenamiento anteriores.
+- Guardado local versión 1 con instantánea de contenido, combate completo y RNG; validación, temporal, copia anterior y recuperación de archivos dañados.
+- Pruebas de expedición real completa, flujo de botones, carga exacta, economía, élites/eventos, versión incompatible y edición visual persistida.
+- Importación con complemento y 280 comprobaciones sin fallos, incluidas las suites anteriores y dos recorridos completos con combates reales.
+- Pendientes revisión gráfica manual, exportaciones/dispositivos, reliquias, biomas y metaprogresión.

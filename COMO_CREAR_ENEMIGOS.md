@@ -7,4 +7,4 @@
 
 La intención mostrada es la acción que realizará al terminar tu turno. Los ataques anuncian al primer aliado vivo según el orden del equipo. La defensa reduce daño antes del escudo y el daño real añade estrés. La curación no supera la vida inicial y el escudo enemigo expira antes de su siguiente acción.
 
-Para cambiar la posición del enemigo, mueve **EnemySlot** en `scenes/visuals/arena.tscn`. La selección de encuentros roguelike sigue pendiente. Prueba nuevos patrones y su dificultad antes de distribuirlos.
+Para cambiar la posición del enemigo, mueve **EnemySlot** en `scenes/visuals/arena.tscn`. Para incluirlo en expediciones nuevas, arrástralo también a Encounters de `data/progression/expedition.tres`. El jefe tiene el campo Boss y puede usar una definición independiente como `data/progression/boss.tres`. Prueba nuevos patrones y su dificultad antes de distribuirlos.

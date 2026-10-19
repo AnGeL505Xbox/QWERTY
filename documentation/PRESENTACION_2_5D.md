@@ -26,4 +26,4 @@ La presentación utiliza una luz sin sombras, geometría ligera, texto 3D y anil
 
 `tests/presentation.gd` comprueba los nueve estados, clips nativos, respaldo, objetivos, deltas reales, limpieza, límites y equivalencia de reglas con/sin presentación. Es una prueba sin renderizado gráfico: no demuestra composición visual, legibilidad, FPS ni compatibilidad efectiva en dispositivos. Revisar manualmente menú, tres integrantes, cartas, ambos resultados y sustitución de spritesheets antes de una distribución.
 
-No se agregan sonidos ni arte final en esta fase. Perfiles de calidad, accesibilidad completa y exportaciones se mantienen en fase 6. Antes del roguelike se añadió la fase de edición visual descrita en `EDICION_VISUAL.md`; mapa, recompensas, mejoras y guardado versionado siguen pendientes.
+No se agregan sonidos ni arte final en esta fase. Perfiles de calidad, accesibilidad completa y exportaciones se mantienen en fase 6. Antes del roguelike se añadió la fase de edición visual descrita en `EDICION_VISUAL.md`; la fase 5 añade mapa, recompensas, mejoras y guardado versionado según `ROGUELIKE_Y_GUARDADO.md`.
