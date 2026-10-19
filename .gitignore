@@ -4,3 +4,7 @@ build/
 export_credentials.cfg
 
 /data/.editor-tests/
+*.keystore
+*.jks
+.android/
+.gradle/

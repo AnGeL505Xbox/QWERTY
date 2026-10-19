@@ -28,3 +28,9 @@
 - Los editores especializados usan `tools/editor/editing.gd` para propuestas sin mutación y el historial del editor para aplicarlas. No aplicar borradores inválidos ni guardar automáticamente al cerrar.
 - `route_nodes` es opcional: conservar el generador original cuando falte. Validar conectividad y reproducibilidad; el editor comparte la resolución de enemigos con el juego.
 - Ejecutar `tests/editor_workflows.gd` al modificar mazos, decisiones o rutas personalizadas. Para integración con el historial nativo, usar una instancia nueva: `godot --headless --editor --path . -- --test-content-editors`; el comando prueba copias en memoria y cierra el editor.
+
+## Multiplataforma y UI
+- Conservar Scroll/Margin y nombres únicos en interfaz/expedición/ajustes. Sumar zonas seguras a los márgenes editados, sin acumularlas ni rehacer la UI por código.
+- Guardar preferencias en un ConfigFile independiente de la partida; mantener ajustes como multiplicadores de cámara/efectos de la escena. Atajos solo en contextos válidos y fuera de edición de texto.
+- Ejecutar `tests/platform_ui.gd` para cambios de plataforma. Las pruebas de paquetes requieren exportar antes y ejecutar `tests/package_smoke.gd` desde disco con `--main-pack`. No confundir el motor Linux con una prueba nativa Windows/Android.
+- Mantener builds, SDK, plantillas, claves y credenciales fuera de Git. Usar Godot/plantillas 4.6.3, formatos S3TC/BPTC y ETC2/ASTC. Véase `EXPORTAR_PC_ANDROID.md`.

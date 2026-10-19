@@ -61,3 +61,9 @@
 - `RpgRouteNode` y rutas personalizadas opcionales, con dos carriles, 4–8 etapas y jefe final. Las instantáneas anteriores conservan el generador procedural.
 - Pruebas de formularios, persistencia y recorrido personalizado completo; documentación de edición en español.
 - Verificación: 414 comprobaciones sin fallos, incluidas 15 del plugin con historial nativo; importación correcta en Godot 4.6.3. Arrastre físico y disposición gráfica pendientes de revisión.
+
+## Fase 6 — UI y base multiplataforma
+- Ventanas del editor acotadas con desplazamiento; UI de juego desplazable con cabeceras ajustadas, acciones en flujo, foco y zonas seguras.
+- Pantalla de ajustes editable, preferencias independientes, perfiles gráficos, límites 30/60 FPS, movimiento/efectos y pantalla completa PC. Atajos y gestión de Atrás/pausa/cierre conservan las reglas y guardados anteriores.
+- Presets Windows x86_64 y Android arm64, preparación reproducible de herramientas con comprobación de integridad. Windows EXE/PCK y APK de depuración generados localmente; sin publicar binarios ni clave de producción.
+- 458 comprobaciones sin fallos y siete comprobaciones adicionales por paquete Windows/Android en Linux. ConfigFile emite un diagnóstico esperado en su prueba de archivo malformado. Revisión visual, ejecución en dispositivos y mediciones pendientes.

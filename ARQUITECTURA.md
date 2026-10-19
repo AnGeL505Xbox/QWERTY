@@ -47,3 +47,7 @@ Main coordina ambas interfaces y autosalva en cambios reales del modelo; selecci
 ## Authoring especializado
 
 `tools/editor/editing.gd` prepara propuestas validadas de mazos, eventos y rutas sin mutar Resources originales. Los diálogos mantienen borradores y el plugin aplica sus propiedades mediante `EditorUndoRedoManager`. El guardado sigue siendo explícito. `RpgRunDefinition.route_nodes` guarda nodos tipados opcionales; `Route.generate()` conserva el algoritmo procedural anterior en su ausencia. `Route.preview_custom()` comparte la resolución de enemigos para dibujar borradores con enlaces pendientes de reparar; la ejecución exige validación topológica completa.
+
+## Plataforma y preferencias
+
+`core/platform/preferences.gd` normaliza y guarda ajustes en un ConfigFile independiente de la expedición. Aplica resolución 3D, MSAA, FPS y multiplicadores de cámara/efectos; no modifica reglas de combate ni Resources. `safe_area.gd` suma insets físicos convertidos a márgenes lógicos de las escenas. La raíz Scroll de las UI mantiene desplazamiento y foco. `scenes/settings/settings.tscn` define los controles persistentes; `main.gd` coordina señales, atajos y guardado al pausar/cerrar. `tools/editor/dialog_layout.gd` comparte la limitación de tamaño y el scroll de ventanas del editor.

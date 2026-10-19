@@ -62,3 +62,7 @@ Las pruebas guardan y recargan escenas/Resources temporales y comprueban su comp
 El panel incorpora accesos a la configuración de expedición y a sus pantallas. La raíz Main permite asignar otro Expedition Rules. Los cambios de reglas se aplican al iniciar una partida nueva; las guardadas mantienen sus definiciones originales.
 
 El panel permite crear y duplicar Resources con validación previa. Consulta [HERRAMIENTAS_DE_CONTENIDO.md](HERRAMIENTAS_DE_CONTENIDO.md) para el flujo actualizado.
+
+## UI y ventanas de fase 6
+
+La interfaz y la expedición incorporan un `Scroll` por encima de `Margin`: las rutas literales anteriores `Margin/...` pasan a `Scroll/Margin/...`, conservando los nombres únicos. Ajusta márgenes y estilos en esas mismas escenas. La nueva pantalla editable es `scenes/settings/settings.tscn`. Las ventanas de herramientas limitan su tamaño y desplazan su contenido, dejando Aplicar/Cancelar accesibles. Consulta [FASE_6_MULTIPLATAFORMA.md](FASE_6_MULTIPLATAFORMA.md). Se generaron un EXE y un APK de depuración; su revisión en dispositivos reales permanece pendiente.
