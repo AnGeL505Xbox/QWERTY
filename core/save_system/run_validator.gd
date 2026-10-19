@@ -263,6 +263,9 @@ static func resource_configuration(catalog: RpgContentCatalog, rules: RpgRunDefi
 			for choice in event.choices:
 				if choice != null and choice.card != null and not choice.card in catalog.cards:
 					errors.append("Evento " + event.id + ": carta no registrada con el mismo recurso.")
+	for node in rules.route_nodes:
+		if node != null and node.enemy != null and not node.enemy in rules.encounters:
+			errors.append("Ruta: enemigo no registrado con el mismo recurso en Encounters.")
 	for enemy in rules.encounters:
 		if enemy != null and not enemy in catalog.enemies:
 			errors.append("Encuentro " + enemy.id + ": usa el mismo recurso registrado en Enemies del catálogo.")

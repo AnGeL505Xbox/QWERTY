@@ -27,7 +27,7 @@ static func issues(catalog: RpgContentCatalog, rules: RpgRunDefinition) -> Array
 	if errors.is_empty(): errors.append_array(RunValidator.resource_configuration(catalog, rules))
 	var all := resources(catalog, rules)
 	for message in errors:
-		var target: Resource = rules if message.begins_with("Evento") or message.begins_with("Recompensas") else catalog
+		var target: Resource = rules if message.begins_with("Evento") or message.begins_with("Recompensas") or message.begins_with("Ruta") else catalog
 		for resource in all:
 			if resource is RpgCardDefinition and message.begins_with("Carta " + resource.id + ":"): target = resource
 			elif resource is RpgCharacterDefinition and message.begins_with("Personaje " + resource.id + ":"): target = resource
@@ -53,4 +53,4 @@ static func save_all(catalog: RpgContentCatalog, rules: RpgRunDefinition) -> Dic
 	return {"saved": saved, "errors": errors}
 
 static func _supported(resource: Resource) -> bool:
-	return resource is RpgContentCatalog or resource is RpgRunDefinition or resource is RpgCardDefinition or resource is RpgCharacterDefinition or resource is RpgEnemyDefinition or resource is RpgStatusDefinition or resource is RpgEffectDefinition or resource is RpgIntentDefinition or resource is RpgRewardTable or resource is RpgEventDefinition or resource is RpgEventChoice
+	return resource is RpgContentCatalog or resource is RpgRunDefinition or resource is RpgCardDefinition or resource is RpgCharacterDefinition or resource is RpgEnemyDefinition or resource is RpgStatusDefinition or resource is RpgEffectDefinition or resource is RpgIntentDefinition or resource is RpgRewardTable or resource is RpgEventDefinition or resource is RpgEventChoice or resource is RpgRouteNode
