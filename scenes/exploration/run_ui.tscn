@@ -1,72 +1,93 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 [ext_resource type="Script" path="res://scenes/exploration/run_ui.gd" id="1"]
 [ext_resource type="Theme" path="res://scenes/ui/theme.tres" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/ui/action_button.tscn" id="3"]
 [ext_resource type="Script" path="res://scenes/exploration/route_graph.gd" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/exploration/node_button.tscn" id="5"]
 [ext_resource type="Resource" path="res://data/progression/expedition.tres" id="6"]
+[ext_resource type="Script" path="res://core/platform/safe_area.gd" id="safe"]
 [node name="ExpeditionUI" type="CanvasLayer"]
 visible = false
 script = ExtResource("1")
 button_scene = ExtResource("3")
-[node name="Margin" type="MarginContainer" parent="."]
+[node name="Scroll" type="ScrollContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+[node name="Margin" type="MarginContainer" parent="Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("safe")
 theme = ExtResource("2")
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_top = 24
 theme_override_constants/margin_bottom = 24
-[node name="Layout" type="VBoxContainer" parent="Margin"]
+[node name="Layout" type="VBoxContainer" parent="Scroll/Margin"]
 layout_mode = 2
 theme_override_constants/separation = 10
-[node name="Title" type="Label" parent="Margin/Layout"]
+[node name="Title" type="Label" parent="Scroll/Margin/Layout"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Expedición · Semilla 42 · Oro 20"
-[node name="Party" type="Label" parent="Margin/Layout"]
+autowrap_mode = 3
+
+[node name="Party" type="Label" parent="Scroll/Margin/Layout"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Lira: 40 PV / Noa: 34 PV"
-[node name="Inventory" type="Label" parent="Margin/Layout"]
+autowrap_mode = 3
+
+[node name="Inventory" type="Label" parent="Scroll/Margin/Layout"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Mazo: 19 cartas"
-[node name="Notice" type="Label" parent="Margin/Layout"]
+autowrap_mode = 3
+
+[node name="Notice" type="Label" parent="Scroll/Margin/Layout"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 autowrap_mode = 3
-[node name="MapScroll" type="ScrollContainer" parent="Margin/Layout"]
+[node name="MapScroll" type="ScrollContainer" parent="Scroll/Margin/Layout"]
+follow_focus = true
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 270)
 layout_mode = 2
-[node name="Route" type="Control" parent="Margin/Layout/MapScroll"]
+[node name="Route" type="Control" parent="Scroll/Margin/Layout/MapScroll"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(1100, 260)
 layout_mode = 2
 script = ExtResource("4")
 node_scene = ExtResource("5")
 preview_rules = ExtResource("6")
-[node name="Message" type="Label" parent="Margin/Layout"]
+[node name="Message" type="Label" parent="Scroll/Margin/Layout"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Elige un nodo conectado."
 autowrap_mode = 3
-[node name="ChoiceScroll" type="ScrollContainer" parent="Margin/Layout"]
+[node name="ChoiceScroll" type="ScrollContainer" parent="Scroll/Margin/Layout"]
+follow_focus = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
-[node name="Choices" type="VBoxContainer" parent="Margin/Layout/ChoiceScroll"]
+[node name="Choices" type="VBoxContainer" parent="Scroll/Margin/Layout/ChoiceScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-[node name="Return" parent="Margin/Layout" instance=ExtResource("3")]
+[node name="Return" parent="Scroll/Margin/Layout" instance=ExtResource("3")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Guardar y volver al menú"
+
+[node name="Settings" parent="Scroll/Margin/Layout" instance=ExtResource("3")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ajustes"

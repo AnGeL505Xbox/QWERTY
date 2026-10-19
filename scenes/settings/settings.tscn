@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=3]
+[ext_resource type="Script" path="res://scenes/settings/settings.gd" id="1"]
+[ext_resource type="Theme" path="res://scenes/ui/theme.tres" id="2"]
+[ext_resource type="Script" path="res://core/platform/safe_area.gd" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/action_button.tscn" id="4"]
+[node name="Settings" type="CanvasLayer"]
+layer = 20
+visible = false
+script = ExtResource("1")
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.025, 0.04, 0.075, 0.97)
+[node name="Scroll" type="ScrollContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+horizontal_scroll_mode = 0
+follow_focus = true
+[node name="Margin" type="MarginContainer" parent="Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3")
+theme = ExtResource("2")
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_bottom = 24
+[node name="Content" type="VBoxContainer" parent="Scroll/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+[node name="Title" type="Label" parent="Scroll/Margin/Content"]
+layout_mode = 2
+text = "Ajustes de pantalla"
+theme_override_font_sizes/font_size = 32
+autowrap_mode = 3
+[node name="Hint" type="Label" parent="Scroll/Margin/Content"]
+layout_mode = 2
+text = "Los cambios se guardan al pulsar Aplicar. La expedición se conserva por separado."
+autowrap_mode = 3
+[node name="QualityLabel" type="Label" parent="Scroll/Margin/Content"]
+layout_mode = 2
+text = "Calidad del escenario 3D (la interfaz conserva su resolución)"
+autowrap_mode = 3
+[node name="Quality" type="OptionButton" parent="Scroll/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
+item_count = 3
+selected = 1
+popup/item_0/text = "Ahorro · resolución 3D 65 %"
+popup/item_0/id = 0
+popup/item_1/text = "Equilibrado · resolución 3D 85 %"
+popup/item_1/id = 1
+popup/item_2/text = "Alto · resolución 3D 100 %, MSAA 2×"
+popup/item_2/id = 2
+[node name="FPSLabel" type="Label" parent="Scroll/Margin/Content"]
+layout_mode = 2
+text = "Límite de fotogramas (no garantiza el rendimiento)"
+autowrap_mode = 3
+[node name="FPS" type="OptionButton" parent="Scroll/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
+item_count = 2
+selected = 1
+popup/item_0/text = "30 FPS"
+popup/item_0/id = 0
+popup/item_1/text = "60 FPS"
+popup/item_1/id = 1
+[node name="Motion" type="CheckButton" parent="Scroll/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
+text = "Reducir movimiento de cámara"
+[node name="Effects" type="CheckButton" parent="Scroll/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
+text = "Efectos flotantes del combate"
+[node name="Fullscreen" type="CheckButton" parent="Scroll/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
+text = "Pantalla completa (PC: F11)"
+[node name="Controls" type="Label" parent="Scroll/Margin/Content"]
+layout_mode = 2
+text = "PC: Tab/Mayús+Tab y Enter para navegar; 1–9 para cartas; E termina turno; Esc cancela o vuelve al menú; F10 abre ajustes. Android: toca los botones y desliza las listas; Atrás cancela o vuelve."
+autowrap_mode = 3
+[node name="Status" type="Label" parent="Scroll/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 3
+[node name="Actions" type="HFlowContainer" parent="Scroll/Margin/Content"]
+layout_mode = 2
+[node name="Apply" parent="Scroll/Margin/Content/Actions" instance=ExtResource("4")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Aplicar y guardar"
+[node name="Back" parent="Scroll/Margin/Content/Actions" instance=ExtResource("4")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Volver"

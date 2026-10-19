@@ -14,11 +14,22 @@ var team_ids: Array = []
 var selected := -1
 var enemy_index := 0
 var battle: RefCounted
+var settings_visibility := Vector2.ZERO
+var previous_focus: WeakRef
+@onready var preferences = $Preferences
+@onready var settings = $Settings
 @onready var ui = $Interface
 @onready var arena = $Arena
 @onready var run_ui = $ExpeditionUI
 
 func _ready() -> void:
+	get_tree().auto_accept_quit = false
+	ui.settings_requested.connect(_open_settings)
+	run_ui.settings_requested.connect(_open_settings)
+	settings.closed.connect(_close_settings)
+	settings.applied.connect(preferences.update_preferences)
+	preferences.changed.connect(_apply_preferences)
+	_apply_preferences()
 	ui.new_expedition.connect(_new_expedition)
 	ui.continue_expedition.connect(_continue_expedition)
 	ui.complete_run_battle.connect(_complete_run_battle)
@@ -33,7 +44,7 @@ func _ready() -> void:
 	ui.end_turn.connect(_end_turn)
 	ui.retry.connect(_start)
 	ui.menu.connect(_menu)
-	ui.exit_game.connect(func(): get_tree().quit())
+	ui.exit_game.connect(_quit_game)
 	var errors := Catalog.validate_resource(catalog)
 	if not errors.is_empty():
 		ui.show_errors(errors)
@@ -185,3 +196,67 @@ func _complete_run_battle() -> void:
 func _save_run() -> void:
 	if run != null:
 		save_notice = Store.write(save_path, run.export_state())
+
+func _apply_preferences() -> void:
+	preferences.apply_to(get_viewport(), arena)
+	settings.get_node("%Status").text = preferences.notice
+
+func _open_settings() -> void:
+	if settings.visible: return
+	previous_focus = weakref(get_viewport().gui_get_focus_owner()) if get_viewport().gui_get_focus_owner() != null else null
+	settings_visibility = Vector2(float(ui.visible), float(run_ui.visible))
+	ui.visible = false
+	run_ui.visible = false
+	settings.open(preferences.values(), preferences.notice)
+
+func _close_settings() -> void:
+	settings.visible = false
+	ui.visible = bool(settings_visibility.x)
+	run_ui.visible = bool(settings_visibility.y)
+	if previous_focus != null:
+		var control = previous_focus.get_ref()
+		if control is Control and control.is_visible_in_tree(): control.grab_focus()
+
+func _back() -> void:
+	if settings.visible:
+		_close_settings()
+	elif ui.get_node("%Battle").visible and selected >= 0:
+		_cancel()
+	elif run_ui.visible or ui.get_node("%Battle").visible:
+		_menu()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not event is InputEventKey or not event.pressed or event.echo or event.ctrl_pressed or event.alt_pressed or event.meta_pressed: return
+	var code: int = event.keycode if event.keycode != 0 else event.physical_keycode
+	if code == KEY_ESCAPE:
+		_back()
+	elif code == KEY_F10:
+		if settings.visible: _close_settings()
+		else: _open_settings()
+	elif code == KEY_F11 and not OS.has_feature("android"):
+		var values: Dictionary = preferences.values()
+		values.fullscreen = not preferences.fullscreen
+		preferences.update_preferences(values)
+		settings.get_node("%Fullscreen").button_pressed = preferences.fullscreen
+	else:
+		if settings.visible or not ui.visible or not ui.get_node("%Battle").visible or battle == null or battle.result != "": return
+		var focused := get_viewport().gui_get_focus_owner()
+		if focused is LineEdit or focused is TextEdit: return
+		if code >= KEY_1 and code <= KEY_9:
+			var index := code - KEY_1
+			if index < battle.hand.size() and not battle.valid_targets(index).is_empty():
+				_select(index)
+				ui.focus_targets()
+		elif code == KEY_E: _end_turn()
+		else: return
+	get_viewport().set_input_as_handled()
+
+func _notification(what: int) -> void:
+	if not is_node_ready(): return
+	if what == Node.NOTIFICATION_WM_GO_BACK_REQUEST: _back()
+	elif what == MainLoop.NOTIFICATION_APPLICATION_PAUSED and run != null: _save_run()
+	elif what == Node.NOTIFICATION_WM_CLOSE_REQUEST: _quit_game()
+
+func _quit_game() -> void:
+	if run != null: _save_run()
+	get_tree().quit()

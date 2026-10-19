@@ -2,10 +2,12 @@ extends CanvasLayer
 
 signal selected_node(id: String)
 signal selected_choice(action: String, id: String)
+signal settings_requested
 signal leave
 @export var button_scene: PackedScene
 
 func _ready() -> void:
+	%Settings.pressed.connect(func(): settings_requested.emit())
 	%Route.selected.connect(func(id): selected_node.emit(id))
 	%Return.pressed.connect(func(): leave.emit())
 

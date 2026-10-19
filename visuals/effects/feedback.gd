@@ -2,10 +2,11 @@ extends Node3D
 
 const MAX_EFFECTS = 24
 @export var enabled := true
+var presentation_enabled := true
 var count := 0
 
 func show_at(at: Vector3, text: String, color: Color) -> void:
-	if not enabled or get_child_count() >= MAX_EFFECTS - 1:
+	if not enabled or not presentation_enabled or get_child_count() >= MAX_EFFECTS - 1:
 		return
 	count += 1
 	var label := Label3D.new()

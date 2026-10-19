@@ -11,6 +11,7 @@ var outcome := ""
 var camera_rest_x := 0.0
 var elapsed := 0.0
 @export var motion_enabled := true
+var presentation_motion := true
 @export_range(0, 0.5) var motion_amplitude := 0.1
 
 func _ready() -> void:
@@ -20,7 +21,7 @@ func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	elapsed += delta
-	camera.position.x = camera_rest_x + (sin(elapsed * 0.18) * motion_amplitude if motion_enabled else 0.0)
+	camera.position.x = camera_rest_x + (sin(elapsed * 0.18) * motion_amplitude if motion_enabled and presentation_motion else 0.0)
 
 func set_profiles(values: Dictionary) -> void:
 	# Las definiciones visuales del catálogo tienen prioridad al iniciar un combate.

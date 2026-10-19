@@ -132,9 +132,9 @@ func run() -> void:
 	check(packed_card.pack(card_view) == OK, "Empaquetar plantilla de carta modificada")
 	var card_scene: PackedScene = _persist(packed_card, "card.tscn")
 	var interface = load("res://scenes/ui/interface.tscn").instantiate()
-	interface.get_node("Margin/Menu/Title").text = "Título editado"
-	interface.get_node("Margin").add_theme_constant_override("margin_left", 42)
-	interface.get_node("Margin/Battle/Actions/EndTurn").text = "Finalizar ronda"
+	interface.get_node("Scroll/Margin/Menu/Title").text = "Título editado"
+	interface.get_node("Scroll/Margin").add_theme_constant_override("margin_left", 42)
+	interface.get_node("Scroll/Margin/Battle/Actions/EndTurn").text = "Finalizar ronda"
 	interface.card_scene = card_scene
 	var packed_ui := PackedScene.new()
 	check(packed_ui.pack(interface) == OK, "Empaquetar interfaz modificada")
@@ -149,26 +149,26 @@ func run() -> void:
 	main.add_child(loaded_ui)
 	root.add_child(main)
 	await process_frame
-	check(loaded_ui.get_node("Margin/Menu/Title").text == "Título editado" and loaded_ui.get_node("Margin").get_theme_constant("margin_left") == 42, "El menú conserva texto y márgenes editados")
+	check(loaded_ui.get_node("Scroll/Margin/Menu/Title").text == "Título editado" and loaded_ui.get_node("Scroll/Margin").get_theme_constant("margin_left") == 42, "El menú conserva texto y márgenes editados")
 	# Usar las señales reales de botones, no solo llamar al controlador.
-	loaded_ui.get_node("Margin/Menu/EnemyChoices").get_child(1).pressed.emit()
+	loaded_ui.get_node("Scroll/Margin/Menu/EnemyChoices").get_child(1).pressed.emit()
 	await process_frame
 	check(main.battle.enemy.id == "custodio", "Botón dinámico elige el enemigo correcto")
 	main.battle.hand = ["prueba_editor"]
 	main._render()
-	var rendered = loaded_ui.get_node("Margin/Battle/HandScroll/Cards").get_child(0)
+	var rendered = loaded_ui.get_node("Scroll/Margin/Battle/HandScroll/Cards").get_child(0)
 	check(rendered.custom_minimum_size.x == 333 and rendered.get_node("Margin/Content/Name").text == card.display_name, "La carta usa plantilla y contenido editados")
 	check(rendered.get_node("Margin/Content/Artwork").texture != null, "Ilustración del Resource visible en la carta")
-	check(loaded_ui.get_node("Margin/Battle/Actions/EndTurn").text == "Finalizar ronda", "Se conserva el texto del botón estático")
+	check(loaded_ui.get_node("Scroll/Margin/Battle/Actions/EndTurn").text == "Finalizar ronda", "Se conserva el texto del botón estático")
 	rendered.pressed.emit()
 	await process_frame
-	loaded_ui.get_node("Margin/Battle/Targets").get_child(0).pressed.emit()
+	loaded_ui.get_node("Scroll/Margin/Battle/Targets").get_child(0).pressed.emit()
 	check(main.battle.enemy_health == 33, "Carta y confirmación funcionan desde botones de escena")
 	var bad_main = load("res://scenes/main.tscn").instantiate()
 	bad_main.catalog = invalid
 	root.add_child(bad_main)
 	await process_frame
-	check(bad_main.battle == null and bad_main.ui.get_node("Margin/Errors").visible, "Contenido inválido muestra errores sin iniciar combate")
+	check(bad_main.battle == null and bad_main.ui.get_node("Scroll/Margin/Errors").visible, "Contenido inválido muestra errores sin iniciar combate")
 	check(original.to_dict() == baseline, "Pruebas no alteran el contenido del proyecto")
 	for node in [arena, loaded_arena, actor, loaded_actor, card_view, interface, main, bad_main]:
 		node.queue_free()

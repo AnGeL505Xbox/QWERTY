@@ -11,6 +11,7 @@ signal menu
 signal new_expedition(seed_text: String)
 signal continue_expedition
 signal complete_run_battle
+signal settings_requested
 signal exit_game
 
 @export var button_scene: PackedScene
@@ -19,6 +20,8 @@ signal exit_game
 var artwork: Dictionary = {}
 
 func _ready() -> void:
+	%SettingsMenu.pressed.connect(func(): settings_requested.emit())
+	%SettingsBattle.pressed.connect(func(): settings_requested.emit())
 	%NewRun.pressed.connect(func(): new_expedition.emit(%Seed.text))
 	%ContinueRun.pressed.connect(func(): continue_expedition.emit())
 	%ContinueBattle.pressed.connect(func(): complete_run_battle.emit())
@@ -119,3 +122,9 @@ func set_expedition_mode(enabled: bool, ended: bool) -> void:
 func set_save_notice(message: String) -> void:
 	%SaveNotice.text = message
 	%SaveNotice.visible = message != ""
+
+func focus_targets() -> void:
+	for button in %Targets.get_children():
+		if button is Button and not button.disabled:
+			button.grab_focus()
+			return
